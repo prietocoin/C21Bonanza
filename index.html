@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bonanza C21 | Multi-Nivel Elite Portfolio</title>
+    <title>Bonanza C21 | Elite Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -17,11 +17,10 @@
 
         body, html { margin: 0; padding: 0; height: 100%; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; }
 
-        /* --- 1. PORTADA CON TU IMAGEN DE FACHADA --- */
+        /* --- 1. PORTADA CON TU IMAGEN DE FACHADA (RESTAURADA) --- */
         #hero {
             height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; position: fixed; inset: 0; z-index: 1000; transition: var(--transition);
-            /* Usamos tu imagen de fachada con un degradado oscuro encima para legibilidad */
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.9)), 
                         url('https://images2.imgbox.com/39/10/7Fof4X7J_o.png') center/cover no-repeat;
         }
@@ -37,7 +36,7 @@
         }
         .cta-gold:hover { background: var(--gold); color: black; box-shadow: 0 0 40px rgba(197, 160, 89, 0.6); transform: scale(1.05); }
 
-        /* --- 2. ÍNDICE GEOGRÁFICO --- */
+        /* --- 2. ÍNDICE GEOGRÁFICO (ASUNCIÓN / CENTRAL SEPARADOS) --- */
         #market-index {
             height: 100vh; display: flex; flex-direction: column; padding: 40px 20px;
             position: fixed; inset: 0; z-index: 900; opacity: 0; transform: translateY(100%); transition: var(--transition);
@@ -54,7 +53,7 @@
         .zone-title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.3rem; margin-bottom: 5px; }
         .zone-subtitle { font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase;}
 
-        /* --- 3. SUBDIRECTORIO DE PROPIEDADES --- */
+        /* --- 3. SUBDIRECTORIO --- */
         #subdirectory {
             position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.98);
             display: none; flex-direction: column; align-items: center; padding: 60px 20px;
@@ -62,10 +61,7 @@
         }
 
         .sub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; width: 100%; max-width: 1200px; margin-top: 30px;}
-        .prop-card-sub { 
-            background: #0d0d0d; border: 1px solid #1a1a1a; padding: 20px; text-align: left; 
-            transition: 0.3s; cursor: pointer; position: relative;
-        }
+        .prop-card-sub { background: #0d0d0d; border: 1px solid #1a1a1a; padding: 20px; text-align: left; transition: 0.3s; cursor: pointer; }
         .prop-card-sub:hover { border-color: var(--gold); background: #151515; }
         .prop-card-sub h4 { font-family: 'Cinzel', serif; color: var(--gold); margin: 0 0 5px 0; font-size: 13px; }
         .prop-card-sub p { font-size: 10px; color: #777; margin: 0; }
@@ -76,11 +72,7 @@
             display: none; grid-template-columns: 80px 1fr; animation: fadeIn 0.6s forwards;
         }
 
-        #detail-sidebar {
-            background: #050505; border-right: 1px solid #222;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px;
-        }
-
+        #detail-sidebar { background: #050505; border-right: 1px solid #222; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; }
         .dock-btn { width: 45px; height: 45px; border-radius: 50%; border: 1px solid rgba(197, 160, 89, 0.2); background: transparent; color: var(--gold); cursor: pointer; transition: 0.4s; }
         .dock-btn.active { background: var(--gold-gradient); color: black; border-color: white; transform: scale(1.1); }
 
@@ -157,10 +149,11 @@
 
     <script>
         const zones = {
-            asuncion: ["Villa Morra", "Santa Teresa", "Manora", "Recoleta", "Los Laureles", "Las Lomas"],
-            central: ["Luque", "Lambaré", "San Lorenzo", "Mariano R. Alonso", "Fernando de la Mora", "Limpio"]
+            asuncion: ["Villa Morra", "Santa Teresa", "Manora", "Recoleta", "Los Laureles", "Las Lomas", "Otros Barrios"],
+            central: ["Luque", "Lambaré", "San Lorenzo", "Mariano R. Alonso", "Fernando de la Mora", "Limpio", "Otros Distritos"]
         };
         const propNames = ["Mansion Diamante", "The Golden Tower", "Residencia Gala", "Majestic Estate", "Iconic Suite", "Palacio de Oro", "Elite Residence", "The Vault Luxury"];
+        
         const mediaData = {
             0: { n: "FACHADA", i: ["https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?w=800", "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?w=800", "https://images.pexels.com/photos/1838640/pexels-photo-1838640.jpeg?w=800", "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?w=800"] },
             1: { n: "ESTANCIA", i: ["https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=800", "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?w=800", "https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?w=800", "https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?w=800"] },
