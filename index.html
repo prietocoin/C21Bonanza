@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C21 Bonanza | Elite Oracle</title>
+    <title>C21 Bonanza | The Golden Structure</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -11,27 +11,11 @@
             --gold: #c5a059;
             --gold-gradient: linear-gradient(135deg, #c5a059 0%, #f1d38a 50%, #b38b45 100%);
             --black: #000000;
-            --dark-gray: #0a0a0a;
+            --dark-gray: #080808;
             --transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        body, html { margin: 0; padding: 0; height: 100vh; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; }
-
-        /* --- ESTILOS DE EDICIÓN EN VIVO --- */
-        [contenteditable="true"] { border: 1px dashed rgba(197,160,89,0.3); padding: 2px; outline: none; transition: 0.3s; }
-        [contenteditable="true"]:focus { border-color: var(--gold); background: rgba(197,160,89,0.05); }
-        .url-edit { background: transparent; border: 1px solid #333; color: var(--gold); font-size: 10px; width: 100%; box-sizing: border-box; margin-top: 5px; font-family: monospace; display: none;}
-        .editing .url-edit { display: block; }
-
-        /* --- PANEL DE CONTROL --- */
-        #admin-panel {
-            position: fixed; bottom: 20px; left: 20px; z-index: 1000;
-            background: rgba(0,0,0,0.9); border: 1px solid var(--gold);
-            padding: 15px; border-radius: 8px; backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;
-        }
-        .btn-admin { background: var(--gold-gradient); color: black; border: none; padding: 10px 20px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 4px; letter-spacing: 1px; transition: 0.3s; margin: 5px; }
-        .btn-admin:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(197,160,89,0.3); }
+        body, html { margin: 0; padding: 0; height: 100vh; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; scroll-behavior: smooth; }
 
         /* --- PORTADA ESPECTRAL (INTRO) --- */
         #intro {
@@ -40,209 +24,217 @@
             background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
         }
 
+        .gold-brand { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 12px; color: var(--gold); margin-bottom: 20px; font-weight: 200; }
+
         .oracle-text {
             font-family: 'Cinzel', serif; font-size: 7rem; font-weight: 700;
             background: url('https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=2070') center/cover;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: textFlow 20s infinite linear; text-transform: uppercase; letter-spacing: 15px;
-            margin: 0;
+            animation: textFlow 30s infinite linear; text-transform: uppercase; letter-spacing: 15px; margin: 0;
         }
 
         @keyframes textFlow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 
         /* EL BOTÓN LÍQUIDO */
         .cta-liquid {
-            margin-top: 50px; padding: 15px 40px; font-family: 'Cinzel', serif;
+            margin-top: 50px; padding: 18px 50px; font-family: 'Cinzel', serif;
             color: var(--gold); background: transparent; border: 1px solid var(--gold);
-            cursor: pointer; position: relative; overflow: hidden; letter-spacing: 3px;
-            transition: 0.5s; box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+            cursor: pointer; position: relative; overflow: hidden; letter-spacing: 4px;
+            transition: 0.5s; box-shadow: 0 0 15px rgba(197, 160, 89, 0.2); font-size: 14px;
         }
         .cta-liquid::after {
             content: ""; position: absolute; inset: 0; background: var(--gold-gradient);
             transform: translateY(100%); transition: 0.5s; z-index: -1;
         }
-        .cta-liquid:hover { color: black; box-shadow: 0 0 30px rgba(197, 160, 89, 0.5); }
+        .cta-liquid:hover { color: black; box-shadow: 0 0 40px rgba(197, 160, 89, 0.6); transform: scale(1.05); }
         .cta-liquid:hover::after { transform: translateY(0); }
 
-        /* --- INTERFAZ ELITE (DESPLEGADA) --- */
-        #elite-ui {
+        /* --- ESTRUCTURA ELITE (DESPLEGADA) --- */
+        #elite-structure {
             position: fixed; inset: 0; display: grid; grid-template-columns: 80px 1fr;
             opacity: 0; pointer-events: none; transition: var(--transition); transform: scale(1.1);
         }
 
-        /* BARRA LATERAL (THE DOCK) */
+        /* BARRA LATERAL (THE STRUCTURE DOCK) */
         #sidebar {
-            background: var(--dark-gray); border-right: 1px solid rgba(197, 160, 89, 0.2);
-            display: flex; flex-direction: column; align-items: center; padding: 30px 0; gap: 20px;
+            background: var(--dark-gray); border-right: 1px solid rgba(197, 160, 89, 0.1);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 25px;
+            z-index: 200;
         }
         .nav-icon {
-            font-size: 20px; color: rgba(197, 160, 89, 0.4);
-            width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; cursor: pointer; transition: 0.3s; border: 1px solid transparent;
+            font-size: 20px; color: rgba(197, 160, 89, 0.3);
+            width: 55px; height: 55px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; cursor: pointer; transition: 0.4s; border: 1px solid transparent;
+            background: transparent; position: relative;
         }
-        .nav-icon:hover, .nav-icon.active { color: var(--gold); background: rgba(197, 160, 89, 0.05); border-color: rgba(197, 160, 89, 0.2); }
-        .nav-icon.active { background: var(--gold-gradient); color: black; box-shadow: 0 0 15px rgba(197, 160, 89, 0.3); }
+        .nav-icon:hover { color: var(--gold); background: rgba(197, 160, 89, 0.05); }
+        .nav-icon.active { background: var(--gold-gradient); color: black; box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); transform: scale(1.1); }
 
-        /* ÁREA DE CONTENIDO (INFINITO) */
-        #content-area {
-            position: relative; overflow: hidden;
-            background: url('https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=2070') center/cover;
+        /* Tooltip minimalista */
+        .nav-icon::after {
+            content: attr(title); position: absolute; left: 70px; background: rgba(0,0,0,0.8);
+            color: var(--gold); font-family: 'Cinzel', serif; font-size: 10px; padding: 5px 10px;
+            white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.3s; letter-spacing: 1px;
         }
-        #content-area::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+        .nav-icon:hover::after { opacity: 1; left: 80px; }
+
+        /* ÁREA DE CONTENIDO INMERSIVO */
+        #content-area { position: relative; overflow: hidden; background: #000; }
+        
+        #content-area::before {
+            content: ""; position: absolute; inset: 0;
+            background: radial-gradient(circle at center, rgba(13,13,13,0.8) 0%, #000 100%);
+            z-index: 1;
+        }
 
         .amenity-scene {
-            position: absolute; inset: 0; padding: 60px; display: grid; grid-template-columns: 1fr 1fr;
-            align-items: center; gap: 50px; opacity: 0; transform: translateX(50px) rotateY(10px);
-            transition: 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); pointer-events: none;
+            position: absolute; inset: 0; padding: 80px; display: grid; grid-template-columns: 1.2fr 1fr;
+            align-items: center; gap: 60px; opacity: 0; transform: translateX(80px) rotateY(15px);
+            transition: 1s cubic-bezier(0.165, 0.84, 0.44, 1); pointer-events: none; z-index: 2;
         }
         .amenity-scene.active { opacity: 1; transform: translateX(0) rotateY(0); pointer-events: all; }
 
+        .scene-img-wrapper { position: relative; line-height: 0; }
         .scene-img {
-            width: 100%; height: 80vh; object-fit: cover;
-            border: 1px solid var(--gold); padding: 5px; background: black;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            width: 100%; height: 85vh; object-fit: cover;
+            border: 1px solid rgba(197, 160, 89, 0.3); padding: 5px; background: black;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
         }
-        .scene-text h2 { font-family: 'Cinzel', serif; font-size: 3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 20px 0;}
-        .scene-text p { font-weight: 200; font-size: 1.1rem; line-height: 1.8; color: #ccc; max-width: 500px;}
+        .scene-img-wrapper::after {
+            content: ""; position: absolute; inset: 5px; border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .scene-text h2 {
+            font-family: 'Cinzel', serif; font-size: 3.5rem; background: var(--gold-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin: 0 0 25px 0; letter-spacing: 3px; font-weight: 700;
+        }
+        .scene-text p { font-weight: 200; font-size: 1.2rem; line-height: 2; color: #ccc; max-width: 550px;}
+        .scene-tag { font-family: 'Cinzel', serif; color: var(--gold); font-size: 10px; letter-spacing: 5px; margin-bottom: 15px; display: block; opacity: 0.7;}
 
         /* --- ESTADOS DE REVELACIÓN --- */
         .revealed #intro { opacity: 0; transform: translateY(-100%); pointer-events: none; }
-        .revealed #elite-ui { opacity: 1; pointer-events: all; transform: scale(1); }
+        .revealed #elite-structure { opacity: 1; pointer-events: all; transform: scale(1); }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .oracle-text { font-size: 3rem; letter-spacing: 5px; }
-            #elite-ui { grid-template-columns: 1fr; grid-template-rows: 60px 1fr; }
-            #sidebar { flex-direction: row; justify-content: center; padding: 0 10px; border-right: none; border-bottom: 1px solid rgba(197, 160, 89, 0.2); }
-            .nav-icon { width: 40px; height: 40px; font-size: 16px; }
-            .amenity-scene { grid-template-columns: 1fr; padding: 30px; text-align: center; overflow-y: auto;}
-            .scene-img { height: 40vh; }
-            .scene-text h2 { font-size: 2rem; }
-            .amenity-scene.active { display: flex; flex-direction: column; align-items: center; justify-content: center;}
+        /* Responsive Avanzado */
+        @media (max-width: 1024px) {
+            .oracle-text { font-size: 4rem; letter-spacing: 8px; }
+            .amenity-scene { grid-template-columns: 1fr; padding: 40px; text-align: center; justify-content: center; }
+            .scene-img { height: 50vh; margin-bottom: 30px; }
+            .scene-text h2 { font-size: 2.5rem; }
+            .scene-text p { font-size: 1rem; max-width: 100%; }
+            #elite-structure { grid-template-columns: 1fr; grid-template-rows: 70px 1fr; }
+            #sidebar { flex-direction: row; justify-content: center; padding: 0 15px; border-right: none; border-bottom: 1px solid rgba(197, 160, 89, 0.1); }
+            .nav-icon { width: 45px; height: 45px; font-size: 18px; }
+            .nav-icon::after { display: none; } /* Ocultar tooltips en móvil */
         }
     </style>
 </head>
 <body>
 
-    <div id="admin-panel">
-        <span style="font-family:'Cinzel'; color:white; font-size:10px; letter-spacing:2px; display:block; margin-bottom:10px;">Bonanza Editor</span>
-        <button class="btn-admin" onclick="addBenefit()">+ AÑADIR BENEFICIO</button>
-        <button class="btn-admin" style="background: white;" onclick="saveCode()">PUBLICAR (EXPORTAR)</button>
-    </div>
-
     <section id="intro">
-        <span style="letter-spacing:10px; font-size:12px; color:var(--gold); font-weight:200;">CORPORACIÓN BONANZA C21</span>
-        <h1 class="oracle-text" id="prop-name" contenteditable="true">MANSIÓN DIAMANTE</h1>
-        <p id="prop-sub" contenteditable="true" style="letter-spacing:4px; font-weight:200; opacity:0.7;">PORTAFOLIO EXCLUSIVO • VALORACIÓN RESERVADA</p>
+        <div class="gold-brand">CORPORACIÓN BONANZA C21</div>
+        <h1 class="oracle-text">VILLA LUNA</h1>
+        <p style="letter-spacing:5px; font-weight:200; opacity:0.7; font-size: 14px; color: #eee; margin-top: 10px;">PORTAFOLIO EXCLUSIVO • UBICACIÓN RESERVADA</p>
         
-        <button class="cta-liquid" onclick="activateOracle()">INICIAR REVELACIÓN DE GALA</button>
+        <button class="cta-liquid" onclick="activateStructure()">INICIAR REVELACIÓN DE GALA</button>
     </section>
 
-    <main id="elite-ui">
+    <main id="elite-structure">
         <nav id="sidebar">
-            </nav>
+            <button class="nav-icon active" onclick="showScene(0, this)" title="Fachada Principal"><i class="fas fa-hotel"></i></button>
+            <button class="nav-icon" onclick="showScene(1, this)" title="Estancia de Gala"><i class="fas fa-couch"></i></button>
+            <button class="nav-icon" onclick="showScene(2, this)" title="Cocina de Autor"><i class="fas fa-utensils"></i></button>
+            <button class="nav-icon" onclick="showScene(3, this)" title="Master Suites"><i class="fas fa-bed"></i></button>
+            <button class="nav-icon" onclick="showScene(4, this)" title="Oasis Exterior"><i class="fas fa-swimming-pool"></i></button>
+            <button class="nav-icon" onclick="showScene(5, this)" title="Ingeniería y Confort"><i class="fas fa-shield-alt"></i></button>
+        </nav>
 
         <div id="content-area">
+            
+            <div class="amenity-scene active" id="scene-0">
+                <div class="scene-img-wrapper">
+                    <img class="scene-img" src="https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=1400" alt="Fachada Villa Luna">
+                </div>
+                <div class="scene-text">
+                    <span class="scene-tag">The Structure</span>
+                    <h2>Fachada Espectacular</h2>
+                    <p>Una obra maestra de arquitectura contemporánea que fusiona líneas limpias con materiales nobles, proyectando una presencia imponente y elegante desde el primer vistazo.</p>
+                </div>
             </div>
+
+            <div class="amenity-scene" id="scene-1">
+                <div class="scene-img-wrapper">
+                    <img class="scene-img" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1400" alt="Estancia Principal">
+                </div>
+                <div class="scene-text">
+                    <span class="scene-tag">Social Area</span>
+                    <h2>Estancia de Gala</h2>
+                    <p>Espacios de doble altura bañados en luz natural, diseñados para el entretenimiento de alto nivel con acabados en mármol y vistas panorámicas ininterrumpidas.</p>
+                </div>
+            </div>
+
+            <div class="amenity-scene" id="scene-2">
+                <div class="scene-img-wrapper">
+                    <img class="scene-img" src="https://images.unsplash.com/photo-1556912167-f556f1f39fdf?q=80&w=1400" alt="Cocina de Autor">
+                </div>
+                <div class="scene-text">
+                    <span class="scene-tag">Culinary Art</span>
+                    <h2>Cocina de Autor</h2>
+                    <p>Equipamiento profesional Sub-Zero & Wolf integrado en gabinetes italianos minimalistas, creando un entorno funcional y estéticamente superior para el chef exigente.</p>
+                </div>
+            </div>
+
+            <div class="amenity-scene" id="scene-3">
+                <div class="scene-img-wrapper">
+                    <img class="scene-img" src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1400" alt="Master Suite">
+                </div>
+                <div class="scene-text">
+                    <span class="scene-tag">Private Sanctuary</span>
+                    <h2>Master Suites</h2>
+                    <p>Santuarios de descanso con vestidores dobles, baños tipo spa en suite y terrazas privadas para disfrutar de atardeceres exclusivos en absoluta privacidad.</p>
+                </div>
+            </div>
+
+            <div class="amenity-scene" id="scene-4">
+                <div class="scene-img-wrapper">
+                    <img class="scene-img" src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1400" alt="Piscina Infinita">
+                </div>
+                <div class="scene-text">
+                    <span class="scene-tag">Outdoor Oasis</span>
+                    <h2>Oasis Exterior</h2>
+                    <p>Piscina de borde infinito climatizada, rodeada de paisajismo diseñado meticulosamente, áreas de lounge y una cocina de verano para experiencias inolvidables.</p>
+                </div>
+            </div>
+
+            <div class="amenity-scene" id="scene-5">
+                <div class="scene-img-wrapper">
+                    <img class="scene-img" src="https://images.unsplash.com/photo-1558002038-103792e17734?q=80&w=1400" alt="Ingeniería y Seguridad">
+                </div>
+                <div class="scene-text">
+                    <span class="scene-tag">Elite Comfort</span>
+                    <h2>Ingeniería & Confort</h2>
+                    <p>Sistema de domótica integral Savant, seguridad perimetral avanzada, cava de vinos con control climático y estacionamiento subterráneo para la máxima tranquilidad.</p>
+                </div>
+            </div>
+
+        </div>
     </main>
 
     <script>
-        // BASE DE DATOS LOCAL EDITABLE (BENEFICIOS SIN FIN)
-        // Iconos unicolor recomendados: fa-swimming-pool, fa-dumbbell, fa-bed, fa-mountain-sun, fa-shield-alt, fa-car, fa-spa, fa-wine-glass-alt, fa-helicopter
-        let benefits = [
-            { icon: "fa-gem", t: "Arquitectura Diamante", d: "Una obra maestra de diseño contemporáneo con acabados importados y tecnología de punta en cada rincón.", i: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200" },
-            { icon: "fa-swimming-pool", t: "Piscina Infinita", d: "Espejo de agua climatizado con bordes invisibles hacia el valle y sistema de purificación por ozono.", i: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1200" },
-            { icon: "fa-wine-glass-alt", t: "Cava de Autor", d: "Espacio de cata privada con control de humedad y temperatura inteligente para 1000 botellas.", i: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=1200" }
-        ];
-
-        function activateOracle() {
+        function activateStructure() {
             document.body.classList.add('revealed');
-            render();
-        }
-
-        function render() {
-            const sidebar = document.getElementById('sidebar');
-            const content = document.getElementById('content-area');
-            
-            // Generar Iconos de Navegación
-            sidebar.innerHTML = benefits.map((b, idx) => `
-                <button class="nav-icon ${idx === 0 ? 'active' : ''}" onclick="showScene(${idx}, this)" title="${b.t}">
-                    <i class="fas ${b.icon}"></i>
-                </button>
-            `).join('');
-
-            // Generar Escenas de Contenido
-            content.innerHTML = benefits.map((b, idx) => `
-                <div class="amenity-scene ${idx === 0 ? 'active' : ''}" id="scene-${idx}">
-                    <div class="scene-text">
-                        <i class="fas ${b.icon}" style="font-size:30px; color:#c5a059; margin-bottom:20px;"></i>
-                        <h2 contenteditable="true" oninput="update(${idx}, 't', this.innerText)">${b.t}</h2>
-                        <p contenteditable="true" oninput="update(${idx}, 'd', this.innerText)">${b.d}</p>
-                    </div>
-                    <div>
-                        <img class="scene-img" src="${b.i}">
-                        <div class="url-editor-box" style="margin-top:10px;">
-                            <span style="font-size:9px; color:#c5a059;">Icono (FontAwesome):</span>
-                            <input type="text" value="${b.icon}" class="url-edit" oninput="update(${idx}, 'icon', this.value)" style="display:block; margin-bottom:5px;">
-                            <span style="font-size:9px; color:#c5a059;">URL de la foto:</span>
-                            <input type="text" value="${b.i}" class="url-edit" oninput="update(${idx}, 'i', this.value); refreshImg(${idx}, this.value)" style="display:block;">
-                        </div>
-                    </div>
-                </div>
-            `).join('');
         }
 
         function showScene(index, btn) {
-            // Actualizar Navegación
+            // Actualizar Navegación Lateral
             document.querySelectorAll('.nav-icon').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
-            // Actualizar Escenas con animación
+            // Actualizar Escenas con animación cinemática
             document.querySelectorAll('.amenity-scene').forEach(s => s.classList.remove('active'));
             document.getElementById(`scene-${index}`).classList.add('active');
         }
-
-        function update(idx, key, val) { benefits[idx][key] = val; }
-        
-        function refreshImg(idx, val) {
-            document.querySelector(`#scene-${idx} .scene-img`).src = val;
-        }
-
-        function addBenefit() {
-            benefits.push({ icon: "fa-plus-circle", t: "Nuevo Beneficio Élite", d: "Describe aquí una característica que proyecte beneficios sin fin para tu cliente VIP.", i: "https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=1200" });
-            render();
-            // Ir al último beneficio añadido
-            const lastBtn = document.querySelector('#sidebar .nav-icon:last-child');
-            showScene(benefits.length - 1, lastBtn);
-        }
-
-        function saveCode() {
-            // Limpieza profunda para la versión pública
-            document.getElementById('admin-panel').style.display = 'none';
-            document.body.classList.remove('editing');
-            document.querySelectorAll('.url-editor-box').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('[contenteditable]').forEach(e => e.contentEditable = "false");
-            document.body.classList.remove('revealed'); // Volver a la intro para el guardado
-
-            // Sincronizar Base de Datos en el script
-            const scriptTag = document.querySelector('script');
-            const dataStr = `let benefits = ${JSON.stringify(benefits, null, 4)};`;
-            scriptTag.text = scriptTag.text.replace(/let benefits = \[[\s\S]*?\];/, dataStr);
-
-            // Generar HTML
-            const blob = new Blob(["<!DOCTYPE html>\n" + document.documentElement.outerHTML], {type: "text/html"});
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "index.html"; // Nombre del archivo a descargar
-            a.click();
-            
-            // Recargar para restaurar el modo editor
-            setTimeout(() => location.reload(), 1000);
-        }
-
-        // Activar inputs de URL al hacer commit en el panel
-        document.body.classList.add('editing');
-        render(); // Carga inicial
     </script>
 </body>
 </html>
