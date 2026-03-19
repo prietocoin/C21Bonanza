@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C21 Bonanza | The Golden Structure</title>
+    <title>C21 Bonanza | Elite Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -28,7 +28,7 @@
 
         .oracle-text {
             font-family: 'Cinzel', serif; font-size: 7rem; font-weight: 700;
-            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover;
+            background: url('https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') center/cover;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: textFlow 30s infinite linear; text-transform: uppercase; letter-spacing: 15px; margin: 0;
         }
@@ -74,7 +74,7 @@
 
         .scene-img {
             width: 100%; height: 80vh; object-fit: cover;
-            border: 1px solid rgba(197, 160, 89, 0.4); padding: 5px; background: black;
+            border: 1px solid rgba(197, 160, 89, 0.4); padding: 5px; background: #111;
             box-shadow: 0 30px 60px rgba(0,0,0,0.8);
         }
 
@@ -92,9 +92,9 @@
         .revealed #elite-structure { opacity: 1; pointer-events: all; transform: scale(1); }
 
         @media (max-width: 1024px) {
-            .amenity-scene { grid-template-columns: 1fr; padding: 40px; text-align: center; }
-            .scene-img { height: 45vh; }
-            .oracle-text { font-size: 4rem; }
+            .amenity-scene { grid-template-columns: 1fr; padding: 40px; text-align: center; overflow-y: auto;}
+            .scene-img { height: 40vh; }
+            .oracle-text { font-size: 3rem; letter-spacing: 5px;}
             #elite-structure { grid-template-columns: 1fr; grid-template-rows: 70px 1fr; }
             #sidebar { flex-direction: row; }
         }
@@ -104,72 +104,72 @@
 
     <section id="intro">
         <div class="gold-brand">CORPORACIÓN BONANZA C21</div>
-        <h1 class="oracle-text">MANSIÓN DIAMANTE</h1>
+        <h1 class="oracle-text">VILLA BONANZA</h1>
         <button class="cta-liquid" onclick="activateStructure()">EXPLORAR PROPIEDAD DE GALA</button>
     </section>
 
     <main id="elite-structure">
         <nav id="sidebar">
-            <button class="nav-icon active" onclick="showScene(0, this)" title="Fachada"><i class="fas fa-hotel"></i></button>
-            <button class="nav-icon" onclick="showScene(1, this)" title="Estancia"><i class="fas fa-couch"></i></button>
-            <button class="nav-icon" onclick="showScene(2, this)" title="Cocina"><i class="fas fa-utensils"></i></button>
-            <button class="nav-icon" onclick="showScene(3, this)" title="Suites"><i class="fas fa-bed"></i></button>
-            <button class="nav-icon" onclick="showScene(4, this)" title="Exterior"><i class="fas fa-swimming-pool"></i></button>
-            <button class="nav-icon" onclick="showScene(5, this)" title="Ingeniería"><i class="fas fa-shield-alt"></i></button>
+            <button class="nav-icon active" onclick="showScene(0, this)"><i class="fas fa-hotel"></i></button>
+            <button class="nav-icon" onclick="showScene(1, this)"><i class="fas fa-couch"></i></button>
+            <button class="nav-icon" onclick="showScene(2, this)"><i class="fas fa-utensils"></i></button>
+            <button class="nav-icon" onclick="showScene(3, this)"><i class="fas fa-bed"></i></button>
+            <button class="nav-icon" onclick="showScene(4, this)"><i class="fas fa-swimming-pool"></i></button>
+            <button class="nav-icon" onclick="showScene(5, this)"><i class="fas fa-shield-alt"></i></button>
         </nav>
 
         <div id="content-area">
             <div class="amenity-scene active" id="scene-0">
-                <img class="scene-img" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80">
+                <img class="scene-img" src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1200">
                 <div class="scene-text">
                     <h2>Fachada Magistral</h2>
                     <div class="scene-divider"></div>
-                    <p>Una imponente presencia arquitectónica que combina líneas vanguardistas con iluminación de gala. Esta propiedad proyecta un estatus inigualable desde su primer avistamiento, diseñada para quienes exigen una entrada triunfal a su hogar.</p>
+                    <p>Una imponente presencia arquitectónica que combina líneas vanguardistas con iluminación de gala. Esta propiedad proyecta un estatus inigualable, diseñada para quienes exigen una entrada triunfal a su hogar cada día.</p>
                 </div>
             </div>
 
             <div class="amenity-scene" id="scene-1">
-                <img class="scene-img" src="https://images.unsplash.com/photo-1600607687644-c7171bb3e29b?auto=format&fit=crop&w=1200&q=80">
+                <img class="scene-img" src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200">
                 <div class="scene-text">
                     <h2>Salón de Recepción</h2>
                     <div class="scene-divider"></div>
-                    <p>El corazón social de la vivienda cuenta con techos de doble altura y ventanales que integran el paisaje exterior. Un espacio de "beneficios sin fin" donde el lujo se siente en cada textura de mármol y en la acústica perfectamente diseñada para eventos privados.</p>
+                    <p>El corazón social de la vivienda cuenta con techos de doble altura y ventanales infinitos. Un espacio donde el lujo se siente en cada textura de mármol y en la acústica perfecta, diseñada para eventos privados de alta gama.</p>
                 </div>
             </div>
 
             <div class="amenity-scene" id="scene-2">
-                <img class="scene-img" src="https://images.unsplash.com/photo-1556912170-4537da395983?auto=format&fit=crop&w=1200&q=80">
+                <img class="scene-img" src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?auto=compress&cs=tinysrgb&w=1200">
                 <div class="scene-text">
-                    <h2>Centro Culinario Pro</h2>
+                    <h2>Cocina de Autor</h2>
                     <div class="scene-divider"></div>
-                    <p>Tecnología de última generación integrada en gabinetes italianos. Esta cocina no es solo un área de preparación, es un escenario de arte culinario equipado con electrodomésticos de grado profesional que aseguran una funcionalidad impecable.</p>
+                    <p>Tecnología culinaria integrada en gabinetes minimalistas de diseño europeo. Esta cocina es un escenario de arte equipado con electrodomésticos profesionales que aseguran una funcionalidad impecable para el chef residente.</p>
                 </div>
             </div>
 
             <div class="amenity-scene" id="scene-3">
-                <img class="scene-img" src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=1200&q=80">
+                <img class="scene-img" src="https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=1200">
                 <div class="scene-text">
                     <h2>Master Sanctuary</h2>
                     <div class="scene-divider"></div>
-                    <p>Habitaciones diseñadas como santuarios de relajación absoluta. Cada suite cuenta con vestidor privado de proporciones generosas y baños revestidos en piedra natural que evocan la paz de un spa de lujo privado.</p>
+                    <p>Santuarios de descanso con vestidores de proporciones generosas. Cada suite ha sido revestida en materiales nobles para evocar la paz de un spa privado, ofreciendo el máximo confort y privacidad absoluta.</p>
                 </div>
             </div>
 
             <div class="amenity-scene" id="scene-4">
-                <img class="scene-img" src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1200&q=80">
+                <img class="scene-img" src="https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?auto=compress&cs=tinysrgb&w=1200">
                 <div class="scene-text">
                     <h2>Oasis de Horizonte</h2>
                     <div class="scene-divider"></div>
-                    <p>Piscina de borde infinito que parece fundirse con el cielo. El área exterior incluye lounge de fuego, cocina de verano y paisajismo diseñado para ofrecer la máxima privacidad y un entorno de descanso de clase mundial.</p>
+                    <p>Piscina de borde infinito que se funde con el entorno. El área exterior incluye lounge de fuego, cocina de verano y paisajismo diseñado para ofrecer la máxima exclusividad y un entorno de descanso de clase mundial.</p>
                 </div>
             </div>
 
             <div class="amenity-scene" id="scene-5">
-                <img class="scene-img" src="https://images.unsplash.com/photo-1558002038-103792e17734?auto=format&fit=crop&w=1200&q=80">
+                <img class="scene-img" src="https://images.pexels.com/photos/2034892/pexels-photo-2034892.jpeg?auto=compress&cs=tinysrgb&w=1200">
                 <div class="scene-text">
                     <h2>Seguridad y Confort</h2>
                     <div class="scene-divider"></div>
-                    <p>Blindaje tecnológico integral. Desde domótica avanzada que controla cada rincón desde su smartphone hasta sistemas de seguridad de nivel militar. Ingeniería pura para garantizar que su única preocupación sea disfrutar del máximo confort.</p>
+                    <p>Blindaje tecnológico integral. Desde domótica avanzada hasta sistemas de seguridad de nivel militar. Ingeniería pura para garantizar que su única preocupación sea disfrutar de la vida en su máxima expresión.</p>
                 </div>
             </div>
         </div>
