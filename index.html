@@ -3,221 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corporación Bonanza C21 | Propiedad de Lujo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <title>Bonanza C21 | Luxury Real Estate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --oro: #c5a059;
-            --oro-brillante: #e2c275;
-            --negro-mate: #121212;
-            --negro-puro: #000000;
-            --blanco-roto: #e0e0e0;
+            --gold: linear-gradient(135deg, #c5a059 0%, #f1d38a 50%, #b38b45 100%);
+            --soft-gold: #c5a059;
+            --black: #0a0a0a;
+            --dark-gray: #1a1a1a;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--negro-puro);
-            color: var(--blanco-roto);
+            background-color: var(--black);
+            color: #ffffff;
             font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
+            margin: 0;
+            line-height: 1.6;
         }
 
-        h1, h2, h3 {
+        /* Títulos en Dorado Metálico */
+        .gold-text {
+            background: var(--gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-family: 'Cinzel', serif;
-            color: var(--oro);
-            letter-spacing: 3px;
+            font-weight: 700;
         }
 
-        /* --- SECCIÓN HERO --- */
         .hero {
-            height: 100vh;
+            height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            position: relative;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070') center/cover;
+            border-bottom: 2px solid var(--soft-gold);
         }
 
-        .hero-content {
-            border: 1px solid var(--oro);
-            padding: 40px 60px;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(5px);
+        .hero-box {
+            padding: 40px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
         }
 
-        .hero h1 { font-size: 3rem; margin: 0; }
-        .hero p { font-weight: 200; font-size: 1.2rem; margin-top: 10px; }
-
-        /* --- AMENITIES SELECTOR (BOTONES) --- */
-        .amenities-section {
-            padding: 80px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .selector-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
-        }
-
-        .amenity-btn {
-            background: transparent;
-            border: 1px solid var(--oro);
-            color: var(--oro);
-            padding: 10px 25px;
-            cursor: pointer;
-            font-family: 'Cinzel', serif;
-            transition: all 0.3s ease;
-        }
-
-        .amenity-btn:hover, .amenity-btn.active {
-            background: var(--oro);
-            color: var(--negro-puro);
-            box-shadow: 0 0 15px var(--oro);
-        }
-
-        .amenity-display {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            background: var(--negro-mate);
-            padding: 30px;
-            border-radius: 5px;
-            min-height: 250px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .amenity-display img {
-            width: 300px;
-            height: 200px;
-            object-fit: cover;
-            border: 1px solid var(--oro);
-        }
-
-        .amenity-text {
-            text-align: left;
-        }
-
-        /* --- FORMULARIO DE GALA --- */
-        .contact-section {
+        /* Selector Interactivo */
+        .selector-wrapper {
             padding: 100px 20px;
-            background-color: var(--negro-mate);
-            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        form {
-            max-width: 500px;
-            margin: 0 auto;
+        .nav-gold {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
         }
+
+        .btn-gala {
+            background: transparent;
+            border: 1px solid var(--soft-gold);
+            color: var(--soft-gold);
+            padding: 12px 30px;
+            font-family: 'Cinzel', serif;
+            cursor: pointer;
+            transition: 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-gala:hover, .btn-gala.active {
+            background: var(--gold);
+            color: var(--black);
+            font-weight: bold;
+        }
+
+        .display-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: var(--dark-gray);
+            border: 1px solid #333;
+            padding: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .display-card { grid-template-columns: 1fr; }
+        }
+
+        .img-frame {
+            border: 1px solid var(--soft-gold);
+            padding: 10px;
+            line-height: 0;
+        }
+
+        .img-frame img { width: 100%; transition: 0.5s; }
 
         input, textarea {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--oro);
+            background: #111;
+            border: 1px solid #333;
+            border-bottom: 2px solid var(--soft-gold);
             color: white;
-            padding: 10px;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        button.submit-btn {
-            background: var(--oro);
-            color: black;
-            border: none;
             padding: 15px;
-            font-family: 'Cinzel', serif;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        button.submit-btn:hover { background: var(--oro-brillante); }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .btn-send {
+            background: var(--gold);
+            border: none;
+            padding: 15px 40px;
+            font-family: 'Cinzel', serif;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
     <section class="hero">
-        <div class="hero-content">
-            <h1>VILLA BONANZA</h1>
-            <p>CORPORACIÓN BONANZA C21 | EXCLUSIVIDAD DEFINIDA</p>
+        <div class="hero-box">
+            <h1 class="gold-text" style="font-size: 3.5rem; margin-bottom: 0;">BONANZA C21</h1>
+            <p style="letter-spacing: 5px; font-weight: 200;">PORTAFOLIO DE INVERSIÓN ÉLITE</p>
         </div>
     </section>
 
-    <section class="amenities-section">
-        <h2>Amenidades de Gala</h2>
-        <div class="selector-container">
-            <button class="amenity-btn active" onclick="showAmenity('piscina', this)">Piscina</button>
-            <button class="amenity-btn" onclick="showAmenity('gym', this)">Gimnasio</button>
-            <button class="amenity-btn" onclick="showAmenity('seguridad', this)">Seguridad</button>
+    <div class="selector-wrapper">
+        <div class="nav-gold">
+            <button class="btn-gala active" onclick="change(this, 'area')">Áreas</button>
+            <button class="btn-gala" onclick="change(this, 'amenities')">Amenities</button>
+            <button class="btn-gala" onclick="change(this, 'specs')">Especificaciones</button>
         </div>
 
-        <div id="amenity-content" class="amenity-display">
-            <img id="amenity-img" src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80&w=600" alt="Piscina">
-            <div class="amenity-text">
-                <h3 id="amenity-title">Piscina Infinita</h3>
-                <p id="amenity-desc">Disfrute de atardeceres inigualables en nuestra piscina con control de temperatura y vista panorámica al valle.</p>
+        <div class="display-card" id="main-card">
+            <div class="img-frame">
+                <img id="main-img" src="https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=600" alt="Lujo">
+            </div>
+            <div>
+                <h2 id="main-title" class="gold-text">Dimensiones de Gala</h2>
+                <p id="main-desc">Espacios diseñados bajo un concepto de arquitectura abierta, maximizando la luz natural y la fluidez entre ambientes.</p>
+                <ul id="main-list" style="color: var(--soft-gold); font-size: 0.9rem;">
+                    <li>350m² de Construcción</li>
+                    <li>Techos de Doble Altura</li>
+                    <li>Mármol Carrara en Pisos</li>
+                </ul>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="contact-section">
-        <h2>Solicitar Información Privada</h2>
-        <form>
-            <input type="text" placeholder="Nombre Completo">
-            <input type="email" placeholder="Correo Electrónico">
-            <textarea rows="4" placeholder="Mensaje"></textarea>
-            <button type="button" class="submit-btn">AGENDAR VISITA</button>
+    <section style="background: #000; padding: 100px 20px; text-align: center;">
+        <h2 class="gold-text">Interesado en esta Propiedad</h2>
+        <form style="max-width: 600px; margin: 40px auto;">
+            <input type="text" placeholder="Nombre y Apellido">
+            <input type="email" placeholder="Email de Contacto">
+            <textarea placeholder="Consulta privada..."></textarea>
+            <button class="btn-send">CONTACTAR AGENTE EXCLUSIVO</button>
         </form>
     </section>
 
     <script>
-        const data = {
-            piscina: {
-                title: "Piscina Infinita",
-                desc: "Disfrute de atardeceres inigualables en nuestra piscina con control de temperatura y vista panorámica al valle.",
-                img: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80&w=600"
+        const info = {
+            area: {
+                t: "Dimensiones de Gala",
+                d: "Espacios diseñados bajo un concepto de arquitectura abierta, maximizando la luz natural y la fluidez entre ambientes.",
+                l: ["350m² de Construcción", "Techos de Doble Altura", "Mármol Carrara en Pisos"],
+                i: "https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=600"
             },
-            gym: {
-                title: "Centro de Bienestar",
-                desc: "Equipamiento de última generación Technogym con entrenadores privados disponibles bajo solicitud.",
-                img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600"
+            amenities: {
+                t: "Servicios de Élite",
+                d: "Cada detalle ha sido pensado para el confort absoluto del residente más exigente.",
+                l: ["Piscina Climatizada", "Cava de Vinos Privada", "Cine en Casa Pro"],
+                i: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=600"
             },
-            seguridad: {
-                title: "Seguridad 24/7",
-                desc: "Sistemas de vigilancia biométrica y personal de seguridad altamente capacitado para su tranquilidad.",
-                img: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=600"
+            specs: {
+                t: "Tecnología y Confort",
+                d: "Integración total con sistemas inteligentes de última generación para el control del hogar.",
+                l: ["Domótica Integral", "Energía Solar", "Seguridad Blindada"],
+                i: "https://images.unsplash.com/photo-1558002038-103792e17734?q=80&w=600"
             }
         };
 
-        function showAmenity(key, btn) {
-            // Actualizar Botones
-            document.querySelectorAll('.amenity-btn').forEach(b => b.classList.remove('active'));
+        function change(btn, key) {
+            document.querySelectorAll('.btn-gala').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            // Actualizar Contenido con animación
-            const content = document.getElementById('amenity-content');
-            content.style.opacity = 0;
             
-            setTimeout(() => {
-                document.getElementById('amenity-title').innerText = data[key].title;
-                document.getElementById('amenity-desc').innerText = data[key].desc;
-                document.getElementById('amenity-img').src = data[key].img;
-                content.style.opacity = 1;
-            }, 300);
+            const item = info[key];
+            document.getElementById('main-title').innerText = item.t;
+            document.getElementById('main-desc').innerText = item.d;
+            document.getElementById('main-img').src = item.i;
+            
+            const list = document.getElementById('main-list');
+            list.innerHTML = item.l.map(x => `<li>${x}</li>`).join('');
         }
     </script>
 </body>
