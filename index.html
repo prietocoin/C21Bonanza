@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bonanza C21 | Elite Portfolio</title>
+    <title>Bonanza C21 | Elite Portfolio Global</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,61 +12,51 @@
             --gold-gradient: linear-gradient(135deg, #c5a059 0%, #f1d38a 50%, #b38b45 100%);
             --black: #000000;
             --dark: #0a0a0a;
-            --transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+            --transition: 0.7s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; }
+        body, html { margin: 0; padding: 0; height: 100%; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; touch-action: pan-y; }
 
-        /* --- 1. PORTADA CON TU IMAGEN DE FACHADA (RESTAURADA) --- */
-        #hero {
-            height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; position: fixed; inset: 0; z-index: 1000; transition: var(--transition);
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.9)), 
-                        url('https://images2.imgbox.com/39/10/7Fof4X7J_o.png') center/cover no-repeat;
+        /* --- 1. PORTADA CON SWIPE (INSTAGRAM STYLE) --- */
+        #hero-carousel {
+            height: 100vh; position: fixed; inset: 0; z-index: 1000; transition: var(--transition);
+            overflow: hidden; cursor: grab;
         }
-
-        .gold-brand-main { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 12px; color: white; margin-bottom: 20px; font-weight: bold; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
-        .oracle-text { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 8vw, 6.5rem); font-weight: 700; color: white; text-transform: uppercase; letter-spacing: clamp(5px, 2vw, 15px); margin: 0; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
-
-        .cta-gold {
-            margin-top: 40px; padding: 15px 45px; font-family: 'Cinzel', serif;
-            color: var(--gold); background: rgba(0,0,0,0.6); border: 2px solid var(--gold);
-            cursor: pointer; letter-spacing: 4px; transition: 0.4s; font-size: 12px;
-            backdrop-filter: blur(5px);
+        .carousel-track-hero { display: flex; height: 100%; width: 100%; transition: transform 0.5s ease-out; }
+        .carousel-item-hero { 
+            flex: 0 0 100%; height: 100%; position: relative; 
+            background-size: cover; background-position: center; 
         }
-        .cta-gold:hover { background: var(--gold); color: black; box-shadow: 0 0 40px rgba(197, 160, 89, 0.6); transform: scale(1.05); }
+        .carousel-item-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)); }
 
-        /* --- 2. ÍNDICE GEOGRÁFICO (ASUNCIÓN / CENTRAL SEPARADOS) --- */
+        .hero-overlay {
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            z-index: 10; pointer-events: none;
+        }
+        .oracle-text { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 8vw, 6.5rem); font-weight: 700; color: white; text-transform: uppercase; letter-spacing: clamp(5px, 2vw, 15px); margin: 0; }
+        .cta-gold { margin-top: 40px; padding: 15px 45px; font-family: 'Cinzel', serif; color: var(--gold); background: rgba(0,0,0,0.6); border: 2px solid var(--gold); cursor: pointer; letter-spacing: 4px; pointer-events: auto; }
+
+        /* --- 2. ÍNDICE GEOGRÁFICO (RESTAURADO Y SEPARADO) --- */
         #market-index {
             height: 100vh; display: flex; flex-direction: column; padding: 40px 20px;
             position: fixed; inset: 0; z-index: 900; opacity: 0; transform: translateY(100%); transition: var(--transition);
             background: var(--black); overflow-y: auto; box-sizing: border-box;
         }
 
-        .grid-zones {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;
-            max-width: 1400px; margin: 30px auto; width: 100%;
+        .index-container { max-width: 1400px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 50px; }
+        .zone-section { background: var(--dark); border-left: 3px solid var(--gold); padding: 30px; }
+        .zone-title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 2rem; margin-bottom: 30px; letter-spacing: 3px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        
+        .sub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .sub-card { 
+            background: #111; border: 1px solid #222; padding: 25px; transition: 0.3s; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
         }
+        .sub-card:hover { border-color: var(--gold); background: #1a1a1a; padding-left: 35px; }
+        .sub-card h4 { font-family: 'Cinzel', serif; color: var(--gold); margin: 0; font-size: 1.1rem; }
 
-        .zone-card { background: var(--dark); border: 1px solid rgba(197, 160, 89, 0.15); padding: 25px; transition: 0.4s; cursor: pointer; text-align: center;}
-        .zone-card:hover { border-color: var(--gold); transform: translateY(-5px); background: rgba(197, 160, 89, 0.05);}
-        .zone-title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.3rem; margin-bottom: 5px; }
-        .zone-subtitle { font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase;}
-
-        /* --- 3. SUBDIRECTORIO --- */
-        #subdirectory {
-            position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.98);
-            display: none; flex-direction: column; align-items: center; padding: 60px 20px;
-            backdrop-filter: blur(15px); overflow-y: auto; animation: fadeIn 0.4s forwards;
-        }
-
-        .sub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; width: 100%; max-width: 1200px; margin-top: 30px;}
-        .prop-card-sub { background: #0d0d0d; border: 1px solid #1a1a1a; padding: 20px; text-align: left; transition: 0.3s; cursor: pointer; }
-        .prop-card-sub:hover { border-color: var(--gold); background: #151515; }
-        .prop-card-sub h4 { font-family: 'Cinzel', serif; color: var(--gold); margin: 0 0 5px 0; font-size: 13px; }
-        .prop-card-sub p { font-size: 10px; color: #777; margin: 0; }
-
-        /* --- 4. BÓVEDA DETALLE --- */
+        /* --- 3. BÓVEDA DETALLE CON SWIPE EN ESTACIONES --- */
         #detail-view {
             position: fixed; inset: 0; background: var(--black); z-index: 2000;
             display: none; grid-template-columns: 80px 1fr; animation: fadeIn 0.6s forwards;
@@ -74,56 +64,79 @@
 
         #detail-sidebar { background: #050505; border-right: 1px solid #222; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; }
         .dock-btn { width: 45px; height: 45px; border-radius: 50%; border: 1px solid rgba(197, 160, 89, 0.2); background: transparent; color: var(--gold); cursor: pointer; transition: 0.4s; }
-        .dock-btn.active { background: var(--gold-gradient); color: black; border-color: white; transform: scale(1.1); }
+        .dock-btn.active { background: var(--gold-gradient); color: black; transform: scale(1.1); }
 
         .content-frame { display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center; padding: 40px; gap: 40px; height: 100%; box-sizing: border-box; }
-        .carousel-container { position: relative; width: 100%; height: 75vh; border: 1px solid var(--gold); padding: 5px; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; }
-        #carousel-track { width: 100%; height: 100%; position: relative; }
-        .carousel-slide { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: 0; transform: scale(1.05); transition: 0.5s; }
-        .carousel-slide.active { opacity: 1; transform: scale(1); z-index: 5; }
-        .carousel-nav { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px;}
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; border: 1px solid var(--gold); transition: 0.3s;}
-        .dot.active { background: var(--gold); transform: scale(1.3); }
+        
+        .carousel-box-detail { 
+            position: relative; width: 100%; height: 75vh; border: 1px solid var(--gold); 
+            overflow: hidden; cursor: grab; background: #000;
+        }
+        .track-detail { display: flex; height: 100%; width: 100%; transition: transform 0.4s ease-out; }
+        .slide-detail { flex: 0 0 100%; height: 100%; object-fit: cover; }
 
         .close-btn { position: absolute; top: 25px; right: 30px; color: var(--gold); font-size: 1.8rem; cursor: pointer; z-index: 3000; }
 
         @media (max-width: 900px) {
             #detail-view { grid-template-columns: 1fr; grid-template-rows: 1fr 70px; }
             #detail-sidebar { flex-direction: row; order: 2; height: 70px; width: 100%; position: fixed; bottom: 0; }
-            .content-frame { grid-template-columns: 1fr; padding: 15px; overflow-y: auto; padding-bottom: 100px; align-items: start;}
-            .carousel-container { height: 40vh; }
+            .content-frame { grid-template-columns: 1fr; padding: 20px; overflow-y: auto; padding-bottom: 100px; align-items: start;}
+            .carousel-box-detail { height: 45vh; }
         }
 
-        .revealed #hero { transform: translateY(-100%); }
+        .revealed #hero-carousel { transform: translateY(-100%); }
         .revealed #market-index { opacity: 1; transform: translateY(0); }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <section id="hero">
-        <div class="gold-brand-main">CENTURY 21 BONANZA</div>
-        <h1 class="oracle-text">ELITE PORTFOLIO</h1>
-        <button class="cta-gold" onclick="openMarket()">INICIAR EXPLORACIÓN</button>
+    <section id="hero-carousel">
+        <div class="carousel-track-hero" id="hero-track">
+            <div class="carousel-item-hero" style="background-image: url('https://images2.imgbox.com/39/10/7Fof4X7J_o.png');"></div>
+            <div class="carousel-item-hero" style="background-image: url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=1200');"></div>
+            <div class="carousel-item-hero" style="background-image: url('https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?w=1200');"></div>
+        </div>
+        <div class="hero-overlay">
+            <div style="letter-spacing: 12px; font-size: 11px; color: var(--gold); margin-bottom: 15px;">BONANZA C21</div>
+            <h1 class="oracle-text">ELITE PORTFOLIO</h1>
+            <button class="cta-gold" onclick="openMarket()">INICIAR EXPLORACIÓN</button>
+        </div>
     </section>
 
     <main id="market-index">
-        <header style="text-align:center; margin-bottom: 30px;">
-            <h2 style="font-family:'Cinzel'; color:var(--gold); font-size: 2.5rem; margin:0; letter-spacing: 3px;">Gala Index</h2>
-            <p style="letter-spacing:5px; font-size:10px; opacity:0.6;">SEGMENTACIÓN ESTRATÉGICA PARAGUAY</p>
-        </header>
-        <div class="grid-zones" id="zones-container"></div>
+        <div class="index-container">
+            <header style="text-align:center;">
+                <h2 style="font-family:'Cinzel'; color:var(--gold); font-size: 3rem; margin:0;">Gala Index</h2>
+                <p style="letter-spacing:5px; font-size:12px; opacity:0.6;">DISTRITOS DE ALTO RENDIMIENTO</p>
+            </header>
+
+            <section class="zone-section">
+                <div class="zone-title">ASUNCIÓN LUXURY</div>
+                <div class="sub-grid">
+                    <div class="sub-card" onclick="openDetail('Villa Morra')"><h4>Villa Morra</h4> <i class="fas fa-chevron-right"></i></div>
+                    <div class="sub-card" onclick="openDetail('Santa Teresa')"><h4>Santa Teresa</h4> <i class="fas fa-chevron-right"></i></div>
+                    <div class="sub-card" onclick="openDetail('Manora')"><h4>Manora</h4> <i class="fas fa-chevron-right"></i></div>
+                    <div class="sub-card" onclick="openDetail('Recoleta')"><h4>Recoleta</h4> <i class="fas fa-chevron-right"></i></div>
+                    <div class="sub-card" onclick="openDetail('Otros Barrios')"><h4>Otros</h4> <i class="fas fa-plus"></i></div>
+                </div>
+            </section>
+
+            <section class="zone-section">
+                <div class="zone-title">GRAN ASUNCIÓN (CENTRAL)</div>
+                <div class="sub-grid">
+                    <div class="sub-card" onclick="openDetail('Luque')"><h4>Luque</h4> <i class="fas fa-chevron-right"></i></div>
+                    <div class="sub-card" onclick="openDetail('Lambaré')"><h4>Lambaré</h4> <i class="fas fa-chevron-right"></i></div>
+                    <div class="sub-card" onclick="openDetail('San Lorenzo')"><h4>San Lorenzo</h4> <i class="fas fa-chevron-right"></i></div>
+                    <div class="sub-card" onclick="openDetail('Mariano R. Alonso')"><h4>Mariano R. A.</h4> <i class="fas fa-chevron-right"></i></div>
+                    <div class="sub-card" onclick="openDetail('Otros Distritos')"><h4>Otros</h4> <i class="fas fa-plus"></i></div>
+                </div>
+            </section>
+        </div>
     </main>
 
-    <div id="subdirectory">
-        <span class="close-btn" onclick="closeSub()"><i class="fas fa-arrow-left"></i></span>
-        <h2 id="sub-zone-title" style="font-family:'Cinzel'; color:var(--gold); font-size: 1.8rem; margin:0; letter-spacing: 2px;"></h2>
-        <p style="letter-spacing:3px; font-size:10px; opacity:0.6;">LISTADO DE ACTIVOS EXCLUSIVOS</p>
-        <div class="sub-grid" id="sub-grid-container"></div>
-    </div>
-
     <div id="detail-view">
-        <span class="close-btn" onclick="closeProp()"><i class="fas fa-times"></i></span>
+        <span class="close-btn" onclick="closeDetail()"><i class="fas fa-times"></i></span>
         <nav id="detail-sidebar">
             <button class="dock-btn active" onclick="setStation(0)"><i class="fas fa-hotel"></i></button>
             <button class="dock-btn" onclick="setStation(1)"><i class="fas fa-couch"></i></button>
@@ -133,78 +146,89 @@
             <button class="dock-btn" onclick="setStation(5)"><i class="fas fa-shield-alt"></i></button>
         </nav>
         <div class="content-frame">
-            <div class="carousel-container"><div id="carousel-track"></div><div class="carousel-nav" id="carousel-dots"></div></div>
+            <div class="carousel-box-detail" id="detail-carousel-box">
+                <div class="track-detail" id="detail-track"></div>
+            </div>
             <div class="p-info">
-                <h2 id="main-p-name" style="font-family:'Cinzel'; color:var(--gold); font-size: 1.8rem; margin-bottom: 10px;"></h2>
-                <div style="width:50px; height:1px; background:var(--gold); margin-bottom:20px;"></div>
-                <p id="station-name" style="letter-spacing:4px; font-weight:600; color:var(--gold); font-size:10px; margin-bottom:20px;"></p>
-                <p style="font-weight:200; line-height:1.8; color:#ccc; font-size: 13px; text-align: justify;">Portafolio curado para el inversor más exigente. Cada ángulo representa el pináculo del Real Estate de lujo en Paraguay.</p>
+                <h2 id="main-p-name" style="font-family:'Cinzel'; color:var(--gold); font-size: 2rem;"></h2>
+                <p id="station-name" style="letter-spacing:4px; font-weight:600; color:var(--gold); font-size:11px; text-transform:uppercase;"></p>
+                <p style="font-weight:200; line-height:1.8; color:#ccc; font-size: 14px;">Inmersión arquitectónica total con ángulos de alta gama captados para este portafolio de gala.</p>
                 <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 10px;">
                     <button style="background:var(--gold); color:black; border:none; padding:15px; font-family:'Cinzel'; font-weight:bold; cursor:pointer;">DOSSIER VIP</button>
-                    <button style="background:transparent; color:var(--gold); border:1px solid var(--gold); padding:12px; font-family:'Cinzel'; cursor:pointer;">CONTACTO AGENTE</button>
+                    <button style="background:transparent; color:var(--gold); border:1px solid var(--gold); padding:12px; font-family:'Cinzel'; cursor:pointer;">CONTACTO</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const zones = {
-            asuncion: ["Villa Morra", "Santa Teresa", "Manora", "Recoleta", "Los Laureles", "Las Lomas", "Otros Barrios"],
-            central: ["Luque", "Lambaré", "San Lorenzo", "Mariano R. Alonso", "Fernando de la Mora", "Limpio", "Otros Distritos"]
-        };
-        const propNames = ["Mansion Diamante", "The Golden Tower", "Residencia Gala", "Majestic Estate", "Iconic Suite", "Palacio de Oro", "Elite Residence", "The Vault Luxury"];
-        
-        const mediaData = {
-            0: { n: "FACHADA", i: ["https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?w=800", "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?w=800", "https://images.pexels.com/photos/1838640/pexels-photo-1838640.jpeg?w=800", "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?w=800"] },
-            1: { n: "ESTANCIA", i: ["https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=800", "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?w=800", "https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?w=800", "https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?w=800"] },
-            2: { n: "COCINA", i: ["https://images.pexels.com/photos/2724748/pexels-photo-2724748.jpeg?w=800", "https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?w=800", "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?w=800", "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?w=800"] },
-            3: { n: "SUITES", i: ["https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?w=800", "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?w=800", "https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?w=800", "https://images.pexels.com/photos/2029722/pexels-photo-2029722.jpeg?w=800"] },
-            4: { n: "OASIS", i: ["https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?w=800", "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?w=800", "https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?w=800", "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg?w=800"] },
-            5: { n: "CONFORT", i: ["https://images.pexels.com/photos/2034892/pexels-photo-2034892.jpeg?w=800", "https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?w=800", "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?w=800", "https://images.pexels.com/photos/323775/pexels-photo-323775.jpeg?w=800"] }
+        // --- LOGICA DE SWIPE (REUTILIZABLE) ---
+        function enableSwipe(elementId, trackId) {
+            const el = document.getElementById(elementId);
+            const track = document.getElementById(trackId);
+            let startX = 0, currentIdx = 0, isDragging = false, currentPos = 0;
+
+            const updatePos = () => track.style.transform = `translateX(-${currentIdx * 100}%)`;
+
+            el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; });
+            el.addEventListener('touchend', e => {
+                if(!isDragging) return;
+                const diff = startX - e.changedTouches[0].clientX;
+                const items = track.children.length;
+                if(Math.abs(diff) > 50) {
+                    if(diff > 0 && currentIdx < items - 1) currentIdx++;
+                    else if(diff < 0 && currentIdx > 0) currentIdx--;
+                }
+                updatePos(); isDragging = false;
+            });
+
+            // Soporte para Mouse
+            el.addEventListener('mousedown', e => { startX = e.clientX; isDragging = true; el.style.cursor = 'grabbing'; });
+            window.addEventListener('mouseup', e => {
+                if(!isDragging) return;
+                const diff = startX - e.clientX;
+                const items = track.children.length;
+                if(Math.abs(diff) > 50) {
+                    if(diff > 0 && currentIdx < items - 1) currentIdx++;
+                    else if(diff < 0 && currentIdx > 0) currentIdx--;
+                }
+                updatePos(); isDragging = false; el.style.cursor = 'grab';
+            });
+            
+            return { reset: () => { currentIdx = 0; updatePos(); } };
+        }
+
+        const heroSwipe = enableSwipe('hero-carousel', 'hero-track');
+        let detailSwipe = null;
+
+        // --- DATOS Y NAVEGACIÓN ---
+        const media = {
+            0: ["https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?w=800", "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?w=800", "https://images.pexels.com/photos/1838640/pexels-photo-1838640.jpeg?w=800", "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?w=800"],
+            1: ["https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=800", "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?w=800", "https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?w=800", "https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?w=800"],
+            2: ["https://images.pexels.com/photos/2724748/pexels-photo-2724748.jpeg?w=800", "https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?w=800", "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?w=800", "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?w=800"],
+            3: ["https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?w=800", "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?w=800", "https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?w=800", "https://images.pexels.com/photos/2029722/pexels-photo-2029722.jpeg?w=800"],
+            4: ["https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?w=800", "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?w=800", "https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?w=800", "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg?w=800"],
+            5: ["https://images.pexels.com/photos/2034892/pexels-photo-2034892.jpeg?w=800", "https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?w=800", "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?w=800", "https://images.pexels.com/photos/323775/pexels-photo-323775.jpeg?w=800"]
         };
 
-        function init() {
-            const container = document.getElementById('zones-container');
-            const allZones = [...zones.asuncion, ...zones.central];
-            container.innerHTML = allZones.map(z => `<div class="zone-card" onclick="openSubdirectory('${z}')"><div class="zone-title">${z.toUpperCase()}</div><div class="zone-subtitle">Explorar Activos</div></div>`).join('');
-        }
+        const stationNames = ["Fachada", "Estancia", "Cocina", "Suites", "Oasis", "Confort"];
 
         function openMarket() { document.body.classList.add('revealed'); }
-        function openSubdirectory(zoneName) {
-            document.getElementById('sub-zone-title').innerText = zoneName.toUpperCase();
-            document.getElementById('sub-grid-container').innerHTML = propNames.map(name => `<div class="prop-card-sub" onclick="openDetail('${name}')"><h4>${name}</h4><p>${zoneName} • Luxury</p></div>`).join('');
-            document.getElementById('subdirectory').style.display = 'flex';
-        }
-        function closeSub() { document.getElementById('subdirectory').style.display = 'none'; }
         function openDetail(name) {
             document.getElementById('main-p-name').innerText = name;
             setStation(0);
             document.getElementById('detail-view').style.display = 'grid';
+            if(!detailSwipe) detailSwipe = enableSwipe('detail-carousel-box', 'detail-track');
         }
-        function closeProp() { document.getElementById('detail-view').style.display = 'none'; }
+        function closeDetail() { document.getElementById('detail-view').style.display = 'none'; }
 
         function setStation(idx) {
-            const station = mediaData[idx];
-            document.getElementById('station-name').innerText = station.n;
-            const track = document.getElementById('carousel-track');
-            const dots = document.getElementById('carousel-dots');
-            track.innerHTML = ''; dots.innerHTML = '';
-            station.i.forEach((src, i) => {
-                const img = document.createElement('img'); img.src = src; img.className = `carousel-slide ${i === 0 ? 'active' : ''}`; img.id = `slide-${i}`;
-                track.appendChild(img);
-                const dot = document.createElement('div'); dot.className = `dot ${i === 0 ? 'active' : ''}`; dot.id = `dot-${i}`; dot.onclick = () => showSlide(i);
-                dots.appendChild(dot);
-            });
+            const track = document.getElementById('detail-track');
+            track.innerHTML = media[idx].map(src => `<img class="slide-detail" src="${src}">`).join('');
+            document.getElementById('station-name').innerText = stationNames[idx];
             document.querySelectorAll('.dock-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+            if(detailSwipe) detailSwipe.reset();
         }
-
-        function showSlide(slideIdx) {
-            document.querySelectorAll('.carousel-slide').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
-            document.getElementById(`slide-${slideIdx}`).classList.add('active');
-            document.getElementById(`dot-${slideIdx}`).classList.add('active');
-        }
-        init();
     </script>
 </body>
 </html>
