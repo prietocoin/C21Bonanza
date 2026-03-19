@@ -3,193 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bonanza C21 | Elite Portfolio 360 Final</title>
+    <title>Bonanza C21 | Elite Portfolio Global</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <style>
         :root {
             --gold: #c5a059;
             --gold-gradient: linear-gradient(135deg, #c5a059 0%, #f1d38a 50%, #b38b45 100%);
             --black: #000000;
             --dark: #0a0a0a;
-            --transition: 0.8s cubic-bezier(0.85, 0, 0.15, 1);
+            --gray: #111111;
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; }
+        body, html { margin: 0; padding: 0; height: 100%; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow-x: hidden; }
 
-        /* --- 1. PORTADA CON SWIPE REAL (TOUCH) --- */
-        #hero-slider {
-            height: 100vh; position: fixed; inset: 0; z-index: 1000; transition: var(--transition);
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-        }
-        #hero-slider::-webkit-scrollbar { display: none; }
+        /* --- 1. CAPA DE PORTADA --- */
+        #layer-hero { position: fixed; inset: 0; z-index: 1000; transition: 0.8s ease-in-out; }
+        .swiper-hero { width: 100%; height: 100%; position: absolute; inset: 0; z-index: 1; }
+        .hero-slide-bg { width: 100%; height: 100%; background-size: cover; background-position: center; }
+        .hero-slide-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.85)); }
+        
+        .hero-ui { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; pointer-events: none; }
+        .hero-brand { letter-spacing: 12px; font-size: 11px; color: var(--gold); margin-bottom: 20px; font-weight: bold; }
+        .hero-title { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 8vw, 6.5rem); font-weight: 700; margin: 0; letter-spacing: 8px; }
+        .cta-gold { margin-top: 50px; padding: 18px 50px; font-family: 'Cinzel', serif; border: 1px solid var(--gold); background: rgba(0,0,0,0.5); color: var(--gold); cursor: pointer; pointer-events: auto; letter-spacing: 3px; font-size: 12px; transition: 0.3s; backdrop-filter: blur(5px); }
+        .cta-gold:hover { background: var(--gold); color: black; transform: scale(1.05); }
+        .swiper-pagination-bullet { background: white; opacity: 0.5; }
+        .swiper-pagination-bullet-active { background: var(--gold); opacity: 1; }
 
-        .hero-slide { 
-            flex: 0 0 100%; height: 100%; scroll-snap-align: start; position: relative;
-            background-size: cover; background-position: center;
-        }
-        .hero-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)); }
-
-        .hero-ui { 
-            position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            text-align: center; pointer-events: none; z-index: 1010;
-        }
-        .oracle-text { font-family: 'Cinzel', serif; font-size: clamp(2rem, 10vw, 6rem); font-weight: 700; letter-spacing: 10px; margin: 0; }
-        .cta-gold { margin-top: 40px; padding: 18px 50px; font-family: 'Cinzel', serif; border: 2px solid var(--gold); background: rgba(0,0,0,0.4); color: var(--gold); cursor: pointer; pointer-events: auto; backdrop-filter: blur(5px); }
-
-        /* --- 2. GALA INDEX (DIVISIONES VISUALES MEJORADAS) --- */
-        #market-index {
-            height: 100vh; position: fixed; inset: 0; z-index: 900; opacity: 0; transform: translateY(100%); transition: var(--transition);
-            background: var(--black); overflow-y: auto; padding: 60px 20px; box-sizing: border-box;
-        }
+        /* --- 2. CAPA DEL ÍNDICE GEOGRÁFICO --- */
+        #layer-index { position: fixed; inset: 0; z-index: 900; background: var(--black); overflow-y: auto; padding: 60px 20px; opacity: 0; transform: translateY(50px); transition: 0.8s ease-in-out; pointer-events: none; }
         .index-header { text-align: center; margin-bottom: 60px; }
-        .index-header h2 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 3.5rem; margin: 0; letter-spacing: 5px; }
-
-        .zone-box { 
-            max-width: 1200px; margin: 0 auto 60px auto; 
-            background: var(--dark); border-top: 2px solid var(--gold); 
-            padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-        .zone-label { font-family: 'Cinzel', serif; color: var(--gold); font-size: 2rem; letter-spacing: 3px; margin-bottom: 30px; display: block; border-bottom: 1px solid #222; padding-bottom: 15px;}
+        .index-header h2 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 2.5rem; margin: 0; letter-spacing: 4px; }
         
-        .zone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .prop-item { 
-            background: #111; border: 1px solid #222; padding: 25px; cursor: pointer; transition: 0.4s;
-            display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 14px;
-        }
-        .prop-item:hover { border-color: var(--gold); background: #1a1a1a; transform: scale(1.02); }
-        .prop-item.otros { background: #000; color: var(--gold); font-style: italic; border: 1px solid var(--gold); }
-
-        /* --- 3. BÓVEDA CON SWIPE EN CADA ESTACIÓN --- */
-        #detail-view { position: fixed; inset: 0; background: var(--black); z-index: 2000; display: none; grid-template-columns: 90px 1fr; animation: fadeIn 0.5s; }
+        .zone-container { max-width: 1200px; margin: 0 auto 60px auto; }
+        .zone-title { font-family: 'Cinzel', serif; color: white; font-size: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; }
+        .zone-title i { color: var(--gold); }
         
-        #detail-sidebar { background: #050505; border-right: 1px solid #222; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
-        .dock-btn { width: 55px; height: 55px; border-radius: 50%; border: 1px solid rgba(197, 160, 89, 0.2); background: transparent; color: var(--gold); cursor: pointer; transition: 0.3s; font-size: 1.2rem; }
-        .dock-btn.active { background: var(--gold-gradient); color: black; box-shadow: 0 0 20px var(--gold); transform: scale(1.1); }
+        .hood-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+        .hood-btn { background: var(--gray); border: 1px solid #222; padding: 20px; text-align: left; cursor: pointer; transition: 0.3s; display: flex; justify-content: space-between; align-items: center; }
+        .hood-btn:hover { border-color: var(--gold); background: #1a1a1a; padding-left: 25px; }
+        .hood-btn span { font-size: 13px; font-weight: 600; letter-spacing: 1px; }
+        .hood-btn.otros { background: #050505; color: var(--gold); border: 1px dashed #333; }
 
-        .content-frame { display: grid; grid-template-columns: 1.3fr 0.7fr; align-items: center; padding: 40px; gap: 50px; height: 100%; box-sizing: border-box; }
+        /* --- 3. CAPA DE SUBDIRECTORIO (8 PROPIEDADES) --- */
+        #layer-sub { position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.98); backdrop-filter: blur(10px); display: none; flex-direction: column; align-items: center; padding: 60px 20px; overflow-y: auto; animation: fadeIn 0.4s forwards; }
+        .sub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; width: 100%; max-width: 1200px; margin-top: 40px; }
+        .prop-card { background: #0a0a0a; border: 1px solid #222; padding: 25px; cursor: pointer; transition: 0.3s; }
+        .prop-card:hover { border-color: var(--gold); background: #111; transform: translateY(-5px); }
+        .prop-card h4 { font-family: 'Cinzel', serif; color: var(--gold); margin: 0 0 10px 0; font-size: 1.1rem; }
+        .prop-card p { font-size: 10px; color: #888; margin: 0; letter-spacing: 1px; text-transform: uppercase; }
+        .btn-back { position: absolute; top: 30px; left: 30px; background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 10px 20px; cursor: pointer; font-family: 'Cinzel', serif; }
+
+        /* --- 4. CAPA DE BÓVEDA DETALLE --- */
+        #layer-detail { position: fixed; inset: 0; z-index: 2000; background: var(--black); display: none; grid-template-columns: 80px 1fr; animation: fadeIn 0.5s forwards; }
+        #detail-dock { background: #050505; border-right: 1px solid #222; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; }
+        .dock-icon { width: 45px; height: 45px; border-radius: 50%; border: 1px solid #333; background: transparent; color: var(--gold); cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .dock-icon.active { background: var(--gold-gradient); color: black; border-color: white; transform: scale(1.1); box-shadow: 0 0 15px rgba(197, 160, 89, 0.4); }
         
-        /* EL SWIPE DE LA ESTACIÓN */
-        .station-gallery { 
-            position: relative; width: 100%; height: 75vh; border: 1px solid var(--gold); 
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; background: #000;
+        .detail-content { display: grid; grid-template-columns: 1.3fr 0.7fr; padding: 40px; gap: 40px; height: 100%; box-sizing: border-box; align-items: center; }
+        
+        /* Swiper de Estaciones */
+        .swiper-station { width: 100%; height: 75vh; border: 1px solid var(--gold); background: #000; }
+        .station-slide-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .detail-info h2 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 2rem; margin: 0 0 10px 0; }
+        .detail-info .station-title { letter-spacing: 4px; font-size: 11px; color: white; border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-bottom: 20px; display: inline-block; }
+        .detail-info p { color: #ccc; font-weight: 200; line-height: 1.8; font-size: 13px; margin-bottom: 40px; }
+        .btn-close-detail { position: absolute; top: 30px; right: 40px; color: var(--gold); font-size: 2rem; cursor: pointer; z-index: 3000; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            #layer-detail { grid-template-columns: 1fr; grid-template-rows: 1fr 70px; }
+            #detail-dock { flex-direction: row; order: 2; height: 70px; border-right: none; border-top: 1px solid #222; }
+            .detail-content { grid-template-columns: 1fr; padding: 20px; overflow-y: auto; padding-bottom: 100px; align-items: start; }
+            .swiper-station { height: 40vh; }
+            .hero-title { font-size: 3rem; }
         }
-        .station-gallery::-webkit-scrollbar { display: none; }
-        .station-slide { flex: 0 0 100%; height: 100%; scroll-snap-align: start; object-fit: cover; }
 
-        .p-info h2 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 2.5rem; margin: 0; }
-        .p-info p { font-weight: 200; line-height: 2; color: #ccc; margin-top: 20px; }
-
-        .close-btn { position: absolute; top: 30px; right: 40px; color: var(--gold); font-size: 2.5rem; cursor: pointer; z-index: 3000; }
-
-        @media (max-width: 950px) {
-            #detail-view { grid-template-columns: 1fr; grid-template-rows: 1fr 80px; }
-            #detail-sidebar { flex-direction: row; order: 2; height: 80px; width: 100%; position: fixed; bottom: 0; border-right: none; border-top: 1px solid #222; }
-            .content-frame { grid-template-columns: 1fr; padding: 20px; overflow-y: auto; padding-bottom: 120px; }
-            .station-gallery { height: 45vh; }
-            .oracle-text { font-size: 2.5rem; letter-spacing: 5px; }
-        }
-
-        .revealed #hero-slider, .revealed .hero-ui { transform: translateY(-100%); pointer-events: none; }
-        .revealed #market-index { opacity: 1; transform: translateY(0); }
+        /* --- ANIMACIONES DE ESTADO --- */
+        .app-started #layer-hero { transform: translateY(-100%); pointer-events: none; }
+        .app-started #layer-index { opacity: 1; transform: translateY(0); pointer-events: auto; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <section id="hero-slider">
-        <div class="hero-slide" style="background-image: url('https://images2.imgbox.com/39/10/7Fof4X7J_o.png');"></div>
-        <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=1200');"></div>
-        <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?w=1200');"></div>
+    <section id="layer-hero">
+        <div class="swiper swiper-hero">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><div class="hero-slide-bg" style="background-image: url('https://images2.imgbox.com/39/10/7Fof4X7J_o.png');"></div></div>
+                <div class="swiper-slide"><div class="hero-slide-bg" style="background-image: url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=1600');"></div></div>
+                <div class="swiper-slide"><div class="hero-slide-bg" style="background-image: url('https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?w=1600');"></div></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="hero-ui">
+            <div class="hero-brand">CENTURY 21 BONANZA</div>
+            <h1 class="hero-title">ELITE PORTFOLIO</h1>
+            <p style="letter-spacing: 5px; opacity: 0.7; font-size: 9px; margin-top: 15px;">DESLIZA LA IMAGEN</p>
+            <button class="cta-gold" onclick="startApp()">INICIAR EXPLORACIÓN</button>
+        </div>
     </section>
 
-    <div class="hero-ui">
-        <div style="letter-spacing: 12px; font-size: 12px; color: var(--gold); margin-bottom: 20px; font-weight: bold;">CENTURY 21 BONANZA</div>
-        <h1 class="oracle-text">ELITE PORTFOLIO</h1>
-        <p style="letter-spacing: 5px; opacity: 0.6; font-size: 10px; margin-top: 15px;">DESLIZA LA IMAGEN • CLIC PARA EXPLORAR</p>
-        <button class="cta-gold" onclick="openMarket()">INICIAR EXPLORACIÓN</button>
-    </div>
-
-    <main id="market-index">
+    <main id="layer-index">
         <div class="index-header">
             <h2>GALA INDEX</h2>
-            <p style="letter-spacing: 10px; opacity: 0.5; font-size: 12px; margin-top: 10px;">DISTRITOS DE ALTO RENDIMIENTO</p>
+            <p style="letter-spacing: 6px; font-size: 10px; opacity: 0.5;">SEGMENTACIÓN ESTRATÉGICA PARAGUAY</p>
         </div>
 
-        <section class="zone-box">
-            <span class="zone-label">ASUNCIÓN LUXURY</span>
-            <div class="zone-grid">
-                <div class="prop-item" onclick="openDetail('Villa Morra')">VILLA MORRA <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openDetail('Santa Teresa')">SANTA TERESA <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openDetail('Manora')">MANORA <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openDetail('Recoleta')">RECOLETA <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item otros" onclick="openDetail('Otros Barrios')">OTROS BARRIOS <i class="fas fa-plus"></i></div>
+        <div class="zone-container">
+            <div class="zone-title"><i class="fas fa-map-marker-alt"></i> ASUNCIÓN LUXURY</div>
+            <div class="hood-grid">
+                <div class="hood-btn" onclick="openSub('Villa Morra', 'Asunción')"><span>Villa Morra</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn" onclick="openSub('Santa Teresa', 'Asunción')"><span>Santa Teresa</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn" onclick="openSub('Manorá', 'Asunción')"><span>Manorá</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn" onclick="openSub('Recoleta', 'Asunción')"><span>Recoleta</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn" onclick="openSub('Los Laureles', 'Asunción')"><span>Los Laureles</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn" onclick="openSub('Las Lomas', 'Asunción')"><span>Las Lomas</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn otros" onclick="openSub('Otros Barrios', 'Asunción')"><span>Otros Barrios</span> <i class="fas fa-plus"></i></div>
             </div>
-        </section>
+        </div>
 
-        <section class="zone-box">
-            <span class="zone-label">GRAN ASUNCIÓN (CENTRAL)</span>
-            <div class="zone-grid">
-                <div class="prop-item" onclick="openDetail('Luque')">LUQUE <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openDetail('Lambaré')">LAMBARÉ <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openDetail('San Lorenzo')">SAN LORENZO <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openDetail('Mariano R. Alonso')">MARIANO R. ALONSO <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item otros" onclick="openDetail('Otros Distritos')">OTROS DISTRITOS <i class="fas fa-plus"></i></div>
+        <div class="zone-container">
+            <div class="zone-title"><i class="fas fa-building"></i> CENTRAL PREMIUM</div>
+            <div class="hood-grid">
+                <div class="hood-btn" onclick="openSub('Luque', 'Central')"><span>Luque</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn" onclick="openSub('Lambaré', 'Central')"><span>Lambaré</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn" onclick="openSub('San Lorenzo', 'Central')"><span>San Lorenzo</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn" onclick="openSub('Mariano R. Alonso', 'Central')"><span>Mariano R. Alonso</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn" onclick="openSub('Fdo. de la Mora', 'Central')"><span>Fdo. de la Mora</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn" onclick="openSub('Limpio', 'Central')"><span>Limpio</span> <i class="fas fa-chevron-right"></i></div>
+                <div class="hood-btn otros" onclick="openSub('Otros Distritos', 'Central')"><span>Otros Distritos</span> <i class="fas fa-plus"></i></div>
             </div>
-        </section>
+        </div>
     </main>
 
-    <div id="detail-view">
-        <span class="close-btn" onclick="closeDetail()"><i class="fas fa-times"></i></span>
-        <nav id="detail-sidebar">
-            <button class="dock-btn active" onclick="setStation(0)"><i class="fas fa-hotel"></i></button>
-            <button class="dock-btn" onclick="setStation(1)"><i class="fas fa-couch"></i></button>
-            <button class="dock-btn" onclick="setStation(2)"><i class="fas fa-utensils"></i></button>
-            <button class="dock-btn" onclick="setStation(3)"><i class="fas fa-bed"></i></button>
-            <button class="dock-btn" onclick="setStation(4)"><i class="fas fa-swimming-pool"></i></button>
-            <button class="dock-btn" onclick="setStation(5)"><i class="fas fa-shield-alt"></i></button>
+    <div id="layer-sub">
+        <button class="btn-back" onclick="closeSub()"><i class="fas fa-arrow-left"></i> VOLVER</button>
+        <div style="text-align: center; margin-top: 20px;">
+            <h2 id="sub-title" style="font-family:'Cinzel'; color:var(--gold); font-size: 2rem; margin:0;"></h2>
+            <p id="sub-subtitle" style="letter-spacing:3px; font-size:10px; opacity:0.6; text-transform:uppercase;"></p>
+        </div>
+        <div class="sub-grid" id="sub-grid"></div>
+    </div>
+
+    <div id="layer-detail">
+        <span class="btn-close-detail" onclick="closeDetail()"><i class="fas fa-times"></i></span>
+        <nav id="detail-dock">
+            <button class="dock-icon" onclick="changeStation(0)"><i class="fas fa-hotel"></i></button>
+            <button class="dock-icon" onclick="changeStation(1)"><i class="fas fa-couch"></i></button>
+            <button class="dock-icon" onclick="changeStation(2)"><i class="fas fa-utensils"></i></button>
+            <button class="dock-icon" onclick="changeStation(3)"><i class="fas fa-bed"></i></button>
+            <button class="dock-icon" onclick="changeStation(4)"><i class="fas fa-swimming-pool"></i></button>
+            <button class="dock-icon" onclick="changeStation(5)"><i class="fas fa-shield-alt"></i></button>
         </nav>
-        <div class="content-frame">
-            <div class="station-gallery" id="station-gallery">
-                </div>
-            <div class="p-info">
-                <h2 id="p-name"></h2>
-                <p id="s-label" style="letter-spacing: 5px; color: var(--gold); font-weight: bold; font-size: 12px; margin-top: 10px;"></p>
-                <p>Desliza lateralmente sobre la imagen para ver los 4 ángulos de esta estancia. Portafolio exclusivo curado para el inversor de gala.</p>
-                <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 15px;">
-                    <button style="background: var(--gold); color: black; border: none; padding: 20px; font-family: 'Cinzel'; font-weight: bold; cursor: pointer;">DOSSIER VIP</button>
-                    <button style="background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 15px; font-family: 'Cinzel'; cursor: pointer;">CONTACTAR AGENTE</button>
+        
+        <div class="detail-content">
+            <div class="swiper swiper-station">
+                <div class="swiper-wrapper" id="station-wrapper">
+                    </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            
+            <div class="detail-info">
+                <h2 id="prop-name-display"></h2>
+                <span class="station-title" id="station-name-display"></span>
+                <p>Desliza la imagen lateralmente para explorar los 4 ángulos exclusivos de este espacio. Diseñado para el cliente de alto estándar de Bonanza C21.</p>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <button style="background: var(--gold); color: black; border: none; padding: 15px; font-family: 'Cinzel'; font-weight: bold; cursor: pointer;">SOLICITAR DOSSIER</button>
+                    <button style="background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 12px; font-family: 'Cinzel'; cursor: pointer;">CONTACTO DIRECTO</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // DATOS COHERENTES (4 ANGULOS POR ESTACION)
-        const media = {
-            0: ["https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?w=1200", "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?w=1200", "https://images.pexels.com/photos/1838640/pexels-photo-1838640.jpeg?w=1200", "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?w=1200"],
-            1: ["https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=1200", "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?w=1200", "https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?w=1200", "https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?w=1200"],
-            2: ["https://images.pexels.com/photos/2724748/pexels-photo-2724748.jpeg?w=1200", "https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?w=1200", "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?w=1200", "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?w=1200"],
-            3: ["https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?w=1200", "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?w=1200", "https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?w=1200", "https://images.pexels.com/photos/2029722/pexels-photo-2029722.jpeg?w=1200"],
-            4: ["https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?w=1200", "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?w=1200", "https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?w=1200", "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg?w=1200"],
-            5: ["https://images.pexels.com/photos/2034892/pexels-photo-2034892.jpeg?w=1200", "https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?w=1200", "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?w=1200", "https://images.pexels.com/photos/323775/pexels-photo-323775.jpeg?w=1200"]
+        // Inicializar Swiper de la Portada
+        const heroSwiper = new Swiper('.swiper-hero', {
+            loop: true,
+            grabCursor: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            autoplay: { delay: 5000, disableOnInteraction: false }
+        });
+
+        // Nombres de propiedades de ejemplo (8 unidades)
+        const propNames = ["Mansion Diamante", "The Golden Tower", "Residencia Gala", "Majestic Estate", "Iconic Suite", "Palacio de Oro", "Elite Residence", "The Vault Luxury"];
+
+        // BASE DE DATOS DE IMÁGENES COHERENTES (4 ÁNGULOS POR ESTACIÓN)
+        const mediaData = {
+            0: { n: "FACHADA PRINCIPAL", i: ["https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?w=1200", "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?w=1200", "https://images.pexels.com/photos/1838640/pexels-photo-1838640.jpeg?w=1200", "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?w=1200"] },
+            1: { n: "ESTANCIA SOCIAL", i: ["https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=1200", "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?w=1200", "https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?w=1200", "https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?w=1200"] },
+            2: { n: "COCINA DE AUTOR", i: ["https://images.pexels.com/photos/2724748/pexels-photo-2724748.jpeg?w=1200", "https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?w=1200", "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?w=1200", "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?w=1200"] },
+            3: { n: "MASTER SUITES", i: ["https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?w=1200", "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?w=1200", "https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?w=1200", "https://images.pexels.com/photos/2029722/pexels-photo-2029722.jpeg?w=1200"] },
+            4: { n: "OASIS & PISCINA", i: ["https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?w=1200", "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?w=1200", "https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?w=1200", "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg?w=1200"] },
+            5: { n: "CONFORT & SEGURIDAD", i: ["https://images.pexels.com/photos/2034892/pexels-photo-2034892.jpeg?w=1200", "https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?w=1200", "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?w=1200", "https://images.pexels.com/photos/323775/pexels-photo-323775.jpeg?w=1200"] }
         };
-        const sNames = ["FACHADA PRINCIPAL", "ESTANCIA SOCIAL", "COCINA DE AUTOR", "MASTER SUITE", "OASIS & PISCINA", "CONFOR Y SEGURIDAD"];
 
-        function openMarket() { document.body.classList.add('revealed'); }
-        function openDetail(name) {
-            document.getElementById('p-name').innerText = name;
-            setStation(0);
-            document.getElementById('detail-view').style.display = 'grid';
+        let stationSwiper = null;
+
+        // Funciones de Navegación
+        function startApp() { document.body.classList.add('app-started'); }
+
+        function openSub(hood, zone) {
+            document.getElementById('sub-title').innerText = hood.toUpperCase();
+            document.getElementById('sub-subtitle').innerText = `${zone} • PORTAFOLIO DE ACTIVOS`;
+            
+            const grid = document.getElementById('sub-grid');
+            grid.innerHTML = propNames.map(name => `
+                <div class="prop-card" onclick="openDetail('${name}')">
+                    <h4>${name}</h4>
+                    <p>Referencia de Inversión VIP</p>
+                </div>
+            `).join('');
+            
+            document.getElementById('layer-sub').style.display = 'flex';
         }
-        function closeDetail() { document.getElementById('detail-view').style.display = 'none'; }
+        function closeSub() { document.getElementById('layer-sub').style.display = 'none'; }
 
-        function setStation(idx) {
-            const gallery = document.getElementById('station-gallery');
-            gallery.innerHTML = media[idx].map(src => `<img class="station-slide" src="${src}">`).join('');
-            document.getElementById('s-label').innerText = sNames[idx];
-            document.querySelectorAll('.dock-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
-            gallery.scrollLeft = 0; // Reset swipe al cambiar de estación
+        function openDetail(propName) {
+            document.getElementById('prop-name-display').innerText = propName;
+            document.getElementById('layer-detail').style.display = 'grid';
+            
+            // Iniciar en Estación 0 (Fachada)
+            changeStation(0);
+        }
+        function closeDetail() { document.getElementById('layer-detail').style.display = 'none'; }
+
+        function changeStation(idx) {
+            const data = mediaData[idx];
+            document.getElementById('station-name-display').innerText = data.n;
+            
+            // Actualizar Botones Laterales
+            document.querySelectorAll('.dock-icon').forEach((btn, i) => btn.classList.toggle('active', i === idx));
+
+            // Destruir swiper anterior si existe
+            if(stationSwiper !== null) stationSwiper.destroy(true, true);
+            
+            // Inyectar nuevas imágenes (4 ángulos)
+            const wrapper = document.getElementById('station-wrapper');
+            wrapper.innerHTML = data.i.map(src => `
+                <div class="swiper-slide"><img class="station-slide-img" src="${src}"></div>
+            `).join('');
+
+            // Inicializar el nuevo Swiper para la estación
+            stationSwiper = new Swiper('.swiper-station', {
+                loop: true,
+                grabCursor: true,
+                pagination: { el: '.swiper-pagination', clickable: true },
+                observer: true,
+                observeParents: true
+            });
         }
     </script>
 </body>
