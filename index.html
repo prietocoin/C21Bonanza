@@ -3,141 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C21 Bonanza | Revelación de Gala</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <title>C21 Bonanza | Elite Oracle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --gold: #c5a059;
             --gold-gradient: linear-gradient(135deg, #c5a059 0%, #f1d38a 50%, #b38b45 100%);
-            --black: #080808;
+            --black: #000000;
+            --dark-gray: #0a0a0a;
+            --transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
         body, html { margin: 0; padding: 0; height: 100vh; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; }
 
-        /* PORTADA DE MISTERIO */
-        #hero {
-            position: fixed; width: 100%; height: 100%; z-index: 100;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=2000') center/cover;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 1s cubic-bezier(0.85, 0, 0.15, 1);
+        /* --- ESTILOS DE EDICIÓN EN VIVO --- */
+        [contenteditable="true"] { border: 1px dashed rgba(197,160,89,0.3); padding: 2px; outline: none; transition: 0.3s; }
+        [contenteditable="true"]:focus { border-color: var(--gold); background: rgba(197,160,89,0.05); }
+        .url-edit { background: transparent; border: 1px solid #333; color: var(--gold); font-size: 10px; width: 100%; box-sizing: border-box; margin-top: 5px; font-family: monospace; display: none;}
+        .editing .url-edit { display: block; }
+
+        /* --- PANEL DE CONTROL --- */
+        #admin-panel {
+            position: fixed; bottom: 20px; left: 20px; z-index: 1000;
+            background: rgba(0,0,0,0.9); border: 1px solid var(--gold);
+            padding: 15px; border-radius: 8px; backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;
+        }
+        .btn-admin { background: var(--gold-gradient); color: black; border: none; padding: 10px 20px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 4px; letter-spacing: 1px; transition: 0.3s; margin: 5px; }
+        .btn-admin:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(197,160,89,0.3); }
+
+        /* --- PORTADA ESPECTRAL (INTRO) --- */
+        #intro {
+            height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; position: relative; z-index: 100; transition: var(--transition);
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
         }
 
-        .gold-brand { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 10px; color: var(--gold); margin-bottom: 20px; }
-        .prop-name { font-family: 'Cinzel', serif; font-size: 4rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        /* EL BOTÓN MAGNÉTICO LATERAL */
-        .reveal-btn {
-            position: absolute; right: 0; height: 100%; width: 80px;
-            background: var(--gold-gradient); border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; transition: 0.3s;
+        .oracle-text {
+            font-family: 'Cinzel', serif; font-size: 7rem; font-weight: 700;
+            background: url('https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=2070') center/cover;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: textFlow 20s infinite linear; text-transform: uppercase; letter-spacing: 15px;
+            margin: 0;
         }
-        .reveal-btn span { transform: rotate(-90deg); font-family: 'Cinzel', serif; font-weight: bold; color: black; white-space: nowrap; letter-spacing: 5px; }
-        .reveal-btn:hover { width: 120px; box-shadow: -10px 0 30px rgba(197, 160, 89, 0.4); }
 
-        /* INTERFAZ DIVIDIDA (AL REVELAR) */
-        #main-interface { display: grid; grid-template-columns: 1fr 1fr; height: 100vh; opacity: 0; pointer-events: none; transition: 1s; }
-        
-        .left-visual { border-right: 1px solid var(--gold); background: url('https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=1200') center/cover; position: relative; }
-        .left-visual::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
+        @keyframes textFlow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 
-        .right-scroll { overflow-y: scroll; padding: 60px; background: #050505; scroll-behavior: smooth; }
-        .right-scroll::-webkit-scrollbar { width: 3px; }
-        .right-scroll::-webkit-scrollbar-thumb { background: var(--gold); }
+        /* EL BOTÓN LÍQUIDO */
+        .cta-liquid {
+            margin-top: 50px; padding: 15px 40px; font-family: 'Cinzel', serif;
+            color: var(--gold); background: transparent; border: 1px solid var(--gold);
+            cursor: pointer; position: relative; overflow: hidden; letter-spacing: 3px;
+            transition: 0.5s; box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+        }
+        .cta-liquid::after {
+            content: ""; position: absolute; inset: 0; background: var(--gold-gradient);
+            transform: translateY(100%); transition: 0.5s; z-index: -1;
+        }
+        .cta-liquid:hover { color: black; box-shadow: 0 0 30px rgba(197, 160, 89, 0.5); }
+        .cta-liquid:hover::after { transform: translateY(0); }
 
-        /* AMENIDADES SIN FIN */
-        .benefit-block { margin-bottom: 120px; animation: slideIn 1s forwards; opacity: 0; }
-        .benefit-block i { font-size: 40px; color: var(--gold); margin-bottom: 20px; }
-        .benefit-block h2 { font-family: 'Cinzel', serif; font-size: 2.5rem; color: var(--gold); margin: 10px 0; }
-        .benefit-block p { font-weight: 200; font-size: 1.1rem; line-height: 1.8; color: #ccc; }
-        .benefit-img { width: 100%; height: 300px; object-fit: cover; border: 1px solid var(--gold); margin-top: 20px; }
+        /* --- INTERFAZ ELITE (DESPLEGADA) --- */
+        #elite-ui {
+            position: fixed; inset: 0; display: grid; grid-template-columns: 80px 1fr;
+            opacity: 0; pointer-events: none; transition: var(--transition); transform: scale(1.1);
+        }
 
-        /* EDITOR */
-        #admin-panel { position: fixed; bottom: 20px; left: 20px; z-index: 500; display: flex; gap: 10px; }
-        .btn-tool { background: var(--gold); color: black; border: none; padding: 10px 20px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 4px; }
+        /* BARRA LATERAL (THE DOCK) */
+        #sidebar {
+            background: var(--dark-gray); border-right: 1px solid rgba(197, 160, 89, 0.2);
+            display: flex; flex-direction: column; align-items: center; padding: 30px 0; gap: 20px;
+        }
+        .nav-icon {
+            font-size: 20px; color: rgba(197, 160, 89, 0.4);
+            width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; cursor: pointer; transition: 0.3s; border: 1px solid transparent;
+        }
+        .nav-icon:hover, .nav-icon.active { color: var(--gold); background: rgba(197, 160, 89, 0.05); border-color: rgba(197, 160, 89, 0.2); }
+        .nav-icon.active { background: var(--gold-gradient); color: black; box-shadow: 0 0 15px rgba(197, 160, 89, 0.3); }
 
-        /* ESTADOS */
-        .revelado #hero { transform: translateX(-100%); }
-        .revelado #main-interface { opacity: 1; pointer-events: all; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        /* ÁREA DE CONTENIDO (INFINITO) */
+        #content-area {
+            position: relative; overflow: hidden;
+            background: url('https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=2070') center/cover;
+        }
+        #content-area::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+
+        .amenity-scene {
+            position: absolute; inset: 0; padding: 60px; display: grid; grid-template-columns: 1fr 1fr;
+            align-items: center; gap: 50px; opacity: 0; transform: translateX(50px) rotateY(10px);
+            transition: 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); pointer-events: none;
+        }
+        .amenity-scene.active { opacity: 1; transform: translateX(0) rotateY(0); pointer-events: all; }
+
+        .scene-img {
+            width: 100%; height: 80vh; object-fit: cover;
+            border: 1px solid var(--gold); padding: 5px; background: black;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        }
+        .scene-text h2 { font-family: 'Cinzel', serif; font-size: 3rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 20px 0;}
+        .scene-text p { font-weight: 200; font-size: 1.1rem; line-height: 1.8; color: #ccc; max-width: 500px;}
+
+        /* --- ESTADOS DE REVELACIÓN --- */
+        .revealed #intro { opacity: 0; transform: translateY(-100%); pointer-events: none; }
+        .revealed #elite-ui { opacity: 1; pointer-events: all; transform: scale(1); }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .oracle-text { font-size: 3rem; letter-spacing: 5px; }
+            #elite-ui { grid-template-columns: 1fr; grid-template-rows: 60px 1fr; }
+            #sidebar { flex-direction: row; justify-content: center; padding: 0 10px; border-right: none; border-bottom: 1px solid rgba(197, 160, 89, 0.2); }
+            .nav-icon { width: 40px; height: 40px; font-size: 16px; }
+            .amenity-scene { grid-template-columns: 1fr; padding: 30px; text-align: center; overflow-y: auto;}
+            .scene-img { height: 40vh; }
+            .scene-text h2 { font-size: 2rem; }
+            .amenity-scene.active { display: flex; flex-direction: column; align-items: center; justify-content: center;}
+        }
     </style>
 </head>
 <body>
 
     <div id="admin-panel">
-        <button class="btn-tool" onclick="saveCode()">EXPORTAR PORTAFOLIO</button>
-        <button class="btn-tool" style="background: white;" onclick="addAmenity()">+ AÑADIR BENEFICIO</button>
+        <span style="font-family:'Cinzel'; color:white; font-size:10px; letter-spacing:2px; display:block; margin-bottom:10px;">Bonanza Editor</span>
+        <button class="btn-admin" onclick="addBenefit()">+ AÑADIR BENEFICIO</button>
+        <button class="btn-admin" style="background: white;" onclick="saveCode()">PUBLICAR (EXPORTAR)</button>
     </div>
 
-    <section id="hero">
-        <div class="gold-brand">CORPORACIÓN BONANZA C21</div>
-        <h1 class="prop-name" id="p-name" contenteditable="true">MANSIÓN DIAMANTE</h1>
-        <button class="reveal-btn" onclick="reveal()">
-            <span>REVELAR AMENIDADES</span>
-        </button>
+    <section id="intro">
+        <span style="letter-spacing:10px; font-size:12px; color:var(--gold); font-weight:200;">CORPORACIÓN BONANZA C21</span>
+        <h1 class="oracle-text" id="prop-name" contenteditable="true">MANSIÓN DIAMANTE</h1>
+        <p id="prop-sub" contenteditable="true" style="letter-spacing:4px; font-weight:200; opacity:0.7;">PORTAFOLIO EXCLUSIVO • VALORACIÓN RESERVADA</p>
+        
+        <button class="cta-liquid" onclick="activateOracle()">INICIAR REVELACIÓN DE GALA</button>
     </section>
 
-    <main id="main-interface">
-        <div class="left-visual">
-            <div style="position: absolute; bottom: 40px; left: 40px; z-index: 2;">
-                <h2 class="gold-text" style="font-family: 'Cinzel'; color: var(--gold);">VISTA PRINCIPAL</h2>
-                <p style="font-size: 12px; letter-spacing: 2px;">C21 EXCLUSIVE LISTING</p>
-            </div>
-        </div>
+    <main id="elite-ui">
+        <nav id="sidebar">
+            </nav>
 
-        <div class="right-scroll" id="amenities-list">
+        <div id="content-area">
             </div>
     </main>
 
     <script>
+        // BASE DE DATOS LOCAL EDITABLE (BENEFICIOS SIN FIN)
+        // Iconos unicolor recomendados: fa-swimming-pool, fa-dumbbell, fa-bed, fa-mountain-sun, fa-shield-alt, fa-car, fa-spa, fa-wine-glass-alt, fa-helicopter
         let benefits = [
-            { icon: "fa-gem", t: "Lujo Sin Límites", d: "Cada rincón ha sido diseñado para superar las expectativas del coleccionista de propiedades más exigente.", i: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=1200" },
-            { icon: "fa-water", t: "Oasis Privado", d: "Piscina de borde infinito con sistema de purificación por ozono y calefacción geotérmica.", i: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1200" }
+            { icon: "fa-gem", t: "Arquitectura Diamante", d: "Una obra maestra de diseño contemporáneo con acabados importados y tecnología de punta en cada rincón.", i: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200" },
+            { icon: "fa-swimming-pool", t: "Piscina Infinita", d: "Espejo de agua climatizado con bordes invisibles hacia el valle y sistema de purificación por ozono.", i: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1200" },
+            { icon: "fa-wine-glass-alt", t: "Cava de Autor", d: "Espacio de cata privada con control de humedad y temperatura inteligente para 1000 botellas.", i: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=1200" }
         ];
 
-        function reveal() {
-            document.body.classList.add('revelado');
+        function activateOracle() {
+            document.body.classList.add('revealed');
             render();
         }
 
         function render() {
-            const list = document.getElementById('amenities-list');
-            list.innerHTML = benefits.map((b, idx) => `
-                <div class="benefit-block" style="animation-delay: ${idx * 0.2}s">
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content-area');
+            
+            // Generar Iconos de Navegación
+            sidebar.innerHTML = benefits.map((b, idx) => `
+                <button class="nav-icon ${idx === 0 ? 'active' : ''}" onclick="showScene(${idx}, this)" title="${b.t}">
                     <i class="fas ${b.icon}"></i>
-                    <h2 contenteditable="true" oninput="update(${idx}, 't', this.innerText)">${b.t}</h2>
-                    <p contenteditable="true" oninput="update(${idx}, 'd', this.innerText)">${b.d}</p>
-                    <img class="benefit-img" src="${b.i}">
-                    <input type="text" value="${b.i}" class="url-edit" style="width:100%; background:black; border:1px solid #333; color:#c5a059; font-size:10px; margin-top:5px;" oninput="update(${idx}, 'i', this.value); render();" placeholder="URL de la foto">
-                </div>
-            `).join('') + `<div style="height:100px;"></div>`;
-        }
+                </button>
+            `).join('');
 
-        function update(idx, key, val) { benefits[idx][key] = val; }
-
-        function addAmenity() {
-            benefits.push({ icon: "fa-plus-circle", t: "Nuevo Beneficio", d: "Escribe aquí el beneficio sin fin para tu cliente...", i: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200" });
-            render();
-        }
-
-        function saveCode() {
-            document.getElementById('admin-panel').style.display = 'none';
-            document.querySelectorAll('.url-edit').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('[contenteditable]').forEach(e => e.contentEditable = "false");
-            
-            const scriptTag = document.querySelector('script');
-            const dataStr = `let benefits = ${JSON.stringify(benefits, null, 4)};`;
-            scriptTag.text = scriptTag.text.replace(/let benefits = \[[\s\S]*?\];/, dataStr);
-
-            const blob = new Blob(["<!DOCTYPE html>\n" + document.documentElement.outerHTML], {type: "text/html"});
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "index.html";
-            a.click();
-            
-            location.reload(); // Recarga para restaurar el editor
-        }
-
-        render();
-    </script>
-</body>
-</html>
+            // Generar Escenas de Contenido
+            content.innerHTML = benefits.map((b, idx) => `
+                <div class="amenity-scene ${idx === 0 ? 'active' : ''}" id="scene-${idx}">
+                    <div class="scene-text">
+                        <i class="fas ${b.icon}" style="font-size:30px; color:#c5a059; margin-bottom:20px;"></i>
+                        <h2 contenteditable="true" oninput="update(${idx}, 't', this.innerText)">${b.t}</h2>
+                        <p contenteditable="true" oninput="update(${idx}, 'd', this.innerText)">${b.d}</p>
+                    </div>
+                    <div>
+                        <img class="scene-img" src="${b.i}">
+                        <div class="url-editor-box" style="margin-top:10px;">
+                            <span style="font-size:9px; color:#c5a059;">Icono (Font
