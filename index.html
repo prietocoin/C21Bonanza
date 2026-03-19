@@ -106,4 +106,97 @@
         /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 768px) {
             .cardinal-grid { grid-template-columns: 1fr; gap: 20px; padding-bottom: 80px;}
-            .cardinal
+            .cardinal-zone { padding: 25px; }
+            .zone-title { font-size: 1.3rem; }
+            .property-item { font-size: 1rem; padding: 15px 0; }
+            #gala-index { padding: 30px 15px; }
+            .index-header { margin-bottom: 30px; }
+            .back-btn { bottom: 20px; right: 20px; padding: 8px 15px; }
+        }
+
+        /* ESTADOS DE REVELACIÓN */
+        .revealed #intro { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+        .revealed #gala-index { opacity: 1; transform: translateY(0); pointer-events: all; }
+    </style>
+</head>
+<body>
+
+    <section id="intro">
+        <div class="gold-brand">CORPORACIÓN BONANZA C21</div>
+        <h1 class="oracle-text">GLOBAL PORTFOLIO</h1>
+        <p style="letter-spacing:5px; font-weight:200; opacity:0.7; font-size: clamp(10px, 1.5vw, 14px); color: #eee; margin-top: 10px;">EDICIÓN EXCLUSIVA • INVERSIONES DE GALA</p>
+        
+        <button class="cta-liquid" onclick="activateIndex()">EXPLORAR EL ÍNDICE</button>
+    </section>
+
+    <main id="gala-index">
+        <button class="back-btn" onclick="activateIntro()"><i class="fas fa-arrow-left"></i> VOLVER</button>
+
+        <header class="index-header">
+            <div class="gold-brand" style="margin-bottom: 5px;">BONANZA C21</div>
+            <h2>Gala Index</h2>
+            <p>Estructura Geográfica de Inversión</p>
+        </header>
+
+        <div class="cardinal-grid">
+            
+            <div class="cardinal-zone">
+                <i class="fas fa-compass zone-bg-icon"></i>
+                <div class="zone-title"><i class="fas fa-long-arrow-alt-up"></i> ZONA NORTE</div>
+                <ul class="property-list">
+                    <li class="property-item">Mansión Ártica VIP <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Villa Boreal Luxury <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Penthouse Cumbre <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Residencia Glaciar <i class="fas fa-chevron-right"></i></li>
+                </ul>
+            </div>
+
+            <div class="cardinal-zone">
+                <i class="fas fa-compass zone-bg-icon"></i>
+                <div class="zone-title"><i class="fas fa-long-arrow-alt-down"></i> ZONA SUR</div>
+                <ul class="property-list">
+                    <li class="property-item">Hacienda Austral <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Finca Antártica Premium <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Caserío Meridional <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Estancia del Trópico <i class="fas fa-chevron-right"></i></li>
+                </ul>
+            </div>
+
+            <div class="cardinal-zone">
+                <i class="fas fa-compass zone-bg-icon"></i>
+                <div class="zone-title"><i class="fas fa-long-arrow-alt-right"></i> ZONA ESTE</div>
+                <ul class="property-list">
+                    <li class="property-item">Palacio de Oriente <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Villa Amanecer Gala <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Residencial Levante <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Torre Solar VIP <i class="fas fa-chevron-right"></i></li>
+                </ul>
+            </div>
+
+            <div class="cardinal-zone">
+                <i class="fas fa-compass zone-bg-icon"></i>
+                <div class="zone-title"><i class="fas fa-long-arrow-alt-left"></i> ZONA OESTE</div>
+                <ul class="property-list">
+                    <li class="property-item">Rancho Ocaso Gold <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Mansión del Pacífico <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Villa Poniente Luxury <i class="fas fa-chevron-right"></i></li>
+                    <li class="property-item">Hacienda Crepúsculo <i class="fas fa-chevron-right"></i></li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Transición de Portada a Índice
+        function activateIndex() { 
+            document.body.classList.add('revealed'); 
+        }
+
+        // Transición de Índice a Portada
+        function activateIntro() { 
+            document.body.classList.remove('revealed'); 
+        }
+    </script>
+</body>
+</html>
