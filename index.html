@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bonanza C21 | Luxury Real Estate</title>
+    <title>Bonanza C21 | Luxury Editor</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,192 +13,114 @@
             --dark-gray: #1a1a1a;
         }
 
-        body {
-            background-color: var(--black);
-            color: #ffffff;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            line-height: 1.6;
+        body { background-color: var(--black); color: #ffffff; font-family: 'Montserrat', sans-serif; margin: 0; }
+        
+        /* Estilos de Edición */
+        [contenteditable="true"] { border: 1px dashed var(--soft-gold) !important; padding: 5px; min-width: 50px; }
+        
+        /* Panel Admin Flotante */
+        #admin-panel {
+            position: fixed; bottom: 20px; right: 20px; background: rgba(0,0,0,0.9);
+            border: 2px solid var(--soft-gold); padding: 20px; z-index: 9999;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.5); border-radius: 10px;
         }
 
-        /* Títulos en Dorado Metálico */
-        .gold-text {
-            background: var(--gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-        }
+        .gold-text { background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Cinzel', serif; font-weight: 700; }
 
         .hero {
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070') center/cover;
+            height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070') center/cover;
             border-bottom: 2px solid var(--soft-gold);
         }
 
-        .hero-box {
-            padding: 40px;
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-        }
+        .hero-box { padding: 40px; border: 1px solid rgba(197, 160, 89, 0.3); backdrop-filter: blur(10px); }
 
-        /* Selector Interactivo */
-        .selector-wrapper {
-            padding: 100px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .btn-gala { background: transparent; border: 1px solid var(--soft-gold); color: var(--soft-gold); padding: 12px 30px; font-family: 'Cinzel', serif; cursor: pointer; text-transform: uppercase; margin: 5px; }
+        
+        .display-card { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 1000px; margin: 50px auto; background: var(--dark-gray); padding: 40px; border: 1px solid #333; }
 
-        .nav-gold {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 50px;
-        }
-
-        .btn-gala {
-            background: transparent;
-            border: 1px solid var(--soft-gold);
-            color: var(--soft-gold);
-            padding: 12px 30px;
-            font-family: 'Cinzel', serif;
-            cursor: pointer;
-            transition: 0.4s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .btn-gala:hover, .btn-gala.active {
-            background: var(--gold);
-            color: var(--black);
-            font-weight: bold;
-        }
-
-        .display-card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            background: var(--dark-gray);
-            border: 1px solid #333;
-            padding: 40px;
-            align-items: center;
-        }
-
-        @media (max-width: 768px) {
-            .display-card { grid-template-columns: 1fr; }
-        }
-
-        .img-frame {
-            border: 1px solid var(--soft-gold);
-            padding: 10px;
-            line-height: 0;
-        }
-
-        .img-frame img { width: 100%; transition: 0.5s; }
-
-        input, textarea {
-            background: #111;
-            border: 1px solid #333;
-            border-bottom: 2px solid var(--soft-gold);
-            color: white;
-            padding: 15px;
-            margin-bottom: 20px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .btn-send {
-            background: var(--gold);
-            border: none;
-            padding: 15px 40px;
-            font-family: 'Cinzel', serif;
-            cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-        }
+        .hidden { display: none !important; }
+        .admin-input { background: #000; color: var(--soft-gold); border: 1px solid var(--soft-gold); padding: 8px; margin-bottom: 10px; width: 100%; }
     </style>
 </head>
 <body>
 
-    <section class="hero">
-        <div class="hero-box">
-            <h1 class="gold-text" style="font-size: 3.5rem; margin-bottom: 0;">BONANZA C21</h1>
-            <p style="letter-spacing: 5px; font-weight: 200;">PORTAFOLIO DE INVERSIÓN ÉLITE</p>
+    <div id="admin-panel">
+        <div id="login-section">
+            <p style="color:var(--soft-gold); margin-top:0;">Clave de Acceso:</p>
+            <input type="password" id="pass" class="admin-input">
+            <button class="btn-gala" onclick="login()" style="width:100%">Entrar</button>
         </div>
-    </section>
-
-    <div class="selector-wrapper">
-        <div class="nav-gold">
-            <button class="btn-gala active" onclick="change(this, 'area')">Áreas</button>
-            <button class="btn-gala" onclick="change(this, 'amenities')">Amenities</button>
-            <button class="btn-gala" onclick="change(this, 'specs')">Especificaciones</button>
-        </div>
-
-        <div class="display-card" id="main-card">
-            <div class="img-frame">
-                <img id="main-img" src="https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=600" alt="Lujo">
-            </div>
-            <div>
-                <h2 id="main-title" class="gold-text">Dimensiones de Gala</h2>
-                <p id="main-desc">Espacios diseñados bajo un concepto de arquitectura abierta, maximizando la luz natural y la fluidez entre ambientes.</p>
-                <ul id="main-list" style="color: var(--soft-gold); font-size: 0.9rem;">
-                    <li>350m² de Construcción</li>
-                    <li>Techos de Doble Altura</li>
-                    <li>Mármol Carrara en Pisos</li>
-                </ul>
-            </div>
+        <div id="tools-section" class="hidden">
+            <p style="color:var(--soft-gold); margin-top:0;">MODO EDITOR ACTIVO</p>
+            <button class="btn-gala" onclick="saveCode()" style="width:100%; background:var(--soft-gold); color:black;">EXPORTAR CAMBIOS</button>
+            <p style="font-size: 10px; margin-top: 10px;">Cambia los textos haciendo clic en ellos.</p>
         </div>
     </div>
 
-    <section style="background: #000; padding: 100px 20px; text-align: center;">
-        <h2 class="gold-text">Interesado en esta Propiedad</h2>
-        <form style="max-width: 600px; margin: 40px auto;">
-            <input type="text" placeholder="Nombre y Apellido">
-            <input type="email" placeholder="Email de Contacto">
-            <textarea placeholder="Consulta privada..."></textarea>
-            <button class="btn-send">CONTACTAR AGENTE EXCLUSIVO</button>
-        </form>
+    <section class="hero">
+        <div class="hero-box">
+            <h1 class="gold-text" id="prop-title" contenteditable="false" style="font-size: 3rem;">BONANZA C21</h1>
+            <p id="prop-subtitle" contenteditable="false">PORTAFOLIO DE INVERSIÓN ÉLITE</p>
+        </div>
     </section>
 
-    <script>
-        const info = {
-            area: {
-                t: "Dimensiones de Gala",
-                d: "Espacios diseñados bajo un concepto de arquitectura abierta, maximizando la luz natural y la fluidez entre ambientes.",
-                l: ["350m² de Construcción", "Techos de Doble Altura", "Mármol Carrara en Pisos"],
-                i: "https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=600"
-            },
-            amenities: {
-                t: "Servicios de Élite",
-                d: "Cada detalle ha sido pensado para el confort absoluto del residente más exigente.",
-                l: ["Piscina Climatizada", "Cava de Vinos Privada", "Cine en Casa Pro"],
-                i: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=600"
-            },
-            specs: {
-                t: "Tecnología y Confort",
-                d: "Integración total con sistemas inteligentes de última generación para el control del hogar.",
-                l: ["Domótica Integral", "Energía Solar", "Seguridad Blindada"],
-                i: "https://images.unsplash.com/photo-1558002038-103792e17734?q=80&w=600"
-            }
-        };
+    <div class="display-card">
+        <div>
+            <img id="main-img" src="https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=600" style="width:100%; border: 1px solid var(--soft-gold);">
+            <div id="img-editor" class="hidden" style="margin-top:10px;">
+                <input type="text" id="img-url" class="admin-input" placeholder="URL de la imagen nueva" oninput="updateImg()">
+            </div>
+        </div>
+        <div>
+            <h2 class="gold-text" id="card-title" contenteditable="false">Características</h2>
+            <p id="card-desc" contenteditable="false">Edita este texto con los beneficios de la propiedad.</p>
+        </div>
+    </div>
 
-        function change(btn, key) {
-            document.querySelectorAll('.btn-gala').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+    <script>
+        const CLAVE_MAESTRA = "C21BONANZA"; // <--- CAMBIA TU CLAVE AQUÍ
+
+        function login() {
+            const p = document.getElementById('pass').value;
+            if(p === CLAVE_MAESTRA) {
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('tools-section').classList.remove('hidden');
+                document.getElementById('img-editor').classList.remove('hidden');
+                
+                // Habilitar edición de texto
+                document.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = "true");
+                alert("Modo Editor de Gala Activado. Haz clic en los textos para editar.");
+            } else {
+                alert("Clave incorrecta");
+            }
+        }
+
+        function updateImg() {
+            const url = document.getElementById('img-url').value;
+            if(url) document.getElementById('main-img').src = url;
+        }
+
+        function saveCode() {
+            // Eliminar el panel antes de copiar el código
+            const panel = document.getElementById('admin-panel');
+            panel.classList.add('hidden');
             
-            const item = info[key];
-            document.getElementById('main-title').innerText = item.t;
-            document.getElementById('main-desc').innerText = item.d;
-            document.getElementById('main-img').src = item.i;
+            // Deshabilitar edición para el código final
+            document.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = "false");
             
-            const list = document.getElementById('main-list');
-            list.innerHTML = item.l.map(x => `<li>${x}</li>`).join('');
+            const fullHTML = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+            
+            // Crear un archivo para descargar
+            const blob = new Blob([fullHTML], {type: "text/html"});
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "index.html";
+            a.click();
+            
+            // Restaurar panel
+            panel.classList.remove('hidden');
+            document.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = "true");
         }
     </script>
 </body>
