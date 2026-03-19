@@ -182,4 +182,67 @@
                     <div>
                         <img class="scene-img" src="${b.i}">
                         <div class="url-editor-box" style="margin-top:10px;">
-                            <span style="font-size:9px; color:#c5a059;">Icono (Font
+                            <span style="font-size:9px; color:#c5a059;">Icono (FontAwesome):</span>
+                            <input type="text" value="${b.icon}" class="url-edit" oninput="update(${idx}, 'icon', this.value)" style="display:block; margin-bottom:5px;">
+                            <span style="font-size:9px; color:#c5a059;">URL de la foto:</span>
+                            <input type="text" value="${b.i}" class="url-edit" oninput="update(${idx}, 'i', this.value); refreshImg(${idx}, this.value)" style="display:block;">
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showScene(index, btn) {
+            // Actualizar Navegación
+            document.querySelectorAll('.nav-icon').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Actualizar Escenas con animación
+            document.querySelectorAll('.amenity-scene').forEach(s => s.classList.remove('active'));
+            document.getElementById(`scene-${index}`).classList.add('active');
+        }
+
+        function update(idx, key, val) { benefits[idx][key] = val; }
+        
+        function refreshImg(idx, val) {
+            document.querySelector(`#scene-${idx} .scene-img`).src = val;
+        }
+
+        function addBenefit() {
+            benefits.push({ icon: "fa-plus-circle", t: "Nuevo Beneficio Élite", d: "Describe aquí una característica que proyecte beneficios sin fin para tu cliente VIP.", i: "https://images.unsplash.com/photo-1600607687940-4e524cb35d5a?q=80&w=1200" });
+            render();
+            // Ir al último beneficio añadido
+            const lastBtn = document.querySelector('#sidebar .nav-icon:last-child');
+            showScene(benefits.length - 1, lastBtn);
+        }
+
+        function saveCode() {
+            // Limpieza profunda para la versión pública
+            document.getElementById('admin-panel').style.display = 'none';
+            document.body.classList.remove('editing');
+            document.querySelectorAll('.url-editor-box').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('[contenteditable]').forEach(e => e.contentEditable = "false");
+            document.body.classList.remove('revealed'); // Volver a la intro para el guardado
+
+            // Sincronizar Base de Datos en el script
+            const scriptTag = document.querySelector('script');
+            const dataStr = `let benefits = ${JSON.stringify(benefits, null, 4)};`;
+            scriptTag.text = scriptTag.text.replace(/let benefits = \[[\s\S]*?\];/, dataStr);
+
+            // Generar HTML
+            const blob = new Blob(["<!DOCTYPE html>\n" + document.documentElement.outerHTML], {type: "text/html"});
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "index.html"; // Nombre del archivo a descargar
+            a.click();
+            
+            // Recargar para restaurar el modo editor
+            setTimeout(() => location.reload(), 1000);
+        }
+
+        // Activar inputs de URL al hacer commit en el panel
+        document.body.classList.add('editing');
+        render(); // Carga inicial
+    </script>
+</body>
+</html>
