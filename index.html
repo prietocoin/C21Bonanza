@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bonanza C21 | Portafolio Geográfico de Gala</title>
+    <title>Bonanza C21 | Portafolio Élite Paraguay</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -11,191 +11,193 @@
             --gold: #c5a059;
             --gold-gradient: linear-gradient(135deg, #c5a059 0%, #f1d38a 50%, #b38b45 100%);
             --black: #000000;
-            --dark-gray: #0a0a0a;
-            --transition-slow: 1s cubic-bezier(0.77, 0, 0.175, 1);
+            --dark: #0a0a0a;
+            --transition: 0.8s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
         body, html { margin: 0; padding: 0; height: 100%; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; }
 
-        /* --- 1. PORTADA ESPECTRAL (INTRO) --- */
-        #intro {
+        /* --- PORTADA ESPECTRAL --- */
+        #hero {
             height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; position: fixed; inset: 0; z-index: 1000; transition: var(--transition-slow);
+            text-align: center; position: fixed; inset: 0; z-index: 1000; transition: var(--transition);
             background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-            padding: 20px; box-sizing: border-box;
         }
 
-        .gold-brand { letter-spacing: 10px; font-size: 11px; color: var(--gold); margin-bottom: 20px; font-weight: 200; font-family: 'Montserrat', sans-serif; }
-
         .oracle-text {
-            font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 8vw, 6.5rem); font-weight: 700;
+            font-family: 'Cinzel', serif; font-size: clamp(2rem, 8vw, 6rem); font-weight: 700;
             background: url('https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260') center/cover;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: textFlow 30s infinite linear; text-transform: uppercase; letter-spacing: clamp(5px, 2vw, 15px); margin: 0;
+            animation: textFlow 30s infinite linear; text-transform: uppercase; letter-spacing: clamp(5px, 2vw, 15px);
         }
 
         @keyframes textFlow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 
-        .cta-liquid {
-            margin-top: 50px; padding: 16px 40px; font-family: 'Cinzel', serif;
+        .cta-gold {
+            margin-top: 40px; padding: 15px 40px; font-family: 'Cinzel', serif;
             color: var(--gold); background: transparent; border: 1px solid var(--gold);
-            cursor: pointer; letter-spacing: 3px; font-size: 13px; transition: 0.4s;
-            position: relative; overflow: hidden;
+            cursor: pointer; letter-spacing: 3px; transition: 0.4s;
         }
-        .cta-liquid:hover { background: var(--gold); color: black; box-shadow: 0 0 30px rgba(197, 160, 89, 0.5); transform: scale(1.05); }
+        .cta-gold:hover { background: var(--gold); color: black; box-shadow: 0 0 30px rgba(197, 160, 89, 0.5); }
 
-        /* --- 2. ÍNDICE GEOGRÁFICO DE GALA (SEGUNDA PÁGINA) --- */
-        #gala-index {
-            height: 100vh; display: flex; flex-direction: column;
-            opacity: 0; transform: translateY(50px); transition: var(--transition-slow);
-            background: #000; padding: 40px 20px; box-sizing: border-box;
-            overflow-y: auto; /* Permitir scroll si el contenido es muy alto */
+        /* --- ÍNDICE ASUNCIÓN & CENTRAL --- */
+        #market-index {
+            height: 100vh; display: flex; flex-direction: column; padding: 40px 20px;
+            opacity: 0; transform: translateY(50px); transition: var(--transition);
+            background: var(--black); overflow-y: auto; box-sizing: border-box;
         }
 
-        .index-header { text-align: center; margin-bottom: 50px; padding-top: 20px;}
-        .index-header h2 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 4vw, 3rem); background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; letter-spacing: 4px;}
-        .index-header p { font-weight: 200; font-size: 12px; letter-spacing: 5px; color: #ccc; text-transform: uppercase; margin-top: 10px;}
-
-        /* Grid de Puntos Cardinales */
-        .cardinal-grid {
+        .grid-zones {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;
-            max-width: 1100px; margin: 0 auto 50px auto; width: 100%;
+            max-width: 1200px; margin: 40px auto; width: 100%;
         }
 
-        .cardinal-zone {
-            background: #0a0a0a; border: 1px solid rgba(197, 160, 89, 0.2);
-            padding: 30px; transition: 0.4s;
-            position: relative; overflow: hidden;
+        .zone-card {
+            background: var(--dark); border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 40px; text-align: left; transition: 0.4s;
         }
-        .cardinal-zone:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(197,160,89,0.1); }
+        .zone-card:hover { border-color: var(--gold); box-shadow: 0 10px 30px rgba(197,160,89,0.15); }
 
-        /* Icono de Brújula de Fondo */
-        .zone-bg-icon {
-            position: absolute; right: -20px; bottom: -20px; font-size: 10rem;
-            color: rgba(197, 160, 89, 0.03); transform: rotate(-15deg); pointer-events: none;
+        .zone-title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.8rem; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+
+        .prop-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid #1a1a1a; cursor: pointer; transition: 0.3s;
         }
+        .prop-item:hover { color: var(--gold); padding-left: 10px; background: rgba(197, 160, 89, 0.05); }
 
-        .zone-title {
-            font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold);
-            letter-spacing: 3px; margin-bottom: 25px; display: flex; align-items: center; gap: 15px;
-        }
-        .zone-title i { font-size: 1rem; opacity: 0.7; }
-
-        /* Lista de Propiedades Aleatorias */
-        .property-list { list-style: none; padding: 0; margin: 0; }
-        .property-item {
-            font-weight: 200; font-size: 1.1rem; color: #eee;
-            padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
-            display: flex; align-items: center; justify-content: space-between;
-            transition: 0.3s; cursor: pointer;
-        }
-        .property-item:hover { color: var(--gold); padding-left: 10px; background: rgba(197, 160, 89, 0.03);}
-        .property-item i { font-size: 12px; color: var(--gold); opacity: 0; transition: 0.3s; }
-        .property-item:hover i { opacity: 1; transform: translateX(-10px); }
-
-        /* Botón Volver */
-        .back-btn {
-            position: fixed; bottom: 30px; right: 30px;
-            background: rgba(197, 160, 89, 0.1); border: 1px solid var(--gold);
-            color: var(--gold); font-family: 'Cinzel', serif; font-size: 10px;
-            padding: 10px 20px; cursor: pointer; letter-spacing: 2px; z-index: 1100;
-            transition: 0.3s;
-        }
-        .back-btn:hover { background: var(--gold); color: black; }
-
-        /* --- RESPONSIVE MOBILE --- */
-        @media (max-width: 768px) {
-            .cardinal-grid { grid-template-columns: 1fr; gap: 20px; padding-bottom: 80px;}
-            .cardinal-zone { padding: 25px; }
-            .zone-title { font-size: 1.3rem; }
-            .property-item { font-size: 1rem; padding: 15px 0; }
-            #gala-index { padding: 30px 15px; }
-            .index-header { margin-bottom: 30px; }
-            .back-btn { bottom: 20px; right: 20px; padding: 8px 15px; }
+        /* --- VISTA DE DETALLE (EL PORTAFOLIO) --- */
+        #detail-view {
+            position: fixed; inset: 0; background: var(--black); z-index: 2000;
+            display: none; grid-template-columns: 80px 1fr; animation: fadeIn 0.5s forwards;
         }
 
-        /* ESTADOS DE REVELACIÓN */
-        .revealed #intro { transform: translateY(-100%); opacity: 0; pointer-events: none; }
-        .revealed #gala-index { opacity: 1; transform: translateY(0); pointer-events: all; }
+        #detail-sidebar {
+            background: #050505; border-right: 1px solid #222;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+        }
+
+        .dock-btn {
+            width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(197, 160, 89, 0.3);
+            background: transparent; color: var(--gold); cursor: pointer; transition: 0.4s;
+        }
+        .dock-btn.active { background: var(--gold-gradient); color: black; border-color: white; }
+
+        .content-frame { position: relative; display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center; padding: 60px; gap: 50px; }
+        .property-img { width: 100%; height: 80vh; object-fit: cover; border: 1px solid var(--gold); padding: 5px; }
+
+        .close-btn { position: absolute; top: 30px; right: 40px; color: var(--gold); font-size: 1.5rem; cursor: pointer; z-index: 3000; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 850px) {
+            .grid-zones { grid-template-columns: 1fr; }
+            #detail-view { grid-template-columns: 1fr; grid-template-rows: 1fr 70px; }
+            #detail-sidebar { flex-direction: row; order: 2; height: 70px; border-top: 1px solid #222; }
+            .content-frame { grid-template-columns: 1fr; padding: 20px; text-align: center; }
+            .property-img { height: 40vh; }
+        }
+
+        .revealed #hero { transform: translateY(-100%); }
+        .revealed #market-index { opacity: 1; transform: translateY(0); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <section id="intro">
-        <div class="gold-brand">CORPORACIÓN BONANZA C21</div>
-        <h1 class="oracle-text">GLOBAL PORTFOLIO</h1>
-        <p style="letter-spacing:5px; font-weight:200; opacity:0.7; font-size: clamp(10px, 1.5vw, 14px); color: #eee; margin-top: 10px;">EDICIÓN EXCLUSIVA • INVERSIONES DE GALA</p>
-        
-        <button class="cta-liquid" onclick="activateIndex()">EXPLORAR EL ÍNDICE</button>
+    <section id="hero">
+        <div style="letter-spacing: 10px; font-size: 11px; color: var(--gold);">ASUNCIÓN • PARAGUAY</div>
+        <h1 class="oracle-text">BONANZA C21</h1>
+        <button class="cta-gold" onclick="openMarket()">ACCEDER AL MERCADO</button>
     </section>
 
-    <main id="gala-index">
-        <button class="back-btn" onclick="activateIntro()"><i class="fas fa-arrow-left"></i> VOLVER</button>
-
-        <header class="index-header">
-            <div class="gold-brand" style="margin-bottom: 5px;">BONANZA C21</div>
-            <h2>Gala Index</h2>
-            <p>Estructura Geográfica de Inversión</p>
+    <main id="market-index">
+        <header style="text-align:center; margin-bottom: 50px;">
+            <h2 style="font-family:'Cinzel'; color:var(--gold); font-size: 2.5rem; margin:0;">Inversiones de Gala</h2>
+            <p style="letter-spacing:4px; font-weight:200; font-size:12px; opacity:0.6;">DISTRITOS DE ALTO RENDIMIENTO</p>
         </header>
 
-        <div class="cardinal-grid">
-            
-            <div class="cardinal-zone">
-                <i class="fas fa-compass zone-bg-icon"></i>
-                <div class="zone-title"><i class="fas fa-long-arrow-alt-up"></i> ZONA NORTE</div>
-                <ul class="property-list">
-                    <li class="property-item">Mansión Ártica VIP <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Villa Boreal Luxury <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Penthouse Cumbre <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Residencia Glaciar <i class="fas fa-chevron-right"></i></li>
-                </ul>
+        <div class="grid-zones">
+            <div class="zone-card">
+                <div class="zone-title">ASUNCIÓN LUXURY</div>
+                <div class="prop-item" onclick="openProp('Villa Morra Mansion', 'Villa Morra', 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg')">
+                    <span>Villa Morra Mansion</span> <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="prop-item" onclick="openProp('Torre Santa Teresa', 'Av. Santa Teresa', 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg')">
+                    <span>Torre Santa Teresa</span> <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="prop-item" onclick="openProp('Residencia Los Laureles', 'Barrio Los Laureles', 'https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg')">
+                    <span>Residencia Los Laureles</span> <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="prop-item" onclick="openProp('Penthouse Lillo', 'Manora', 'https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg')">
+                    <span>Penthouse Lillo</span> <i class="fas fa-chevron-right"></i>
+                </div>
             </div>
 
-            <div class="cardinal-zone">
-                <i class="fas fa-compass zone-bg-icon"></i>
-                <div class="zone-title"><i class="fas fa-long-arrow-alt-down"></i> ZONA SUR</div>
-                <ul class="property-list">
-                    <li class="property-item">Hacienda Austral <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Finca Antártica Premium <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Caserío Meridional <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Estancia del Trópico <i class="fas fa-chevron-right"></i></li>
-                </ul>
+            <div class="zone-card">
+                <div class="zone-title">CENTRAL PREMIUM</div>
+                <div class="prop-item" onclick="openProp('Quinta del Yacht', 'Lambaré', 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg')">
+                    <span>Quinta del Yacht</span> <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="prop-item" onclick="openProp('Country Luque Gold', 'Luque', 'https://images.pexels.com/photos/1838640/pexels-photo-1838640.jpeg')">
+                    <span>Country Luque Gold</span> <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="prop-item" onclick="openProp('Hacienda San Lorenzo', 'San Lorenzo', 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg')">
+                    <span>Hacienda San Lorenzo</span> <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="prop-item" onclick="openProp('Villa Mariano', 'Mariano Roque Alonso', 'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg')">
+                    <span>Villa Mariano</span> <i class="fas fa-chevron-right"></i>
+                </div>
             </div>
-
-            <div class="cardinal-zone">
-                <i class="fas fa-compass zone-bg-icon"></i>
-                <div class="zone-title"><i class="fas fa-long-arrow-alt-right"></i> ZONA ESTE</div>
-                <ul class="property-list">
-                    <li class="property-item">Palacio de Oriente <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Villa Amanecer Gala <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Residencial Levante <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Torre Solar VIP <i class="fas fa-chevron-right"></i></li>
-                </ul>
-            </div>
-
-            <div class="cardinal-zone">
-                <i class="fas fa-compass zone-bg-icon"></i>
-                <div class="zone-title"><i class="fas fa-long-arrow-alt-left"></i> ZONA OESTE</div>
-                <ul class="property-list">
-                    <li class="property-item">Rancho Ocaso Gold <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Mansión del Pacífico <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Villa Poniente Luxury <i class="fas fa-chevron-right"></i></li>
-                    <li class="property-item">Hacienda Crepúsculo <i class="fas fa-chevron-right"></i></li>
-                </ul>
-            </div>
-
         </div>
     </main>
 
+    <div id="detail-view">
+        <span class="close-btn" onclick="closeProp()"><i class="fas fa-times"></i></span>
+        
+        <nav id="detail-sidebar">
+            <button class="dock-btn active" onclick="switchMedia(0)"><i class="fas fa-hotel"></i></button>
+            <button class="dock-btn" onclick="switchMedia(1)"><i class="fas fa-swimming-pool"></i></button>
+            <button class="dock-btn" onclick="switchMedia(2)"><i class="fas fa-bed"></i></button>
+        </nav>
+
+        <div class="content-frame">
+            <img id="main-p-img" class="property-img" src="">
+            <div class="p-info">
+                <h2 id="main-p-name" style="font-family:'Cinzel'; color:var(--gold); font-size: 2.5rem; margin-bottom: 20px;"></h2>
+                <div style="width:50px; height:2px; background:var(--gold); margin-bottom:20px;"></div>
+                <p id="main-p-loc" style="letter-spacing:3px; font-weight:600; font-size:11px; margin-bottom:30px;"></p>
+                <p id="main-p-desc" style="font-weight:200; line-height:2; color:#ccc;">Esta propiedad representa el pináculo del mercado inmobiliario en Paraguay, ofreciendo beneficios sin fin y una ubicación estratégica para inversores de gala.</p>
+                
+                <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 15px;">
+                    <button style="background:var(--gold); color:black; border:none; padding:15px; font-family:'Cinzel'; font-weight:bold; cursor:pointer;">SOLICITAR DOSSIER VIP</button>
+                    <button style="background:transparent; color:var(--gold); border:1px solid var(--gold); padding:15px; font-family:'Cinzel'; cursor:pointer;">AGENDAR VISITA PRIVADA</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Transición de Portada a Índice
-        function activateIndex() { 
-            document.body.classList.add('revealed'); 
+        function openMarket() { document.body.classList.add('revealed'); }
+        
+        function openProp(name, loc, img) {
+            document.getElementById('main-p-name').innerText = name;
+            document.getElementById('main-p-loc').innerText = loc.toUpperCase();
+            document.getElementById('main-p-img').src = img;
+            document.getElementById('detail-view').style.display = 'grid';
         }
 
-        // Transición de Índice a Portada
-        function activateIntro() { 
-            document.body.classList.remove('revealed'); 
+        function closeProp() { document.getElementById('detail-view').style.display = 'none'; }
+
+        function switchMedia(idx) {
+            const imgs = [
+                "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg",
+                "https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg",
+                "https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg"
+            ];
+            document.getElementById('main-p-img').src = imgs[idx];
+            document.querySelectorAll('.dock-btn').forEach((b, i) => {
+                b.classList.toggle('active', i === idx);
+            });
         }
     </script>
 </body>
