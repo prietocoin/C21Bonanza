@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bonanza C21 | Portafolio Maestro 360° Corregido</title>
+    <title>Bonanza C21 | Multi-Nivel Elite Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,86 +12,60 @@
             --gold-gradient: linear-gradient(135deg, #c5a059 0%, #f1d38a 50%, #b38b45 100%);
             --black: #000000;
             --dark: #0a0a0a;
-            --transition: 0.8s cubic-bezier(0.85, 0, 0.15, 1);
+            --transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; touch-action: pan-y; }
+        body, html { margin: 0; padding: 0; height: 100%; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; }
 
-        /* --- 1. PORTADA CON CARRUSEL TIPO INSTAGRAM (SWIPE) --- */
-        #hero-carousel {
-            height: 100vh; position: fixed; inset: 0; z-index: 1000; transition: var(--transition);
-            overflow: hidden; cursor: grab; /* Indica que se puede arrastrar */
-        }
-        #hero-carousel.grabbing { cursor: grabbing; }
-
-        .carousel-track-hero {
-            display: flex; height: 100%; width: 100%; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        /* --- 1. PORTADA CON TU IMAGEN DE FACHADA --- */
+        #hero {
+            height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; position: fixed; inset: 0; z-index: 1000; transition: var(--transition);
+            /* Usamos tu imagen de fachada con un degradado oscuro encima para legibilidad */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.9)), 
+                        url('https://images2.imgbox.com/39/10/7Fof4X7J_o.png') center/cover no-repeat;
         }
 
-        .carousel-item-hero {
-            flex: 0 0 100%; height: 100%; position: relative;
-            background-size: cover; background-position: center;
-        }
+        .gold-brand-main { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 12px; color: white; margin-bottom: 20px; font-weight: bold; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .oracle-text { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 8vw, 6.5rem); font-weight: 700; color: white; text-transform: uppercase; letter-spacing: clamp(5px, 2vw, 15px); margin: 0; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
 
-        /* Superposición oscura para legibilidad de texto */
-        .carousel-item-hero::after {
-            content: ""; position: absolute; inset: 0;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)); z-index: 1;
-        }
-
-        .hero-content {
-            position: absolute; inset: 0; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; text-align: center;
-            z-index: 10; padding: 20px; pointer-events: none; /* Deja pasar los clics al carrusel */
-        }
-
-        .gold-brand-hero { font-family: 'Cinzel', serif; font-size: clamp(10px, 2vw, 14px); letter-spacing: 12px; color: var(--gold); margin-bottom: 20px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
-        .oracle-text { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 8vw, 6rem); font-weight: 700; color: white; text-transform: uppercase; letter-spacing: clamp(5px, 2vw, 12px); margin: 0; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
-
-        .cta-gold-hero {
+        .cta-gold {
             margin-top: 40px; padding: 15px 45px; font-family: 'Cinzel', serif;
             color: var(--gold); background: rgba(0,0,0,0.6); border: 2px solid var(--gold);
             cursor: pointer; letter-spacing: 4px; transition: 0.4s; font-size: 12px;
-            pointer-events: auto; /* Reactiva clics en el botón */
             backdrop-filter: blur(5px);
         }
-        .cta-gold-hero:hover { background: var(--gold); color: black; box-shadow: 0 0 40px rgba(197, 160, 89, 0.6); }
+        .cta-gold:hover { background: var(--gold); color: black; box-shadow: 0 0 40px rgba(197, 160, 89, 0.6); transform: scale(1.05); }
 
-        /* Indicadores de carrusel (dots) */
-        .carousel-dots-hero {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 10px; z-index: 15;
-        }
-        .dot-hero { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.4); border: 1px solid var(--gold); transition: 0.3s; cursor: pointer; }
-        .dot-hero.active { background: var(--gold); transform: scale(1.2); box-shadow: 0 0 10px var(--gold); }
-
-        /* --- 2. ÍNDICE GEOGRÁFICO (RESTAURADO) --- */
+        /* --- 2. ÍNDICE GEOGRÁFICO --- */
         #market-index {
             height: 100vh; display: flex; flex-direction: column; padding: 40px 20px;
-            opacity: 0; transform: translateY(50px); transition: var(--transition);
+            position: fixed; inset: 0; z-index: 900; opacity: 0; transform: translateY(100%); transition: var(--transition);
             background: var(--black); overflow-y: auto; box-sizing: border-box;
         }
 
         .grid-zones {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;
-            max-width: 1400px; margin: 30px auto; width: 100%; padding-bottom: 50px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;
+            max-width: 1400px; margin: 30px auto; width: 100%;
         }
 
-        .zone-card { background: var(--dark); border: 1px solid rgba(197, 160, 89, 0.15); padding: 30px; text-align: left; transition: 0.4s; }
-        .zone-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(197,160,89,0.1); }
-        .zone-title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.6rem; margin-bottom: 25px; border-bottom: 1px solid #222; padding-bottom: 10px; }
-        .prop-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #1a1a1a; cursor: pointer; transition: 0.3s; font-size: 13px; }
-        .prop-item:hover { color: var(--gold); padding-left: 8px; background: rgba(197, 160, 89, 0.05); }
+        .zone-card { background: var(--dark); border: 1px solid rgba(197, 160, 89, 0.15); padding: 25px; transition: 0.4s; cursor: pointer; text-align: center;}
+        .zone-card:hover { border-color: var(--gold); transform: translateY(-5px); background: rgba(197, 160, 89, 0.05);}
+        .zone-title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.3rem; margin-bottom: 5px; }
+        .zone-subtitle { font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase;}
 
-        /* --- 3. SUBDIRECTORIO --- */
+        /* --- 3. SUBDIRECTORIO DE PROPIEDADES --- */
         #subdirectory {
             position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.98);
             display: none; flex-direction: column; align-items: center; padding: 60px 20px;
             backdrop-filter: blur(15px); overflow-y: auto; animation: fadeIn 0.4s forwards;
         }
 
-        .sub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; width: 100%; max-width: 1200px; margin-top: 30px;}
-        .prop-card-sub { background: #0d0d0d; border: 1px solid #1a1a1a; padding: 20px; text-align: left; transition: 0.3s; cursor: pointer; }
+        .sub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; width: 100%; max-width: 1200px; margin-top: 30px;}
+        .prop-card-sub { 
+            background: #0d0d0d; border: 1px solid #1a1a1a; padding: 20px; text-align: left; 
+            transition: 0.3s; cursor: pointer; position: relative;
+        }
         .prop-card-sub:hover { border-color: var(--gold); background: #151515; }
         .prop-card-sub h4 { font-family: 'Cinzel', serif; color: var(--gold); margin: 0 0 5px 0; font-size: 13px; }
         .prop-card-sub p { font-size: 10px; color: #777; margin: 0; }
@@ -102,91 +76,57 @@
             display: none; grid-template-columns: 80px 1fr; animation: fadeIn 0.6s forwards;
         }
 
-        #detail-sidebar { background: #050505; border-right: 1px solid #222; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; }
+        #detail-sidebar {
+            background: #050505; border-right: 1px solid #222;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px;
+        }
+
         .dock-btn { width: 45px; height: 45px; border-radius: 50%; border: 1px solid rgba(197, 160, 89, 0.2); background: transparent; color: var(--gold); cursor: pointer; transition: 0.4s; }
-        .dock-btn.active { background: var(--gold-gradient); color: black; transform: scale(1.1); }
+        .dock-btn.active { background: var(--gold-gradient); color: black; border-color: white; transform: scale(1.1); }
 
         .content-frame { display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center; padding: 40px; gap: 40px; height: 100%; box-sizing: border-box; }
-        .carousel-container-detail { position: relative; width: 100%; height: 75vh; border: 1px solid var(--gold); padding: 5px; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; }
-        #carousel-track-detail { width: 100%; height: 100%; position: relative; }
-        .carousel-slide-detail { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: 0; transform: scale(1.05); transition: 0.5s ease; z-index: 1; }
-        .carousel-slide-detail.active { opacity: 1; transform: scale(1); z-index: 5; }
-        .carousel-nav-detail { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px;}
-        .dot-detail { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; border: 1px solid var(--gold); transition: 0.3s; }
-        .dot-detail.active { background: var(--gold); transform: scale(1.3); }
+        .carousel-container { position: relative; width: 100%; height: 75vh; border: 1px solid var(--gold); padding: 5px; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        #carousel-track { width: 100%; height: 100%; position: relative; }
+        .carousel-slide { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: 0; transform: scale(1.05); transition: 0.5s; }
+        .carousel-slide.active { opacity: 1; transform: scale(1); z-index: 5; }
+        .carousel-nav { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px;}
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; border: 1px solid var(--gold); transition: 0.3s;}
+        .dot.active { background: var(--gold); transform: scale(1.3); }
 
         .close-btn { position: absolute; top: 25px; right: 30px; color: var(--gold); font-size: 1.8rem; cursor: pointer; z-index: 3000; }
 
         @media (max-width: 900px) {
-            .oracle-text { font-size: clamp(2rem, 10vw, 4rem); letter-spacing: 5px;}
             #detail-view { grid-template-columns: 1fr; grid-template-rows: 1fr 70px; }
-            #detail-sidebar { flex-direction: row; order: 2; height: 70px; width: 100%; position: fixed; bottom: 0; border-right: none;}
+            #detail-sidebar { flex-direction: row; order: 2; height: 70px; width: 100%; position: fixed; bottom: 0; }
             .content-frame { grid-template-columns: 1fr; padding: 15px; overflow-y: auto; padding-bottom: 100px; align-items: start;}
-            .carousel-container-detail { height: 40vh; }
-            .grid-zones { grid-template-columns: 1fr; }
+            .carousel-container { height: 40vh; }
         }
 
-        .revealed #hero-carousel { transform: translateY(-100%); opacity: 0; pointer-events: none; }
-        .revealed #market-index { opacity: 1; transform: translateY(0); pointer-events: all; }
+        .revealed #hero { transform: translateY(-100%); }
+        .revealed #market-index { opacity: 1; transform: translateY(0); }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <section id="hero-carousel" onmousedown="startDrag(event)" onmousemove="drag(event)" onmouseup="endDrag()" onmouseleave="endDrag()" ontouchstart="startDrag(event)" ontouchmove="drag(event)" ontouchend="endDrag()">
-        <div class="carousel-track-hero" id="hero-track">
-            <div class="carousel-item-hero" style="background-image: url('https://images2.imgbox.com/39/10/7Fof4X7J_o.png');"></div>
-            <div class="carousel-item-hero" style="background-image: url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1920');"></div>
-            <div class="carousel-item-hero" style="background-image: url('https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?auto=compress&cs=tinysrgb&w=1920');"></div>
-        </div>
-
-        <div class="hero-content">
-            <div class="gold-brand-hero">CENTURY 21 BONANZA</div>
-            <h1 class="oracle-text">ELITE PORTFOLIO</h1>
-            <button class="cta-gold-hero" onclick="openMarket()">INICIAR EXPLORACIÓN</button>
-        </div>
-
-        <div class="carousel-dots-hero" id="hero-dots">
-            <div class="dot-hero active" onclick="setHeroSlide(0)"></div>
-            <div class="dot-hero" onclick="setHeroSlide(1)"></div>
-            <div class="dot-hero" onclick="setHeroSlide(2)"></div>
-        </div>
+    <section id="hero">
+        <div class="gold-brand-main">CENTURY 21 BONANZA</div>
+        <h1 class="oracle-text">ELITE PORTFOLIO</h1>
+        <button class="cta-gold" onclick="openMarket()">INICIAR EXPLORACIÓN</button>
     </section>
 
     <main id="market-index">
         <header style="text-align:center; margin-bottom: 30px;">
-            <div class="gold-brand-hero" style="font-size: 10px; letter-spacing: 10px;">BONANZA C21</div>
-            <h2 style="font-family:'Cinzel'; color:var(--gold); font-size: 2.2rem; margin:0; letter-spacing: 3px;">Gala Index</h2>
-            <p style="letter-spacing:5px; font-size:10px; opacity:0.6; text-transform: uppercase;">SEGMENTACIÓN ESTRATÉGICA PARAGUAY</p>
+            <h2 style="font-family:'Cinzel'; color:var(--gold); font-size: 2.5rem; margin:0; letter-spacing: 3px;">Gala Index</h2>
+            <p style="letter-spacing:5px; font-size:10px; opacity:0.6;">SEGMENTACIÓN ESTRATÉGICA PARAGUAY</p>
         </header>
-
-        <div class="grid-zones">
-            <div class="zone-card">
-                <div class="zone-title">ASUNCIÓN LUXURY</div>
-                <div class="prop-item" onclick="openSub('Villa Morra')"><span>Villa Morra</span> <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openSub('Santa Teresa')"><span>Santa Teresa</span> <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openSub('Manora')"><span>Manora</span> <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openSub('Recoleta')"><span>Recoleta</span> <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openSub('Los Laureles')"><span>Los Laureles</span> <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openSub('Asunción Otros')"><span style="font-style: italic; opacity: 0.7;">Otros Barrios</span> <i class="fas fa-chevron-right"></i></div>
-            </div>
-
-            <div class="zone-card">
-                <div class="zone-title">CENTRAL PREMIUM</div>
-                <div class="prop-item" onclick="openSub('Luque')"><span>Luque</span> <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openSub('Lambaré')"><span>Lambaré</span> <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openSub('San Lorenzo')"><span>San Lorenzo</span> <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openSub('Mariano R. Alonso')"><span>Mariano R. Alonso</span> <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openSub('Fernando de la Mora')"><span>Fernando de la Mora</span> <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-item" onclick="openSub('Central Otros')"><span style="font-style: italic; opacity: 0.7;">Otros Distritos</span> <i class="fas fa-chevron-right"></i></div>
-            </div>
-        </div>
+        <div class="grid-zones" id="zones-container"></div>
     </main>
 
     <div id="subdirectory">
         <span class="close-btn" onclick="closeSub()"><i class="fas fa-arrow-left"></i></span>
         <h2 id="sub-zone-title" style="font-family:'Cinzel'; color:var(--gold); font-size: 1.8rem; margin:0; letter-spacing: 2px;"></h2>
-        <p style="letter-spacing:3px; font-size:10px; opacity:0.6; text-transform: uppercase;">LISTADO DE ACTIVOS EXCLUSIVOS</p>
+        <p style="letter-spacing:3px; font-size:10px; opacity:0.6;">LISTADO DE ACTIVOS EXCLUSIVOS</p>
         <div class="sub-grid" id="sub-grid-container"></div>
     </div>
 
@@ -201,9 +141,9 @@
             <button class="dock-btn" onclick="setStation(5)"><i class="fas fa-shield-alt"></i></button>
         </nav>
         <div class="content-frame">
-            <div class="carousel-container-detail"><div id="carousel-track-detail"></div><div class="carousel-nav-detail" id="carousel-dots-detail"></div></div>
+            <div class="carousel-container"><div id="carousel-track"></div><div class="carousel-nav" id="carousel-dots"></div></div>
             <div class="p-info">
-                <h2 id="main-p-name" style="font-family:'Cinzel'; color:var(--gold); font-size: 1.8rem; margin-bottom: 10px; letter-spacing: 2px;"></h2>
+                <h2 id="main-p-name" style="font-family:'Cinzel'; color:var(--gold); font-size: 1.8rem; margin-bottom: 10px;"></h2>
                 <div style="width:50px; height:1px; background:var(--gold); margin-bottom:20px;"></div>
                 <p id="station-name" style="letter-spacing:4px; font-weight:600; color:var(--gold); font-size:10px; margin-bottom:20px;"></p>
                 <p style="font-weight:200; line-height:1.8; color:#ccc; font-size: 13px; text-align: justify;">Portafolio curado para el inversor más exigente. Cada ángulo representa el pináculo del Real Estate de lujo en Paraguay.</p>
@@ -216,103 +156,11 @@
     </div>
 
     <script>
-        // --- LOGICA DE CARRUSEL DE PORTADA TIPO INSTAGRAM (SWIPE) ---
-        let currentHeroSlide = 0;
-        const totalHeroSlides = 3;
-        const trackHero = document.getElementById('hero-track');
-        const dotsHero = document.querySelectorAll('.dot-hero');
-        const carouselHero = document.getElementById('hero-carousel');
-        
-        let isGrabbing = false;
-        let startX = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-        let animationID = 0;
-
-        function setHeroSlide(idx) {
-            currentHeroSlide = idx;
-            const translate = -idx * 100;
-            trackHero.style.transform = `translateX(${translate}%)`;
-            
-            // Actualizar dots
-            dotsHero.forEach((dot, i) => dot.classList.toggle('active', i === idx));
-            
-            // Guardar posición para arrastre
-            prevTranslate = translate * (window.innerWidth / 100);
-            currentTranslate = prevTranslate;
-        }
-
-        // Auto-play sutil
-        let heroInterval = setInterval(() => {
-            currentHeroSlide = (currentHeroSlide + 1) % totalHeroSlides;
-            setHeroSlide(currentHeroSlide);
-        }, 8000);
-
-        function resetInterval() {
-            clearInterval(heroInterval);
-            heroInterval = setInterval(() => {
-                currentHeroSlide = (currentHeroSlide + 1) % totalHeroSlides;
-                setHeroSlide(currentHeroSlide);
-            }, 8000);
-        }
-
-        // Funciones para arrastre (Mouse y Táctil)
-        function getPositionX(event) {
-            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
-        }
-
-        function startDrag(event) {
-            resetInterval();
-            isGrabbing = true;
-            startX = getPositionX(event);
-            carouselHero.classList.add('grabbing');
-            
-            trackHero.style.transition = 'none'; // Desactivar transición durante arrastre
-            animationID = requestAnimationFrame(animationDrag);
-        }
-
-        function drag(event) {
-            if (!isGrabbing) return;
-            const currentX = getPositionX(event);
-            currentTranslate = prevTranslate + currentX - startX;
-        }
-
-        function endDrag() {
-            isGrabbing = false;
-            cancelAnimationFrame(animationID);
-            carouselHero.classList.remove('grabbing');
-            
-            // Reactivar transición para encaje
-            trackHero.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            
-            const movedBy = currentTranslate - prevTranslate;
-            const threshold = window.innerWidth * 0.2; // 20% de la pantalla para cambiar
-
-            if (movedBy < -threshold && currentHeroSlide < totalHeroSlides - 1) {
-                currentHeroSlide += 1;
-            } else if (movedBy > threshold && currentHeroSlide > 0) {
-                currentHeroSlide -= 1;
-            }
-            
-            setHeroSlide(currentHeroSlide);
-        }
-
-        function animationDrag() {
-            // Límite para no salir de los bordes
-            const limit = (totalHeroSlides - 1) * window.innerWidth;
-            if (currentTranslate > 0) currentTranslate = 0;
-            if (currentTranslate < -limit) currentTranslate = -limit;
-            
-            trackHero.style.transform = `translateX(${currentTranslate}px)`;
-            if (isGrabbing) requestAnimationFrame(animationDrag);
-        }
-
-        // --- FIN LOGICA CARRUSEL PORTADA ---
-
-        // Nombres magnéticos para propiedades (8 por zona)
+        const zones = {
+            asuncion: ["Villa Morra", "Santa Teresa", "Manora", "Recoleta", "Los Laureles", "Las Lomas"],
+            central: ["Luque", "Lambaré", "San Lorenzo", "Mariano R. Alonso", "Fernando de la Mora", "Limpio"]
+        };
         const propNames = ["Mansion Diamante", "The Golden Tower", "Residencia Gala", "Majestic Estate", "Iconic Suite", "Palacio de Oro", "Elite Residence", "The Vault Luxury"];
-        
-        // BASE DE DATOS DE IMÁGENES COHERENTES (4 ÁNGULOS POR ESTACIÓN)
         const mediaData = {
             0: { n: "FACHADA", i: ["https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?w=800", "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?w=800", "https://images.pexels.com/photos/1838640/pexels-photo-1838640.jpeg?w=800", "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?w=800"] },
             1: { n: "ESTANCIA", i: ["https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=800", "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?w=800", "https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?w=800", "https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?w=800"] },
@@ -322,15 +170,19 @@
             5: { n: "CONFORT", i: ["https://images.pexels.com/photos/2034892/pexels-photo-2034892.jpeg?w=800", "https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?w=800", "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?w=800", "https://images.pexels.com/photos/323775/pexels-photo-323775.jpeg?w=800"] }
         };
 
+        function init() {
+            const container = document.getElementById('zones-container');
+            const allZones = [...zones.asuncion, ...zones.central];
+            container.innerHTML = allZones.map(z => `<div class="zone-card" onclick="openSubdirectory('${z}')"><div class="zone-title">${z.toUpperCase()}</div><div class="zone-subtitle">Explorar Activos</div></div>`).join('');
+        }
+
         function openMarket() { document.body.classList.add('revealed'); }
-        
-        function openSub(zoneName) {
+        function openSubdirectory(zoneName) {
             document.getElementById('sub-zone-title').innerText = zoneName.toUpperCase();
-            document.getElementById('sub-grid-container').innerHTML = propNames.map(name => `<div class="prop-card-sub" onclick="openDetail('${name}')"><h4>${name}</h4><p>${zoneName} • Luxury Asset</p></div>`).join('');
+            document.getElementById('sub-grid-container').innerHTML = propNames.map(name => `<div class="prop-card-sub" onclick="openDetail('${name}')"><h4>${name}</h4><p>${zoneName} • Luxury</p></div>`).join('');
             document.getElementById('subdirectory').style.display = 'flex';
         }
         function closeSub() { document.getElementById('subdirectory').style.display = 'none'; }
-        
         function openDetail(name) {
             document.getElementById('main-p-name').innerText = name;
             setStation(0);
@@ -341,24 +193,25 @@
         function setStation(idx) {
             const station = mediaData[idx];
             document.getElementById('station-name').innerText = station.n;
-            const track = document.getElementById('carousel-track-detail');
-            const dots = document.getElementById('carousel-dots-detail');
+            const track = document.getElementById('carousel-track');
+            const dots = document.getElementById('carousel-dots');
             track.innerHTML = ''; dots.innerHTML = '';
             station.i.forEach((src, i) => {
-                const img = document.createElement('img'); img.src = src; img.className = `carousel-slide-detail ${i === 0 ? 'active' : ''}`; img.id = `slide-det-${i}`;
+                const img = document.createElement('img'); img.src = src; img.className = `carousel-slide ${i === 0 ? 'active' : ''}`; img.id = `slide-${i}`;
                 track.appendChild(img);
-                const dot = document.createElement('div'); dot.className = `dot-detail ${i === 0 ? 'active' : ''}`; dot.id = `dot-det-${i}`; dot.onclick = () => showSlide(i);
+                const dot = document.createElement('div'); dot.className = `dot ${i === 0 ? 'active' : ''}`; dot.id = `dot-${i}`; dot.onclick = () => showSlide(i);
                 dots.appendChild(dot);
             });
             document.querySelectorAll('.dock-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
         }
 
         function showSlide(slideIdx) {
-            document.querySelectorAll('.carousel-slide-detail').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.dot-detail').forEach(d => d.classList.remove('active'));
-            document.getElementById(`slide-det-${slideIdx}`).classList.add('active');
-            document.getElementById(`dot-det-${slideIdx}`).classList.add('active');
+            document.querySelectorAll('.carousel-slide').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+            document.getElementById(`slide-${slideIdx}`).classList.add('active');
+            document.getElementById(`dot-${slideIdx}`).classList.add('active');
         }
+        init();
     </script>
 </body>
 </html>
