@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>C21 Bonanza | Elite Responsive</title>
+    <title>Bonanza C21 | Portafolio Geográfico de Gala</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,185 +12,98 @@
             --gold-gradient: linear-gradient(135deg, #c5a059 0%, #f1d38a 50%, #b38b45 100%);
             --black: #000000;
             --dark-gray: #0a0a0a;
+            --transition-slow: 1s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
         body, html { margin: 0; padding: 0; height: 100%; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; }
 
-        /* --- INTRO ESPECTRAL --- */
+        /* --- 1. PORTADA ESPECTRAL (INTRO) --- */
         #intro {
             height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; position: fixed; inset: 0; z-index: 1000; transition: 1s cubic-bezier(0.77, 0, 0.175, 1);
+            text-align: center; position: fixed; inset: 0; z-index: 1000; transition: var(--transition-slow);
             background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
             padding: 20px; box-sizing: border-box;
         }
 
+        .gold-brand { letter-spacing: 10px; font-size: 11px; color: var(--gold); margin-bottom: 20px; font-weight: 200; font-family: 'Montserrat', sans-serif; }
+
         .oracle-text {
-            font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 8vw, 7rem); font-weight: 700;
+            font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 8vw, 6.5rem); font-weight: 700;
             background: url('https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260') center/cover;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: textFlow 30s infinite linear; text-transform: uppercase; letter-spacing: clamp(5px, 2vw, 15px);
+            animation: textFlow 30s infinite linear; text-transform: uppercase; letter-spacing: clamp(5px, 2vw, 15px); margin: 0;
         }
 
         @keyframes textFlow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 
         .cta-liquid {
-            margin-top: 40px; padding: 15px 35px; font-family: 'Cinzel', serif;
+            margin-top: 50px; padding: 16px 40px; font-family: 'Cinzel', serif;
             color: var(--gold); background: transparent; border: 1px solid var(--gold);
             cursor: pointer; letter-spacing: 3px; font-size: 13px; transition: 0.4s;
+            position: relative; overflow: hidden;
         }
-        .cta-liquid:hover { background: var(--gold); color: black; box-shadow: 0 0 30px rgba(197, 160, 89, 0.4); }
+        .cta-liquid:hover { background: var(--gold); color: black; box-shadow: 0 0 30px rgba(197, 160, 89, 0.5); transform: scale(1.05); }
 
-        /* --- ESTRUCTURA PRINCIPAL --- */
-        #elite-structure {
-            height: 100vh; display: grid; grid-template-columns: 80px 1fr;
-            opacity: 0; transition: 1s; background: var(--black);
-        }
-
-        /* NAVEGACIÓN (DOCK) */
-        #sidebar {
-            background: var(--dark-gray); border-right: 1px solid rgba(197, 160, 89, 0.1);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; z-index: 500;
+        /* --- 2. ÍNDICE GEOGRÁFICO DE GALA (SEGUNDA PÁGINA) --- */
+        #gala-index {
+            height: 100vh; display: flex; flex-direction: column;
+            opacity: 0; transform: translateY(50px); transition: var(--transition-slow);
+            background: #000; padding: 40px 20px; box-sizing: border-box;
+            overflow-y: auto; /* Permitir scroll si el contenido es muy alto */
         }
 
-        .nav-icon {
-            font-size: 18px; color: rgba(197, 160, 89, 0.3);
-            width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; cursor: pointer; transition: 0.4s; border: 1px solid transparent;
-        }
-        .nav-icon.active { background: var(--gold-gradient); color: black; box-shadow: 0 0 15px rgba(197, 160, 89, 0.3); }
+        .index-header { text-align: center; margin-bottom: 50px; padding-top: 20px;}
+        .index-header h2 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 4vw, 3rem); background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; letter-spacing: 4px;}
+        .index-header p { font-weight: 200; font-size: 12px; letter-spacing: 5px; color: #ccc; text-transform: uppercase; margin-top: 10px;}
 
-        /* ÁREA DE CONTENIDO */
-        #content-area { position: relative; overflow: hidden; }
-
-        .amenity-scene {
-            position: absolute; inset: 0; display: grid; grid-template-columns: 1.1fr 0.9fr;
-            align-items: center; gap: 40px; opacity: 0; padding: 40px 60px;
-            transition: 0.8s ease-in-out; pointer-events: none;
-        }
-        .amenity-scene.active { opacity: 1; pointer-events: all; }
-
-        .scene-img {
-            width: 100%; height: 80vh; object-fit: cover;
-            border: 1px solid rgba(197, 160, 89, 0.3); padding: 5px; background: #080808;
+        /* Grid de Puntos Cardinales */
+        .cardinal-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;
+            max-width: 1100px; margin: 0 auto 50px auto; width: 100%;
         }
 
-        .scene-text { padding: 0 20px; }
-        .scene-text h2 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 4vw, 3rem); color: var(--gold); margin-bottom: 15px; }
-        .scene-divider { width: 50px; height: 1px; background: var(--gold); margin-bottom: 20px; }
-        .scene-text p { font-weight: 200; font-size: 1.1rem; line-height: 1.8; color: #ccc; text-align: justify; }
+        .cardinal-zone {
+            background: #0a0a0a; border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 30px; transition: 0.4s;
+            position: relative; overflow: hidden;
+        }
+        .cardinal-zone:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(197,160,89,0.1); }
+
+        /* Icono de Brújula de Fondo */
+        .zone-bg-icon {
+            position: absolute; right: -20px; bottom: -20px; font-size: 10rem;
+            color: rgba(197, 160, 89, 0.03); transform: rotate(-15deg); pointer-events: none;
+        }
+
+        .zone-title {
+            font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold);
+            letter-spacing: 3px; margin-bottom: 25px; display: flex; align-items: center; gap: 15px;
+        }
+        .zone-title i { font-size: 1rem; opacity: 0.7; }
+
+        /* Lista de Propiedades Aleatorias */
+        .property-list { list-style: none; padding: 0; margin: 0; }
+        .property-item {
+            font-weight: 200; font-size: 1.1rem; color: #eee;
+            padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: space-between;
+            transition: 0.3s; cursor: pointer;
+        }
+        .property-item:hover { color: var(--gold); padding-left: 10px; background: rgba(197, 160, 89, 0.03);}
+        .property-item i { font-size: 12px; color: var(--gold); opacity: 0; transition: 0.3s; }
+        .property-item:hover i { opacity: 1; transform: translateX(-10px); }
+
+        /* Botón Volver */
+        .back-btn {
+            position: fixed; bottom: 30px; right: 30px;
+            background: rgba(197, 160, 89, 0.1); border: 1px solid var(--gold);
+            color: var(--gold); font-family: 'Cinzel', serif; font-size: 10px;
+            padding: 10px 20px; cursor: pointer; letter-spacing: 2px; z-index: 1100;
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: var(--gold); color: black; }
 
         /* --- RESPONSIVE MOBILE --- */
-        @media (max-width: 850px) {
-            #elite-structure { grid-template-columns: 1fr; grid-template-rows: 1fr 70px; }
-            
-            #sidebar {
-                flex-direction: row; border-right: none; border-top: 1px solid rgba(197, 160, 89, 0.1);
-                order: 2; height: 70px; width: 100%; gap: 10px; padding: 0; position: fixed; bottom: 0;
-            }
-
-            .amenity-scene {
-                grid-template-columns: 1fr; padding: 0; gap: 0;
-                grid-template-rows: 50% 50%; align-items: start;
-            }
-
-            .scene-img { height: 100%; width: 100%; border: none; padding: 0; }
-
-            .scene-text {
-                padding: 30px 25px; background: linear-gradient(to bottom, #000, #0a0a0a);
-                height: 100%; overflow-y: auto;
-            }
-            
-            .scene-text h2 { font-size: 1.6rem; margin-top: 0; }
-            .scene-text p { font-size: 0.95rem; padding-bottom: 80px; } /* Espacio para el dock */
-        }
-
-        .revealed #intro { transform: translateY(-100%); opacity: 0; }
-        .revealed #elite-structure { opacity: 1; }
-    </style>
-</head>
-<body>
-
-    <section id="intro">
-        <div style="letter-spacing: 8px; font-size: 10px; color: var(--gold); margin-bottom: 15px;">BONANZA C21</div>
-        <h1 class="oracle-text">VILLA BONANZA</h1>
-        <button class="cta-liquid" onclick="activate()">EXPLORAR GALA</button>
-    </section>
-
-    <main id="elite-structure">
-        <nav id="sidebar">
-            <button class="nav-icon active" onclick="show(0, this)"><i class="fas fa-hotel"></i></button>
-            <button class="nav-icon" onclick="show(1, this)"><i class="fas fa-couch"></i></button>
-            <button class="nav-icon" onclick="show(2, this)"><i class="fas fa-utensils"></i></button>
-            <button class="nav-icon" onclick="show(3, this)"><i class="fas fa-bed"></i></button>
-            <button class="nav-icon" onclick="show(4, this)"><i class="fas fa-swimming-pool"></i></button>
-            <button class="nav-icon" onclick="show(5, this)"><i class="fas fa-shield-alt"></i></button>
-        </nav>
-
-        <div id="content-area">
-            <div class="amenity-scene active" id="scene-0">
-                <img class="scene-img" src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1200">
-                <div class="scene-text">
-                    <h2>Fachada Magistral</h2>
-                    <div class="scene-divider"></div>
-                    <p>Una presencia arquitectónica imponente que fusiona líneas vanguardistas con iluminación de gala. Diseñada para proyectar estatus desde el primer avistamiento.</p>
-                </div>
-            </div>
-
-            <div class="amenity-scene" id="scene-1">
-                <img class="scene-img" src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200">
-                <div class="scene-text">
-                    <h2>Estancia de Gala</h2>
-                    <div class="scene-divider"></div>
-                    <p>Corazón social con techos de doble altura y ventanales infinitos. Lujo palpable en cada textura de mármol y acústica diseñada para eventos privados.</p>
-                </div>
-            </div>
-
-            <div class="amenity-scene" id="scene-2">
-                <img class="scene-img" src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?auto=compress&cs=tinysrgb&w=1200">
-                <div class="scene-text">
-                    <h2>Cocina de Autor</h2>
-                    <div class="scene-divider"></div>
-                    <p>Tecnología culinaria integrada en diseño europeo. Un escenario de arte equipado con electrodomésticos profesionales para el chef residente.</p>
-                </div>
-            </div>
-
-            <div class="amenity-scene" id="scene-3">
-                <img class="scene-img" src="https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=1200">
-                <div class="scene-text">
-                    <h2>Master Sanctuary</h2>
-                    <div class="scene-divider"></div>
-                    <p>Santuarios de descanso con vestidores generosos. Materiales nobles que evocan la paz de un spa privado, con máxima privacidad absoluta.</p>
-                </div>
-            </div>
-
-            <div class="amenity-scene" id="scene-4">
-                <img class="scene-img" src="https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?auto=compress&cs=tinysrgb&w=1200">
-                <div class="scene-text">
-                    <h2>Oasis de Horizonte</h2>
-                    <div class="scene-divider"></div>
-                    <p>Piscina de borde infinito, lounge de fuego y cocina de verano. Paisajismo diseñado para ofrecer exclusividad y descanso de clase mundial.</p>
-                </div>
-            </div>
-
-            <div class="amenity-scene" id="scene-5">
-                <img class="scene-img" src="https://images.pexels.com/photos/2034892/pexels-photo-2034892.jpeg?auto=compress&cs=tinysrgb&w=1200">
-                <div class="scene-text">
-                    <h2>Seguridad y Confort</h2>
-                    <div class="scene-divider"></div>
-                    <p>Blindaje tecnológico integral. Domótica avanzada y sistemas de seguridad de nivel militar para disfrutar de la vida sin preocupaciones.</p>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        function activate() { document.body.classList.add('revealed'); }
-        function show(idx, btn) {
-            document.querySelectorAll('.nav-icon').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.querySelectorAll('.amenity-scene').forEach(s => s.classList.remove('active'));
-            document.getElementById(`scene-${idx}`).classList.add('active');
-        }
-    </script>
-</body>
-</html>
+        @media (max-width: 768px) {
+            .cardinal-grid { grid-template-columns: 1fr; gap: 20px; padding-bottom: 80px;}
+            .cardinal
