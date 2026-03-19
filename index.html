@@ -82,4 +82,101 @@
             margin-bottom: 20px;
         }
 
-        .admin-input { background: #000; color: var(--soft-gold); border: 1px solid var(--soft-gold); padding: 8px; margin-bottom: 10px; width:
+        .admin-input { background: #000; color: var(--soft-gold); border: 1px solid var(--soft-gold); padding: 8px; margin-bottom: 10px; width: 100%; box-sizing: border-box; }
+        .btn-export { width: 100%; background: var(--gold); color: black; border: none; padding: 10px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="admin-panel">
+        <p style="color:var(--soft-gold); font-size:12px; margin-top:0;">MODO EDITOR ACTIVO</p>
+        <button class="btn-export" onclick="saveCode()">EXPORTAR HTML</button>
+        <p style="font-size: 9px; margin-top: 10px; opacity: 0.7;">Edita textos y fotos, luego exporta.</p>
+    </div>
+
+    <header class="hero">
+        <h1 class="gold-text" id="p-name" contenteditable="true">NOMBRE DE LA PROPIEDAD</h1>
+        <p id="p-loc" contenteditable="true" style="letter-spacing:3px; font-size:12px; color:var(--soft-gold);">UBICACIÓN • ESTADO • PRECIO</p>
+    </header>
+
+    <div class="amenity-dock">
+        <button class="emoji-btn active" onclick="change('pool', this)">🏊‍♂️</button>
+        <button class="emoji-btn" onclick="change('gym', this)">💪</button>
+        <button class="emoji-btn" onclick="change('bed', this)">🛏️</button>
+        <button class="emoji-btn" onclick="change('view', this)">🌅</button>
+    </div>
+
+    <main class="content-display">
+        <img id="display-img" class="main-img" src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1000">
+        
+        <div id="img-edit-box" style="margin-bottom:20px;">
+            <input type="text" id="new-url" class="admin-input" placeholder="Link de la foto para este emoji..." oninput="updatePhoto()">
+        </div>
+
+        <h2 id="display-title" class="gold-text" contenteditable="true">Piscina Climatizada</h2>
+        <p id="display-desc" contenteditable="true" style="padding: 0 20px;">Descripción de gala sobre esta amenidad.</p>
+    </main>
+
+    <script>
+        let propertyData = {
+            pool: { t: "Piscina Climatizada", d: "Espejo de agua con tecnología de sales.", i: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1000" },
+            gym: { t: "Wellness Center", d: "Equipamiento profesional de alta gama.", i: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1000" },
+            bed: { t: "Master Suite", d: "Acabados en madera noble y walk-in closet.", i: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1000" },
+            view: { t: "Vistas Panorámicas", d: "Disfrute de los mejores atardeceres.", i: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1000" }
+        };
+
+        let currentKey = 'pool';
+
+        function change(key, btn) {
+            currentKey = key;
+            document.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const item = propertyData[key];
+            document.getElementById('display-title').innerText = item.t;
+            document.getElementById('display-desc').innerText = item.d;
+            document.getElementById('display-img').src = item.i;
+            document.getElementById('new-url').value = item.i;
+        }
+
+        document.addEventListener('input', (e) => {
+            if(e.target.id === 'display-title') propertyData[currentKey].t = e.target.innerText;
+            if(e.target.id === 'display-desc') propertyData[currentKey].d = e.target.innerText;
+        });
+
+        function updatePhoto() {
+            const url = document.getElementById('new-url').value;
+            propertyData[currentKey].i = url;
+            document.getElementById('display-img').src = url;
+        }
+
+        function saveCode() {
+            const panel = document.getElementById('admin-panel');
+            const imgBox = document.getElementById('img-edit-box');
+            
+            // Ocultar herramientas para la versión final
+            panel.classList.add('hidden');
+            imgBox.classList.add('hidden');
+            document.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = "false");
+            
+            // Inyectar datos actuales en el script
+            const scriptTag = document.querySelector('script');
+            const dataString = `let propertyData = ${JSON.stringify(propertyData, null, 4)};`;
+            scriptTag.text = scriptTag.text.replace(/let propertyData = \{[\s\S]*?\};/, dataString);
+
+            const blob = new Blob(["<!DOCTYPE html>\n" + document.documentElement.outerHTML], {type: "text/html"});
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "index.html";
+            a.click();
+            
+            // Restaurar para seguir editando
+            panel.classList.remove('hidden');
+            imgBox.classList.remove('hidden');
+            document.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = "true");
+        }
+    </script>
+</body>
+</html>
