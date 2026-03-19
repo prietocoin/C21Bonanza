@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bonanza C21 | Infinite Luxury Portfolio</title>
+    <title>Bonanza C21 | Portafolio de Gala</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -11,180 +11,154 @@
             --gold: linear-gradient(135deg, #c5a059 0%, #f1d38a 50%, #b38b45 100%);
             --soft-gold: #c5a059;
             --black: #050505;
-            --dark-gray: #0d0d0d;
         }
 
-        body { 
-            background: var(--black);
-            color: #ffffff; 
-            font-family: 'Montserrat', sans-serif; 
-            margin: 0; padding-bottom: 100px;
-        }
-        
-        /* Panel Editor */
-        #admin-panel {
-            position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.9);
-            border: 1px solid var(--soft-gold); padding: 15px; z-index: 9999;
-            border-radius: 8px; text-align: center; backdrop-filter: blur(10px);
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Montserrat', sans-serif; background: var(--black); color: white; overflow-x: hidden; }
+
+        /* PORTADA PRINCIPAL */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
         }
 
-        .gold-text { background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Cinzel', serif; font-weight: 700; }
+        .gold-title { 
+            background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            font-family: 'Cinzel', serif; font-size: 4rem; margin: 0; letter-spacing: 8px;
+        }
 
-        /* Hero & Main Display */
-        .main-showcase {
-            height: 70vh;
+        /* EL BOTÓN LLAMATIVO */
+        .cta-amenities {
+            margin-top: 50px;
+            padding: 20px 40px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--soft-gold);
+            background: transparent;
+            border: 2px solid var(--soft-gold);
+            cursor: pointer;
             position: relative;
             overflow: hidden;
-            border-bottom: 1px solid var(--soft-gold);
+            transition: 0.5s;
+            letter-spacing: 3px;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
         }
 
-        #display-img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 1s ease, opacity 0.5s ease;
+        .cta-amenities:hover {
+            color: black;
+            background: var(--soft-gold);
+            box-shadow: 0 0 50px rgba(197, 160, 89, 0.6);
+            transform: scale(1.05);
         }
 
-        .overlay-info {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 40px 20px; text-align: center;
+        /* PANEL DESPLEGABLE (MODAL DE LUJO) */
+        #vault {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98);
+            z-index: 1000;
+            display: none; /* Oculto por defecto */
+            overflow-y: auto;
+            padding: 50px 0;
+            animation: fadeIn 0.5s ease;
         }
 
-        /* Grid de Amenidades "Sin Fin" */
-        .amenities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: -50px auto 0;
-            padding: 0 20px;
-            position: relative; z-index: 10;
+        .vault-content { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+        .close-vault {
+            position: absolute; top: 30px; right: 50px;
+            font-size: 2rem; color: var(--soft-gold); cursor: pointer;
         }
 
-        .amenity-card {
-            background: var(--dark-gray);
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            padding: 30px;
-            text-align: center;
-            transition: 0.4s;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
+        /* TARJETAS BASTAS (BENEFICIOS SIN FIN) */
+        .amenity-row {
+            display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px;
+            margin-bottom: 80px; align-items: center;
         }
 
-        .amenity-card:hover, .amenity-card.active {
-            border-color: var(--soft-gold);
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.1);
-            background: rgba(197, 160, 89, 0.05);
-        }
+        .amenity-row:nth-child(even) { direction: rtl; }
+        .amenity-row:nth-child(even) .text-side { direction: ltr; }
 
-        .amenity-card i {
-            font-size: 30px;
-            color: var(--soft-gold);
-            margin-bottom: 15px;
-        }
-
-        .amenity-card h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 14px;
-            letter-spacing: 2px;
-            margin: 10px 0;
-            color: var(--soft-gold);
-        }
-
-        .amenity-card p {
-            font-size: 12px;
-            color: #aaa;
-            line-height: 1.6;
-        }
-
-        /* Inputs de Edición */
-        .edit-box {
-            max-width: 600px; margin: 40px auto; padding: 20px;
-            border: 1px dashed var(--soft-gold); background: #111;
-        }
-
-        .admin-input { background: #000; color: var(--soft-gold); border: 1px solid #333; padding: 10px; width: 100%; margin-bottom: 10px; box-sizing: border-box; }
+        .img-side img { width: 100%; border: 1px solid var(--soft-gold); padding: 5px; }
         
-        .btn-action { background: var(--gold); color: black; border: none; padding: 10px 20px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; width: 100%; }
+        .text-side h3 { font-family: 'Cinzel', serif; color: var(--soft-gold); font-size: 2rem; margin-bottom: 10px; }
+        .text-side p { line-height: 1.8; color: #ccc; font-weight: 200; }
 
-        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* MODO EDITOR */
+        #admin-panel { position: fixed; top: 20px; left: 20px; z-index: 2000; background: rgba(0,0,0,0.8); border: 1px solid var(--soft-gold); padding: 10px; border-radius: 5px; }
+        .btn-save { background: var(--gold); border: none; padding: 10px; font-weight: bold; cursor: pointer; font-family: 'Cinzel', serif; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div id="admin-panel">
-        <button class="btn-action" onclick="saveCode()">PUBLICAR PORTAFOLIO</button>
-        <p style="font-size: 9px; color: white; margin-top: 5px;">Modo Edición Libre</p>
+        <button class="btn-save" onclick="saveCode()">PUBLICAR CAMBIOS</button>
     </div>
 
-    <section class="main-showcase">
-        <img id="display-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200">
-        <div class="overlay-info">
-            <h1 class="gold-text" id="p-name" contenteditable="true" style="font-size: 3rem; margin: 0;">PROPIEDAD DE ÉLITE</h1>
-            <p id="p-loc" contenteditable="true" style="letter-spacing: 4px; font-size: 13px; color: var(--soft-gold);">UBICACIÓN PREMIUM • VALORACIÓN RESERVADA</p>
-        </div>
+    <section class="hero">
+        <span style="letter-spacing: 10px; font-size: 12px; color: var(--soft-gold);">CORPORACIÓN BONANZA C21</span>
+        <h1 class="gold-title" id="p-name" contenteditable="true">NOMBRE DE LA PROPIEDAD</h1>
+        <p id="p-sub" contenteditable="true" style="letter-spacing: 4px; opacity: 0.8;">VALORACIÓN PREMIUM • UBICACIÓN EXCLUSIVA</p>
+        
+        <button class="cta-amenities" onclick="toggleVault()">VER AMENIDADES DE GALA</button>
     </section>
 
-    <div class="edit-box" id="editor-ui">
-        <p style="font-size: 11px; color: var(--soft-gold);">URL de la foto para la amenidad seleccionada:</p>
-        <input type="text" id="img-url-input" class="admin-input" placeholder="Pegue el link de la imagen aquí..." oninput="updateCurrentImg()">
+    <div id="vault">
+        <span class="close-vault" onclick="toggleVault()"><i class="fas fa-times"></i></span>
+        
+        <div class="vault-content" id="amenities-container">
+            </div>
     </div>
 
-    <div class="amenities-grid" id="grid">
-        </div>
-
     <script>
-        // AQUÍ PUEDES AGREGAR "BENEFICIOS SIN FIN"
-        let amenities = [
-            { id: 0, icon: "fa-swimming-pool", t: "PISCINA INFINITA", d: "Espejo de agua climatizado con bordes invisibles hacia el horizonte.", i: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1200" },
-            { id: 1, icon: "fa-dumbbell", t: "WELLNESS CENTER", d: "Gimnasio de alto rendimiento con entrenadores privados disponibles.", i: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200" },
-            { id: 2, icon: "fa-wine-glass-alt", t: "CAVA PRIVADA", d: "Espacio de cata con control de humedad para 500 botellas selectas.", i: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=1200" },
-            { id: 3, icon: "fa-shield-alt", t: "BÚNKER DE SEGURIDAD", d: "Protección biométrica y blindaje de nivel militar para máxima paz.", i: "https://images.unsplash.com/photo-1558002038-103792e17734?q=80&w=1200" },
-            { id: 4, icon: "fa-spa", t: "SPA & SAUNA", d: "Circuito de hidroterapia y sauna finlandés en mármol blanco.", i: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200" },
-            { id: 5, icon: "fa-helicopter", t: "HELIPUERTO", d: "Acceso aéreo directo para traslados ejecutivos sin interrupciones.", i: "https://images.unsplash.com/photo-1507124391697-706509a25039?q=80&w=1200" }
+        // AQUÍ PUEDES AGREGAR TODOS LOS BENEFICIOS QUE QUIERAS (SIN FIN)
+        let propertyBenefits = [
+            { t: "Piscina de Horizonte", d: "Espejo de agua climatizado con bordes invisibles hacia el valle.", i: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1200" },
+            { t: "Cava de Autor", d: "Espacio para 1000 botellas con control de temperatura inteligente.", i: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=1200" },
+            { t: "Wellness & Spa", d: "Circuito de relajación privada con sauna y mármol de Carrara.", i: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200" }
         ];
 
-        let activeIdx = 0;
+        function toggleVault() {
+            const v = document.getElementById('vault');
+            v.style.display = (v.style.display === 'block') ? 'none' : 'block';
+            if(v.style.display === 'block') renderBenefits();
+        }
 
-        function renderGrid() {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = amenities.map((item, index) => `
-                <div class="amenity-card ${index === activeIdx ? 'active' : ''}" onclick="selectAmenity(${index})">
-                    <i class="fas ${item.icon}"></i>
-                    <h3 contenteditable="true" oninput="updateText(${index}, 't', this.innerText)">${item.t}</h3>
-                    <p contenteditable="true" oninput="updateText(${index}, 'd', this.innerText)">${item.d}</p>
+        function renderBenefits() {
+            const container = document.getElementById('amenities-container');
+            container.innerHTML = `<h2 class="gold-title" style="font-size: 2.5rem; text-align:center; margin-bottom: 80px;">Beneficios Exclusivos</h2>` + 
+            propertyBenefits.map((b, idx) => `
+                <div class="amenity-row">
+                    <div class="img-side">
+                        <img src="${b.i}" alt="Amenity">
+                        <input type="text" value="${b.i}" style="width:100%; background:#000; color:white; border:1px solid #333; font-size:10px; margin-top:5px;" oninput="updateImg(${idx}, this.value)">
+                    </div>
+                    <div class="text-side">
+                        <h3 contenteditable="true" oninput="updateText(${idx}, 't', this.innerText)">${b.t}</h3>
+                        <p contenteditable="true" oninput="updateText(${idx}, 'd', this.innerText)">${b.d}</p>
+                    </div>
                 </div>
             `).join('');
         }
 
-        function selectAmenity(index) {
-            activeIdx = index;
-            const item = amenities[index];
-            document.getElementById('display-img').src = item.i;
-            document.getElementById('img-url-input').value = item.i;
-            renderGrid();
-        }
-
-        function updateText(index, field, text) {
-            amenities[index][field] = text;
-        }
-
-        function updateCurrentImg() {
-            const url = document.getElementById('img-url-input').value;
-            amenities[activeIdx].i = url;
-            document.getElementById('display-img').src = url;
-        }
+        function updateText(idx, key, val) { propertyBenefits[idx][key] = val; }
+        function updateImg(idx, val) { propertyBenefits[idx].i = val; }
 
         function saveCode() {
-            // Limpiar UI antes de exportar
-            document.getElementById('admin-panel').classList.add('hidden');
-            document.getElementById('editor-ui').classList.add('hidden');
+            document.getElementById('admin-panel').style.display = 'none';
             document.querySelectorAll('[contenteditable]').forEach(e => e.contentEditable = "false");
-
+            
             // Inyectar datos en el script
             const scriptTag = document.querySelector('script');
-            const dataStr = `let amenities = ${JSON.stringify(amenities, null, 4)};`;
-            scriptTag.text = scriptTag.text.replace(/let amenities = \[[\s\S]*?\];/, dataStr);
+            const dataStr = `let propertyBenefits = ${JSON.stringify(propertyBenefits, null, 4)};`;
+            scriptTag.text = scriptTag.text.replace(/let propertyBenefits = \[[\s\S]*?\];/, dataStr);
 
             const blob = new Blob(["<!DOCTYPE html>\n" + document.documentElement.outerHTML], {type: "text/html"});
             const a = document.createElement("a");
@@ -192,18 +166,12 @@
             a.download = "index.html";
             a.click();
             
-            // Restaurar UI
-            document.getElementById('admin-panel').classList.remove('hidden');
-            document.getElementById('editor-ui').classList.remove('hidden');
+            document.getElementById('admin-panel').style.display = 'block';
             document.querySelectorAll('[contenteditable]').forEach(e => e.contentEditable = "true");
         }
 
-        // Inicio
-        renderGrid();
+        // Carga inicial
+        renderBenefits();
     </script>
-
-    <style>
-        .hidden { display: none !important; }
-    </style>
 </body>
 </html>
