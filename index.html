@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bonanza C21 | Elite Portfolio 360</title>
+    <title>Bonanza C21 | Elite Portfolio 360 Final</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,16 +12,18 @@
             --gold-gradient: linear-gradient(135deg, #c5a059 0%, #f1d38a 50%, #b38b45 100%);
             --black: #000000;
             --dark: #0a0a0a;
-            --transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+            --transition: 0.8s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
         body, html { margin: 0; padding: 0; height: 100%; background: var(--black); font-family: 'Montserrat', sans-serif; color: white; overflow: hidden; }
 
-        /* --- 1. PORTADA SWIPE (FACHADA BONANZA) --- */
-        #hero-section { height: 100vh; position: fixed; inset: 0; z-index: 1000; transition: var(--transition); }
-        .swipe-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; height: 100%; scroll-behavior: smooth; }
-        .swipe-container::-webkit-scrollbar { display: none; }
-        
+        /* --- 1. PORTADA CON SWIPE REAL (TOUCH) --- */
+        #hero-slider {
+            height: 100vh; position: fixed; inset: 0; z-index: 1000; transition: var(--transition);
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+        }
+        #hero-slider::-webkit-scrollbar { display: none; }
+
         .hero-slide { 
             flex: 0 0 100%; height: 100%; scroll-snap-align: start; position: relative;
             background-size: cover; background-position: center;
@@ -29,90 +31,110 @@
         .hero-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)); }
 
         .hero-ui { 
-            position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            text-align: center; pointer-events: none; z-index: 10;
+            position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            text-align: center; pointer-events: none; z-index: 1010;
         }
-        .oracle-text { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 10vw, 6.5rem); font-weight: 700; letter-spacing: 10px; margin: 0; }
-        .cta-gold { margin-top: 40px; padding: 15px 45px; font-family: 'Cinzel', serif; border: 2px solid var(--gold); background: rgba(0,0,0,0.5); color: var(--gold); cursor: pointer; pointer-events: auto; }
+        .oracle-text { font-family: 'Cinzel', serif; font-size: clamp(2rem, 10vw, 6rem); font-weight: 700; letter-spacing: 10px; margin: 0; }
+        .cta-gold { margin-top: 40px; padding: 18px 50px; font-family: 'Cinzel', serif; border: 2px solid var(--gold); background: rgba(0,0,0,0.4); color: var(--gold); cursor: pointer; pointer-events: auto; backdrop-filter: blur(5px); }
 
-        /* --- 2. GALA INDEX (DIVISIONES VISUALES REALES) --- */
+        /* --- 2. GALA INDEX (DIVISIONES VISUALES MEJORADAS) --- */
         #market-index {
             height: 100vh; position: fixed; inset: 0; z-index: 900; opacity: 0; transform: translateY(100%); transition: var(--transition);
-            background: var(--black); overflow-y: auto; padding: 50px 20px; box-sizing: border-box;
+            background: var(--black); overflow-y: auto; padding: 60px 20px; box-sizing: border-box;
         }
-        .index-title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 3rem; text-align: center; margin: 0; }
-        .zone-wrapper { max-width: 1200px; margin: 40px auto; border: 1px solid rgba(197, 160, 89, 0.2); padding: 30px; background: var(--dark); }
-        .zone-header { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.8rem; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 25px; }
-        .zone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
-        .prop-btn { background: #111; border: 1px solid #222; padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.3s; }
-        .prop-btn:hover { border-color: var(--gold); padding-left: 30px; background: #1a1a1a; }
-        .prop-btn.otros { background: #000; font-style: italic; }
+        .index-header { text-align: center; margin-bottom: 60px; }
+        .index-header h2 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 3.5rem; margin: 0; letter-spacing: 5px; }
 
-        /* --- 3. BÓVEDA CON SWIPE EN ESTACIONES --- */
-        #detail-view { position: fixed; inset: 0; background: var(--black); z-index: 2000; display: none; grid-template-columns: 80px 1fr; animation: fadeIn 0.5s; }
-        #detail-sidebar { background: #050505; border-right: 1px solid #222; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; }
-        .dock-btn { width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(197, 160, 89, 0.2); background: transparent; color: var(--gold); cursor: pointer; font-size: 1.2rem; }
-        .dock-btn.active { background: var(--gold-gradient); color: black; transform: scale(1.1); }
+        .zone-box { 
+            max-width: 1200px; margin: 0 auto 60px auto; 
+            background: var(--dark); border-top: 2px solid var(--gold); 
+            padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .zone-label { font-family: 'Cinzel', serif; color: var(--gold); font-size: 2rem; letter-spacing: 3px; margin-bottom: 30px; display: block; border-bottom: 1px solid #222; padding-bottom: 15px;}
         
-        .content-frame { display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center; padding: 40px; gap: 40px; }
-        .station-swipe-box { position: relative; width: 100%; height: 75vh; border: 1px solid var(--gold); overflow: hidden; }
-        .station-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; height: 100%; }
-        .station-track::-webkit-scrollbar { display: none; }
-        .station-img { flex: 0 0 100%; scroll-snap-align: start; object-fit: cover; }
+        .zone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .prop-item { 
+            background: #111; border: 1px solid #222; padding: 25px; cursor: pointer; transition: 0.4s;
+            display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 14px;
+        }
+        .prop-item:hover { border-color: var(--gold); background: #1a1a1a; transform: scale(1.02); }
+        .prop-item.otros { background: #000; color: var(--gold); font-style: italic; border: 1px solid var(--gold); }
 
-        .close-btn { position: absolute; top: 25px; right: 35px; color: var(--gold); font-size: 2rem; cursor: pointer; z-index: 3000; }
+        /* --- 3. BÓVEDA CON SWIPE EN CADA ESTACIÓN --- */
+        #detail-view { position: fixed; inset: 0; background: var(--black); z-index: 2000; display: none; grid-template-columns: 90px 1fr; animation: fadeIn 0.5s; }
+        
+        #detail-sidebar { background: #050505; border-right: 1px solid #222; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
+        .dock-btn { width: 55px; height: 55px; border-radius: 50%; border: 1px solid rgba(197, 160, 89, 0.2); background: transparent; color: var(--gold); cursor: pointer; transition: 0.3s; font-size: 1.2rem; }
+        .dock-btn.active { background: var(--gold-gradient); color: black; box-shadow: 0 0 20px var(--gold); transform: scale(1.1); }
 
-        @media (max-width: 900px) {
-            #detail-view { grid-template-columns: 1fr; grid-template-rows: 1fr 70px; }
-            #detail-sidebar { flex-direction: row; order: 2; height: 70px; width: 100%; position: fixed; bottom: 0; border-right: none; border-top: 1px solid #222; }
-            .content-frame { grid-template-columns: 1fr; padding: 15px; overflow-y: auto; align-items: start; padding-bottom: 100px; }
-            .station-swipe-box { height: 40vh; }
+        .content-frame { display: grid; grid-template-columns: 1.3fr 0.7fr; align-items: center; padding: 40px; gap: 50px; height: 100%; box-sizing: border-box; }
+        
+        /* EL SWIPE DE LA ESTACIÓN */
+        .station-gallery { 
+            position: relative; width: 100%; height: 75vh; border: 1px solid var(--gold); 
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; background: #000;
+        }
+        .station-gallery::-webkit-scrollbar { display: none; }
+        .station-slide { flex: 0 0 100%; height: 100%; scroll-snap-align: start; object-fit: cover; }
+
+        .p-info h2 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 2.5rem; margin: 0; }
+        .p-info p { font-weight: 200; line-height: 2; color: #ccc; margin-top: 20px; }
+
+        .close-btn { position: absolute; top: 30px; right: 40px; color: var(--gold); font-size: 2.5rem; cursor: pointer; z-index: 3000; }
+
+        @media (max-width: 950px) {
+            #detail-view { grid-template-columns: 1fr; grid-template-rows: 1fr 80px; }
+            #detail-sidebar { flex-direction: row; order: 2; height: 80px; width: 100%; position: fixed; bottom: 0; border-right: none; border-top: 1px solid #222; }
+            .content-frame { grid-template-columns: 1fr; padding: 20px; overflow-y: auto; padding-bottom: 120px; }
+            .station-gallery { height: 45vh; }
+            .oracle-text { font-size: 2.5rem; letter-spacing: 5px; }
         }
 
-        .revealed #hero-section { transform: translateY(-100%); }
+        .revealed #hero-slider, .revealed .hero-ui { transform: translateY(-100%); pointer-events: none; }
         .revealed #market-index { opacity: 1; transform: translateY(0); }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <section id="hero-section">
-        <div class="swipe-container">
-            <div class="hero-slide" style="background-image: url('https://images2.imgbox.com/39/10/7Fof4X7J_o.png');"></div>
-            <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=1200');"></div>
-            <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?w=1200');"></div>
-        </div>
-        <div class="hero-ui">
-            <div style="letter-spacing: 12px; font-size: 11px; color: var(--gold); margin-bottom: 20px; font-weight: bold;">BONANZA C21</div>
-            <h1 class="oracle-text">ELITE PORTFOLIO</h1>
-            <p style="letter-spacing: 5px; opacity: 0.6; font-size: 10px; margin-top: 10px;">DESLIZA PARA VER MÁS • CLIC PARA EXPLORAR</p>
-            <button class="cta-gold" onclick="openMarket()">INICIAR EXPLORACIÓN</button>
-        </div>
+    <section id="hero-slider">
+        <div class="hero-slide" style="background-image: url('https://images2.imgbox.com/39/10/7Fof4X7J_o.png');"></div>
+        <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=1200');"></div>
+        <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?w=1200');"></div>
     </section>
 
-    <main id="market-index">
-        <h2 class="index-title">GALA INDEX</h2>
-        <p style="text-align: center; letter-spacing: 5px; font-size: 10px; opacity: 0.6; margin-bottom: 50px;">DISTRITOS DE ALTO RENDIMIENTO</p>
+    <div class="hero-ui">
+        <div style="letter-spacing: 12px; font-size: 12px; color: var(--gold); margin-bottom: 20px; font-weight: bold;">CENTURY 21 BONANZA</div>
+        <h1 class="oracle-text">ELITE PORTFOLIO</h1>
+        <p style="letter-spacing: 5px; opacity: 0.6; font-size: 10px; margin-top: 15px;">DESLIZA LA IMAGEN • CLIC PARA EXPLORAR</p>
+        <button class="cta-gold" onclick="openMarket()">INICIAR EXPLORACIÓN</button>
+    </div>
 
-        <section class="zone-wrapper">
-            <div class="zone-header">ASUNCIÓN LUXURY</div>
+    <main id="market-index">
+        <div class="index-header">
+            <h2>GALA INDEX</h2>
+            <p style="letter-spacing: 10px; opacity: 0.5; font-size: 12px; margin-top: 10px;">DISTRITOS DE ALTO RENDIMIENTO</p>
+        </div>
+
+        <section class="zone-box">
+            <span class="zone-label">ASUNCIÓN LUXURY</span>
             <div class="zone-grid">
-                <div class="prop-btn" onclick="openDetail('Villa Morra')">VILLA MORRA <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-btn" onclick="openDetail('Santa Teresa')">SANTA TERESA <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-btn" onclick="openDetail('Manora')">MANORA <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-btn" onclick="openDetail('Recoleta')">RECOLETA <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-btn otros" onclick="openDetail('Otros Barrios')">OTROS <i class="fas fa-plus"></i></div>
+                <div class="prop-item" onclick="openDetail('Villa Morra')">VILLA MORRA <i class="fas fa-chevron-right"></i></div>
+                <div class="prop-item" onclick="openDetail('Santa Teresa')">SANTA TERESA <i class="fas fa-chevron-right"></i></div>
+                <div class="prop-item" onclick="openDetail('Manora')">MANORA <i class="fas fa-chevron-right"></i></div>
+                <div class="prop-item" onclick="openDetail('Recoleta')">RECOLETA <i class="fas fa-chevron-right"></i></div>
+                <div class="prop-item otros" onclick="openDetail('Otros Barrios')">OTROS BARRIOS <i class="fas fa-plus"></i></div>
             </div>
         </section>
 
-        <section class="zone-wrapper">
-            <div class="zone-header">GRAN ASUNCIÓN (CENTRAL)</div>
+        <section class="zone-box">
+            <span class="zone-label">GRAN ASUNCIÓN (CENTRAL)</span>
             <div class="zone-grid">
-                <div class="prop-btn" onclick="openDetail('Luque')">LUQUE <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-btn" onclick="openDetail('Lambaré')">LAMBARÉ <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-btn" onclick="openDetail('San Lorenzo')">SAN LORENZO <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-btn" onclick="openDetail('Mariano R. Alonso')">MARIANO R. ALONSO <i class="fas fa-chevron-right"></i></div>
-                <div class="prop-btn otros" onclick="openDetail('Otros Distritos')">OTROS <i class="fas fa-plus"></i></div>
+                <div class="prop-item" onclick="openDetail('Luque')">LUQUE <i class="fas fa-chevron-right"></i></div>
+                <div class="prop-item" onclick="openDetail('Lambaré')">LAMBARÉ <i class="fas fa-chevron-right"></i></div>
+                <div class="prop-item" onclick="openDetail('San Lorenzo')">SAN LORENZO <i class="fas fa-chevron-right"></i></div>
+                <div class="prop-item" onclick="openDetail('Mariano R. Alonso')">MARIANO R. ALONSO <i class="fas fa-chevron-right"></i></div>
+                <div class="prop-item otros" onclick="openDetail('Otros Distritos')">OTROS DISTRITOS <i class="fas fa-plus"></i></div>
             </div>
         </section>
     </main>
@@ -128,33 +150,31 @@
             <button class="dock-btn" onclick="setStation(5)"><i class="fas fa-shield-alt"></i></button>
         </nav>
         <div class="content-frame">
-            <div class="station-swipe-box">
-                <div class="station-track" id="station-track">
-                    </div>
-            </div>
+            <div class="station-gallery" id="station-gallery">
+                </div>
             <div class="p-info">
-                <h2 id="p-name" style="font-family: 'Cinzel'; color: var(--gold); font-size: 2.2rem; margin: 0;"></h2>
-                <div style="width: 60px; height: 1px; background: var(--gold); margin: 20px 0;"></div>
-                <p id="s-name" style="letter-spacing: 5px; color: var(--gold); font-size: 10px; font-weight: bold;"></p>
-                <p style="font-weight: 200; line-height: 1.8; color: #ccc;">Desliza la imagen lateralmente para ver todos los ángulos. Portafolio curado para el inversor exigente.</p>
+                <h2 id="p-name"></h2>
+                <p id="s-label" style="letter-spacing: 5px; color: var(--gold); font-weight: bold; font-size: 12px; margin-top: 10px;"></p>
+                <p>Desliza lateralmente sobre la imagen para ver los 4 ángulos de esta estancia. Portafolio exclusivo curado para el inversor de gala.</p>
                 <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 15px;">
-                    <button style="background: var(--gold); color: black; border: none; padding: 18px; font-family: 'Cinzel'; font-weight: bold; cursor: pointer;">DOSSIER VIP</button>
-                    <button style="background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 15px; font-family: 'Cinzel'; cursor: pointer;">CONTACTAR</button>
+                    <button style="background: var(--gold); color: black; border: none; padding: 20px; font-family: 'Cinzel'; font-weight: bold; cursor: pointer;">DOSSIER VIP</button>
+                    <button style="background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 15px; font-family: 'Cinzel'; cursor: pointer;">CONTACTAR AGENTE</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // DATOS COHERENTES (4 ANGULOS POR ESTACION)
         const media = {
-            0: ["https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?w=800", "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?w=800", "https://images.pexels.com/photos/1838640/pexels-photo-1838640.jpeg?w=800", "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?w=800"],
-            1: ["https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=800", "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?w=800", "https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?w=800", "https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?w=800"],
-            2: ["https://images.pexels.com/photos/2724748/pexels-photo-2724748.jpeg?w=800", "https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?w=800", "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?w=800", "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?w=800"],
-            3: ["https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?w=800", "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?w=800", "https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?w=800", "https://images.pexels.com/photos/2029722/pexels-photo-2029722.jpeg?w=800"],
-            4: ["https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?w=800", "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?w=800", "https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?w=800", "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg?w=800"],
-            5: ["https://images.pexels.com/photos/2034892/pexels-photo-2034892.jpeg?w=800", "https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?w=800", "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?w=800", "https://images.pexels.com/photos/323775/pexels-photo-323775.jpeg?w=800"]
+            0: ["https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?w=1200", "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?w=1200", "https://images.pexels.com/photos/1838640/pexels-photo-1838640.jpeg?w=1200", "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?w=1200"],
+            1: ["https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=1200", "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?w=1200", "https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?w=1200", "https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?w=1200"],
+            2: ["https://images.pexels.com/photos/2724748/pexels-photo-2724748.jpeg?w=1200", "https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?w=1200", "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?w=1200", "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?w=1200"],
+            3: ["https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?w=1200", "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?w=1200", "https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?w=1200", "https://images.pexels.com/photos/2029722/pexels-photo-2029722.jpeg?w=1200"],
+            4: ["https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?w=1200", "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?w=1200", "https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?w=1200", "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg?w=1200"],
+            5: ["https://images.pexels.com/photos/2034892/pexels-photo-2034892.jpeg?w=1200", "https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?w=1200", "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?w=1200", "https://images.pexels.com/photos/323775/pexels-photo-323775.jpeg?w=1200"]
         };
-        const sNames = ["Fachada", "Estancia", "Cocina", "Suites", "Oasis", "Confort"];
+        const sNames = ["FACHADA PRINCIPAL", "ESTANCIA SOCIAL", "COCINA DE AUTOR", "MASTER SUITE", "OASIS & PISCINA", "CONFOR Y SEGURIDAD"];
 
         function openMarket() { document.body.classList.add('revealed'); }
         function openDetail(name) {
@@ -165,11 +185,11 @@
         function closeDetail() { document.getElementById('detail-view').style.display = 'none'; }
 
         function setStation(idx) {
-            const track = document.getElementById('station-track');
-            track.innerHTML = media[idx].map(src => `<img class="station-img" src="${src}">`).join('');
-            document.getElementById('s-name').innerText = sNames[idx].toUpperCase();
+            const gallery = document.getElementById('station-gallery');
+            gallery.innerHTML = media[idx].map(src => `<img class="station-slide" src="${src}">`).join('');
+            document.getElementById('s-label').innerText = sNames[idx];
             document.querySelectorAll('.dock-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
-            track.scrollLeft = 0; // Reset swipe position
+            gallery.scrollLeft = 0; // Reset swipe al cambiar de estación
         }
     </script>
 </body>
