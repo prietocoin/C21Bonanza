@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporación Bonanza C21 | Propiedad de Lujo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --oro: #c5a059;
+            --oro-brillante: #e2c275;
+            --negro-mate: #121212;
+            --negro-puro: #000000;
+            --blanco-roto: #e0e0e0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--negro-puro);
+            color: var(--blanco-roto);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--oro);
+            letter-spacing: 3px;
+        }
+
+        /* --- SECCIÓN HERO --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
+        }
+
+        .hero-content {
+            border: 1px solid var(--oro);
+            padding: 40px 60px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .hero h1 { font-size: 3rem; margin: 0; }
+        .hero p { font-weight: 200; font-size: 1.2rem; margin-top: 10px; }
+
+        /* --- AMENITIES SELECTOR (BOTONES) --- */
+        .amenities-section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .selector-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .amenity-btn {
+            background: transparent;
+            border: 1px solid var(--oro);
+            color: var(--oro);
+            padding: 10px 25px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            transition: all 0.3s ease;
+        }
+
+        .amenity-btn:hover, .amenity-btn.active {
+            background: var(--oro);
+            color: var(--negro-puro);
+            box-shadow: 0 0 15px var(--oro);
+        }
+
+        .amenity-display {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: var(--negro-mate);
+            padding: 30px;
+            border-radius: 5px;
+            min-height: 250px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .amenity-display img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border: 1px solid var(--oro);
+        }
+
+        .amenity-text {
+            text-align: left;
+        }
+
+        /* --- FORMULARIO DE GALA --- */
+        .contact-section {
+            padding: 100px 20px;
+            background-color: var(--negro-mate);
+            text-align: center;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input, textarea {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--oro);
+            color: white;
+            padding: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        button.submit-btn {
+            background: var(--oro);
+            color: black;
+            border: none;
+            padding: 15px;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button.submit-btn:hover { background: var(--oro-brillante); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>VILLA BONANZA</h1>
+            <p>CORPORACIÓN BONANZA C21 | EXCLUSIVIDAD DEFINIDA</p>
+        </div>
+    </section>
+
+    <section class="amenities-section">
+        <h2>Amenidades de Gala</h2>
+        <div class="selector-container">
+            <button class="amenity-btn active" onclick="showAmenity('piscina', this)">Piscina</button>
+            <button class="amenity-btn" onclick="showAmenity('gym', this)">Gimnasio</button>
+            <button class="amenity-btn" onclick="showAmenity('seguridad', this)">Seguridad</button>
+        </div>
+
+        <div id="amenity-content" class="amenity-display">
+            <img id="amenity-img" src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80&w=600" alt="Piscina">
+            <div class="amenity-text">
+                <h3 id="amenity-title">Piscina Infinita</h3>
+                <p id="amenity-desc">Disfrute de atardeceres inigualables en nuestra piscina con control de temperatura y vista panorámica al valle.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <h2>Solicitar Información Privada</h2>
+        <form>
+            <input type="text" placeholder="Nombre Completo">
+            <input type="email" placeholder="Correo Electrónico">
+            <textarea rows="4" placeholder="Mensaje"></textarea>
+            <button type="button" class="submit-btn">AGENDAR VISITA</button>
+        </form>
+    </section>
+
+    <script>
+        const data = {
+            piscina: {
+                title: "Piscina Infinita",
+                desc: "Disfrute de atardeceres inigualables en nuestra piscina con control de temperatura y vista panorámica al valle.",
+                img: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80&w=600"
+            },
+            gym: {
+                title: "Centro de Bienestar",
+                desc: "Equipamiento de última generación Technogym con entrenadores privados disponibles bajo solicitud.",
+                img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600"
+            },
+            seguridad: {
+                title: "Seguridad 24/7",
+                desc: "Sistemas de vigilancia biométrica y personal de seguridad altamente capacitado para su tranquilidad.",
+                img: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=600"
+            }
+        };
+
+        function showAmenity(key, btn) {
+            // Actualizar Botones
+            document.querySelectorAll('.amenity-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Actualizar Contenido con animación
+            const content = document.getElementById('amenity-content');
+            content.style.opacity = 0;
+            
+            setTimeout(() => {
+                document.getElementById('amenity-title').innerText = data[key].title;
+                document.getElementById('amenity-desc').innerText = data[key].desc;
+                document.getElementById('amenity-img').src = data[key].img;
+                content.style.opacity = 1;
+            }, 300);
+        }
+    </script>
+</body>
+</html>
